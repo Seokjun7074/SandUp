@@ -9,13 +9,10 @@ class ObjectList extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFffead7),
       appBar: AppBar(
-        title: const Text(
-          "모래를 쌓아부러",
-          style: TextStyle(color: Colors.white),
-        ),
+        
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Colors.amber,
+        backgroundColor: const Color(0xFFffead7),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
