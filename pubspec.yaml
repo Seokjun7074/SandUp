@@ -16,6 +16,7 @@ dependencies:
   flutter_cube: ^0.1.0
   camera: ^0.9.1+1
   model_viewer: ^0.8.1
+  tflite: ^1.1.2
 
 dev_dependencies:
   flutter_test:
