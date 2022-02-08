@@ -31,9 +31,9 @@ class _ObjectsState extends State<Objects> {
       body: Cube(
             onSceneCreated:(Scene scene) {
               scene.world.add(Object(
-                fileName: 'assets/cube/model1-2.obj', 
-                scale: Vector3(10.0,10.0,10.0), 
-                position: Vector3(0.0, -1.5, 0.0),
+                fileName: 'assets/cube/model1.obj',
+                scale: Vector3(15.0,15.0,15.0),
+                position: Vector3(0.0, -4.5, 0.0),
                 backfaceCulling : false,//간격 벌어지는거
                 // rotation: Vector3(10,4,10),
                 lighting: true,
