@@ -30,10 +30,7 @@ class ObjectList extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Objects()),
-                  );
+                    Navigator.pushNamed(context, "/objects");
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
