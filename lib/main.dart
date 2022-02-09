@@ -1,12 +1,18 @@
 // ignore_for_file: prefer_const_constructors, import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
-// import 'package:camera/camera.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'widgets/list.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<Null> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error: $e.code\nError Message: $e.message');
+  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

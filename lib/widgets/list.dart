@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'objects.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+
+List<CameraDescription>? cameras;
 
 class ObjectList extends StatelessWidget {
   const ObjectList({Key? key}) : super(key: key);
@@ -32,7 +37,7 @@ class ObjectList extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Objects()),
+                    MaterialPageRoute(builder: (context) => Objects(cameras!)),
                   );
                   },
                   child: Container(

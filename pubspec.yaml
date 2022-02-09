@@ -14,15 +14,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   websafe_svg: ^1.1.0
   flutter_cube: ^0.1.0
-  camera: ^0.9.1+1
+
   model_viewer: ^0.8.1
-  tflite: ^1.1.2
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
+  tflite: ^1.1.2
+  camera: ^0.9.1+1
 
 flutter:
   uses-material-design: true
