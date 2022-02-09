@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'objects.dart';
+// import 'objects.dart';
 
-class ObjectList extends StatelessWidget {
+class ObjectList extends StatefulWidget {
   const ObjectList({Key? key}) : super(key: key);
 
+  @override
+  State<ObjectList> createState() => _ObjectListState();
+}
+
+class _ObjectListState extends State<ObjectList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

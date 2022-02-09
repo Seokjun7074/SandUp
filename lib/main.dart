@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 //Routes list
 import 'package:jolzak/home.dart';
+import 'package:jolzak/login.dart';
 import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
-// import 'home.dart';
-// import 'widgets/list.dart';
-// import 'widgets/objects.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -25,10 +24,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       initialRoute: "/",
+      //라우터는 여기에
       routes: {
         "/": (context) => Home(),
         "/objectlist": (context) => ObjectList(),
         "/objects":(context) => Objects(),
+        "/login":(context) => LogIn(),
       },
     );
   }
