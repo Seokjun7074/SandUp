@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'widgets/list.dart';
 
@@ -33,7 +32,7 @@ class Home extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 100, 0, 0),
+                  margin: EdgeInsets.fromLTRB(0, 70, 0, 0),
                   height: 60,
                   width: 300,
                   child: ElevatedButton(
@@ -54,7 +53,6 @@ class Home extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
                   height: 60,
@@ -65,7 +63,7 @@ class Home extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30))),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/login");
+                      Navigator.pushNamed(context, "/loginsignup");
                     },
                     child: Text(
                       'LOGIN',
