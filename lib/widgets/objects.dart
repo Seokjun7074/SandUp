@@ -19,7 +19,7 @@ class Objects extends StatefulWidget {
 }
 
 class _ObjectsState extends State<Objects> {
-  late List<dynamic> _recognitions;
+  List<dynamic>? _recognitions;
   int _imageHeight = 0;
   int _imageWidth = 0;
   String _model = "";
@@ -112,7 +112,14 @@ class _ObjectsState extends State<Objects> {
             _model,
             setRecognitions,
           ),
-
+          BndBox(
+              _recognitions ?? [],
+              math.max(_imageHeight, _imageWidth),
+              math.min(_imageHeight, _imageWidth),
+              screen.height,
+              screen.width,
+              _model
+          ),
         ],
       ),
 
