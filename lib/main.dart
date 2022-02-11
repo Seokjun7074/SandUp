@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:camera/camera.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 //Routes list
 import 'package:jolzak/home.dart';
 import 'package:jolzak/login.dart';
@@ -8,7 +8,9 @@ import 'package:jolzak/signup.dart';
 import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
