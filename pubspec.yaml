@@ -12,8 +12,11 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  websafe_svg: ^1.1.0
+  websafe_svg: ^2.1.1
   flutter_cube: ^0.1.0
+  cloud_firestore: ^3.1.7
+  firebase_core: ^1.12.0
+  firebase_auth: ^3.3.6
 
   model_viewer: ^0.8.1
 
@@ -31,6 +34,5 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/videos/
     - assets/model/
     - assets/cube/
