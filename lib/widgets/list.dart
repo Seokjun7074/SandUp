@@ -23,6 +23,7 @@ class _ObjectListState extends State<ObjectList> {
       if (user != null) {
         loggedUser = user;
         print(loggedUser.email);
+        print(loggedUser);
       }
     } catch (e) {
       print(e);

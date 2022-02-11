@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:yummy_chat_lecture2/config/palette.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginSignupScreen extends StatefulWidget {
   const LoginSignupScreen({Key? key}) : super(key: key);
@@ -376,6 +376,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             ),
             //텍스트 폼 필드
 
+            //버튼부분
             AnimatedPositioned(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeIn,
@@ -385,12 +386,22 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               child: Center(
                 child: GestureDetector(
                   onTap: () async {
+                    //회원가입 상황
                     if (isSignupScreen) {
                       _tryValidation();
                       try {
                         final newUser = await _authentication
                             .createUserWithEmailAndPassword(
                                 email: userEmail, password: userPassword);
+                        //ExtraData 추가하는 부분
+                        await FirebaseFirestore.instance
+                            .collection('user')
+                            .doc(newUser.user!.uid)
+                            .set({
+                          "userName": userName,
+                          "email": userEmail,
+                        });
+
                         if (newUser.user != null) {
                           Navigator.pushNamed(context, "/objectlist");
                         }
@@ -407,6 +418,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                         ));
                       }
                     }
+                    //로그인 상황
                     if (!isSignupScreen) {
                       _tryValidation();
                       try {
