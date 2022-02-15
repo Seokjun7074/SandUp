@@ -1,18 +1,61 @@
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:model_viewer/model_viewer.dart';
+import 'package:camera/camera.dart';
+import 'package:tflite/tflite.dart';
+import 'package:jolzak/camera/models.dart';
+import 'package:jolzak/camera/camera.dart' as cam;
+import 'package:jolzak/camera/bndbox.dart';
+import 'dart:math' as math;
 
 class Objects extends StatefulWidget {
-  const Objects({Key? key}) : super(key: key);
+  final List<CameraDescription> cameras;
+  Objects(this.cameras);
 
   @override
   _ObjectsState createState() => _ObjectsState();
 }
 
 class _ObjectsState extends State<Objects> {
+  List<dynamic>? _recognitions;
+  int _imageHeight = 0;
+  int _imageWidth = 0;
+  String _model = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  loadModel() async {
+    String? res;
+    switch (_model) {
+      case sandup:
+        res = await Tflite.loadModel(
+          model: "assets/model/model.tflite",
+          labels: "assets/model/labels.txt",
+        );
+    }
+    print(res);
+  }
+
+  onSelect(model) {
+    setState(() {
+      _model = model;
+    });
+    loadModel();
+  }
+
+  setRecognitions(recognitions, imageHeight, imageWidth) {
+    setState(() {
+      _recognitions = recognitions;
+      _imageHeight = imageHeight;
+      _imageWidth = imageWidth;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size screen = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFffead7),
       appBar: AppBar(
@@ -20,6 +63,13 @@ class _ObjectsState extends State<Objects> {
         centerTitle: true,
         backgroundColor: Color(0xFFffead7),
       ),
+      // body: ModelViewer(
+      //   backgroundColor: Colors.teal[50],
+      //   src: 'assets/cube/model1-2.glb',
+      //   autoPlay: true,
+      //   autoRotate: true,
+      //   cameraControls: true,
+      //   ),
       body: Cube(
         onSceneCreated: (Scene scene) {
           scene.world.add(
@@ -27,32 +77,50 @@ class _ObjectsState extends State<Objects> {
               fileName: 'assets/cube/model1.obj',
               scale: Vector3(15.0, 15.0, 15.0),
               position: Vector3(0.0, -4.5, 0.0),
-              backfaceCulling: false, //간격 벌어지는거
+              backfaceCulling: false,
+              //간격 벌어지는거
               // rotation: Vector3(10,4,10),
               lighting: true,
             ),
           );
         },
       ),
+      floatingActionButton: _model == ""
+          ? Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+              child: FloatingActionButton.extended(
+                onPressed: () => onSelect(sandup),
+                // Add your onPressed code here!
 
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            // Add your onPressed code here!
-          },
-          // shape: shape,
-          label: const Text('가즈아앙',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          icon: const Icon(
-            Icons.camera_alt_outlined,
-            color: Colors.white,
-            size: 30,
-          ),
-          backgroundColor: Colors.amber,
-        ),
-      ),
+                // shape: shape,
+                label: const Text('가즈아앙',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+                icon: const Icon(
+                  Icons.camera_alt_outlined,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                backgroundColor: Colors.amber,
+              ),
+            )
+          : Stack(
+              children: [
+                cam.Camera(
+                  widget.cameras,
+                  _model,
+                  setRecognitions,
+                ),
+                BndBox(
+                    _recognitions ?? [],
+                    math.max(_imageHeight, _imageWidth),
+                    math.min(_imageHeight, _imageWidth),
+                    screen.height,
+                    screen.width,
+                    _model),
+              ],
+            ),
+
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       //   child: ElevatedButton(

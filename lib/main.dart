@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_const_constructors, import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
-// import 'package:camera/camera.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 //Routes list
 import 'package:jolzak/home.dart';
@@ -8,10 +12,16 @@ import 'package:jolzak/signup.dart';
 import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
 
-void main() async {
+Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error: $e.code\nError Message: $e.message');
+  }
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +40,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => Home(),
         "/objectlist": (context) => ObjectList(),
-        "/objects": (context) => Objects(),
+        "/objects": (context) => Objects(cameras!),
         "/login": (context) => LogIn(),
         "/loginsignup": (context) => LoginSignupScreen(),
       },

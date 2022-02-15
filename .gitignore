@@ -44,7 +44,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-
-#스태틱
-/asset/videos
+/android/app/google-services.json
