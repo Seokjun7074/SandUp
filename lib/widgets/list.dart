@@ -45,6 +45,17 @@ class _ObjectListState extends State<ObjectList> {
         elevation: 0,
         centerTitle: true,
         backgroundColor: const Color(0xFFffead7),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _authentication.signOut();
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.logout_rounded,
+                color: Colors.red,
+              ))
+        ],
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
