@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sand UP',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
+          // primaryColor: Colors.white,
+          ),
       initialRoute: "/",
       //라우터는 여기에
       routes: {

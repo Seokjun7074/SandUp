@@ -139,7 +139,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     key: ValueKey(1),
                                     validator: (value) {
                                       if (value!.isEmpty || value.length < 4) {
-                                        return 'Please enter at least 4 characters';
+                                        return '4글자 이상 입력해주세요.';
                                       }
                                       return null;
                                     },
@@ -186,7 +186,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     validator: (value) {
                                       if (value!.isEmpty ||
                                           !value.contains('@')) {
-                                        return 'Please enter a valid email address.';
+                                        return '이메일 형식이 아닙니다.';
                                       }
                                       return null;
                                     },
@@ -232,7 +232,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     key: ValueKey(3),
                                     validator: (value) {
                                       if (value!.isEmpty || value.length < 6) {
-                                        return 'Password must be at least 7 characters long.';
+                                        return '7글자 이상 입력해주세요.';
                                       }
                                       return null;
                                     },
@@ -287,7 +287,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     validator: (value) {
                                       if (value!.isEmpty ||
                                           !value.contains('@')) {
-                                        return 'Please enter a valid email address.';
+                                        return '이메일 형식이 아닙니다.';
                                       }
                                       return null;
                                     },
@@ -333,7 +333,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     key: ValueKey(5),
                                     validator: (value) {
                                       if (value!.isEmpty || value.length < 6) {
-                                        return 'Password must be at least 7 characters long.';
+                                        return '7글자 이상 입력해주세요.';
                                       }
                                       return null;
                                     },
@@ -455,6 +455,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           }
                         } catch (e) {
                           print(e);
+                          setState(() {
+                            showSpinner = false;
+                          });
                         }
                       }
                     },
