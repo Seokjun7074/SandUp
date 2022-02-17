@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
+import 'package:jolzak/camera/bndbox.dart';
+import 'package:jolzak/widgets/objects.dart';
 
 import 'models.dart';
+
 
 typedef Callback = void Function(List<dynamic> list, int h, int w);
 
@@ -53,12 +56,14 @@ class _CameraState extends State<Camera> {
                 imageHeight: img.height,
                 imageWidth: img.width,
                 numResults: 1,
+                rotation: 0,
+                threshold: 0.5,
               ).then((recognitions) {
                 int endTime = DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
+                recognitions?.map((re){});
 
                 widget.setRecognitions(recognitions!, img.height, img.width);
-
                 isDetecting = false;
               });
             }
@@ -80,6 +85,48 @@ class _CameraState extends State<Camera> {
       return Container();
     }
 
+    switch (status){
+      case 0:
+        return AspectRatio(
+          aspectRatio: 1 / controller!.value.aspectRatio,
+          child: Stack(
+            children: [
+              controller!.buildPreview(),
+              Center(
+                child: Image.asset('assets/images/camera_overlay2.png'),
+              ),
+            ],
+          ),
+        );
+
+      case 1:
+        return AspectRatio(
+          aspectRatio: 1 / controller!.value.aspectRatio,
+          child: Stack(
+            children: [
+              controller!.buildPreview(),
+              Center(
+                child: Image.asset('assets/images/camera_overlay3.png'),
+              ),
+            ],
+          ),
+        );
+
+      case 2:
+        return AspectRatio(
+          aspectRatio: 1 / controller!.value.aspectRatio,
+          child: Stack(
+            children: [
+              controller!.buildPreview(),
+              Center(
+                child: Image.asset('assets/images/camera_overlay4.png'),
+              ),
+            ],
+          ),
+        );
+    }
+
+
     Size? tmp = MediaQuery.of(context).size;
     var screenH = math.max(tmp.height, tmp.width);
     var screenW = math.min(tmp.height, tmp.width);
@@ -97,4 +144,91 @@ class _CameraState extends State<Camera> {
       child: CameraPreview(controller),
     );
   }
+
+/*
+  Widget _predictionStatus() {
+    if (isPredicted!) {
+
+    }
+
+    switch (predictionStatus) {
+      case 1:
+        return Column(
+          children: <Widget>[
+            Text(
+              'Processing',
+              style: TextStyle(color: Colors.amber, fontSize: 16),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.amber,
+                ),
+              ),
+            )
+          ],
+        );
+        break;
+      case 2:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Successful',
+              style: TextStyle(color: Colors.greenAccent, fontSize: 16),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: Icon(
+                Icons.check_circle,
+                color: Colors.greenAccent,
+                size: 30,
+              ),
+            )
+          ],
+        );
+        break;
+      case 3:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Failed',
+              style: TextStyle(color: Colors.redAccent, fontSize: 16),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: Icon(
+                Icons.close,
+                color: Colors.redAccent,
+                size: 30,
+              ),
+            )
+          ],
+        );
+        break;
+      default:
+        return Center(
+          child: Text(
+            'Follow the video',
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+        );
+        break;
+    }
+  }
+*/
 }

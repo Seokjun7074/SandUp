@@ -13,7 +13,7 @@ import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
 
 
-Future<Null> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   try {

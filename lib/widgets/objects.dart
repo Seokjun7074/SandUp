@@ -48,6 +48,9 @@ class _ObjectsState extends State<Objects> {
   }
 
   setRecognitions(recognitions, imageHeight, imageWidth) {
+    if (!mounted){
+      return;
+    }
     setState(() {
       _recognitions = recognitions;
       _imageHeight = imageHeight;
@@ -86,7 +89,6 @@ class _ObjectsState extends State<Objects> {
             //간격 벌어지는거
             // rotation: Vector3(10,4,10),
             lighting: true,
-
           ),
           );
         },
@@ -106,7 +108,7 @@ class _ObjectsState extends State<Objects> {
           backgroundColor: Colors.amber,
         ),
       ): Stack(
-        children: [
+        children: <Widget>[
           cam.Camera(
             widget.cameras,
             _model,
