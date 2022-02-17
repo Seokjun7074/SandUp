@@ -4,7 +4,6 @@ import 'listcontent.dart';
 import 'objects.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 List<CameraDescription>? cameras;
@@ -77,30 +76,45 @@ class _ObjectListState extends State<ObjectList> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(width: 1),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 5,
-                        spreadRadius: 1),
-                  ],
-                ),
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        height: 150,
-                        color: Colors.purple[300],
+              child: GestureDetector(
+                onTap: () {
+                  print('스페샬~~');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    // border: Border.all(width: 1),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 5,
+                          spreadRadius: 1),
+                    ],
+                  ),
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          height: 150,
+                          color: Colors.purple[300],
+                        ),
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 7, 5, 0),
+                        child: Text(
+                          "스페샬~~",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800]),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -128,25 +142,40 @@ class _ObjectListState extends State<ObjectList> {
                     crossAxisSpacing: 10,
                   ),
                   children: [
-                    ListContent(
-                      level: "1",
-                      image: Image.asset("assets/capture/test_img.png"),
-                    ),
-                    ListContent(
-                      level: "2",
-                      image: Image.asset("assets/capture/test_img.png"),
-                    ),
-                    ListContent(
-                      level: "3",
-                      image: Image.asset("assets/capture/test_img.png"),
-                    ),
-                    ListContent(
-                      level: "3",
-                      image: Image.asset("assets/capture/test_img.png"),
+                    GestureDetector(
+                      onTap: () {
+                        print("탭탭탭!!!!");
+                      },
+                      child: ListContent(
+                        level: "2",
+                        image: Image.asset("assets/capture/test_img.png"),
+                        starNumber: 2,
+                      ),
                     ),
                     ListContent(
                       level: "3",
                       image: Image.asset("assets/capture/test_img.png"),
+                      starNumber: 3,
+                    ),
+                    ListContent(
+                      level: "4",
+                      image: Image.asset("assets/capture/test_img.png"),
+                      starNumber: 4,
+                    ),
+                    ListContent(
+                      level: "5",
+                      image: Image.asset("assets/capture/test_img.png"),
+                      starNumber: 5,
+                    ),
+                    ListContent(
+                      level: "5",
+                      image: Image.asset("assets/capture/test_img.png"),
+                      starNumber: 5,
+                    ),
+                    ListContent(
+                      level: "3",
+                      image: Image.asset("assets/capture/test_img.png"),
+                      starNumber: 3,
                     ),
                   ],
                 ),

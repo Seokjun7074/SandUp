@@ -15,7 +15,7 @@ class LoginSignupScreen extends StatefulWidget {
 class _LoginSignupScreenState extends State<LoginSignupScreen> {
   final _authentication = FirebaseAuth.instance;
 
-  bool isSignupScreen = true;
+  bool isSignupScreen = false;
   bool showSpinner = false;
   final _formKey = GlobalKey<FormState>();
   String userName = '';
@@ -32,7 +32,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFffead7),
+      backgroundColor: Color(0xFFffffff),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: GestureDetector(

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ListContent extends StatelessWidget {
-  ListContent({Key? key, required this.level, required this.image})
+  ListContent(
+      {Key? key,
+      required this.level,
+      required this.image,
+      required this.starNumber})
       : super(key: key);
 
   // ListContent({required this.level, required this.image});
   String level = "0";
   Widget image = Image.asset("assets/capture/test_img.png");
+  int starNumber = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +36,21 @@ class ListContent extends StatelessWidget {
               child: Image.asset("assets/capture/test_img.png"),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(5, 8, 5, 5),
+              padding: const EdgeInsets.fromLTRB(7, 12, 5, 5),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Level" + level,
+                    "Level " + level,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
                     ),
                   ),
-                  Icon(Icons.star),
+                  StarDisplay(value: starNumber),
+
                   // RatingBar.builder(
                   //   itemBuilder: (context, _) => Icon(
                   //     Icons.star,
@@ -57,6 +66,27 @@ class ListContent extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class StarDisplay extends StatelessWidget {
+  final int value;
+  const StarDisplay({Key? key, this.value = 0})
+      : assert(value != null),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(5, (index) {
+        return Icon(
+          index < value ? Icons.star : Icons.star_border,
+          size: 18,
+          // color: Color(0xFF4ADEA3),
+          color: Colors.indigo,
+        );
+      }),
     );
   }
 }
