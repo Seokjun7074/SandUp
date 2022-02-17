@@ -46,8 +46,11 @@ app.*.map.json
 /android/app/release
 /android/app/google-services.json
 <<<<<<< HEAD
+<<<<<<< HEAD
 /android/build.gradle
 /android/app/build.gradle
 /analysis_options.yaml
+=======
+>>>>>>> b2c1c19b59641ff584460cd89d2722a58a687b83
 =======
 >>>>>>> b2c1c19b59641ff584460cd89d2722a58a687b83
