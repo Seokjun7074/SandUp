@@ -12,20 +12,17 @@ import 'package:jolzak/signup.dart';
 import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
 
-
-Future<void> main() async {
+Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   try {
     cameras = await availableCameras();
-
   } on CameraException catch (e) {
     print('Error: $e.code\nError Message: $e.message');
   }
 
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,8 +33,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sand UP',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
+          // primaryColor: Colors.white,
+          ),
       initialRoute: "/",
       //라우터는 여기에
       routes: {

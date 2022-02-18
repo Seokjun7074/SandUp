@@ -97,9 +97,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   }
 
   setRecognitions(recognitions, imageHeight, imageWidth) {
-    if (!mounted){
-      return;
-    }
     setState(() {
       _recognitions = recognitions;
       _imageHeight = imageHeight;
@@ -107,15 +104,13 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
-    Size screen = MediaQuery
-        .of(context)
-        .size;
+    Size screen = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFffead7),
       appBar: AppBar(
-
         elevation: 0,
         centerTitle: true,
         backgroundColor: Color(0xFFffead7),
@@ -130,35 +125,39 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       body: Cube(onSceneCreated: _onSceneCreated),
       floatingActionButton: _model == ""
           ? Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-        child: FloatingActionButton.extended(
-          onPressed: () => onSelect(sandup),
-          // Add your onPressed code here!
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+              child: FloatingActionButton.extended(
+                onPressed: () => onSelect(sandup),
+                // Add your onPressed code here!
 
-          // shape: shape,
-          label: const Text('가즈아앙', style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold)),
-          icon: const Icon(
-            Icons.camera_alt_outlined, color: Colors.white, size: 30,),
-          backgroundColor: Colors.amber,
-        ),
-      ): Stack(
-        children: <Widget>[
-          cam.Camera(
-            widget.cameras,
-            _model,
-            setRecognitions,
-          ),
-          BndBox(
-              _recognitions ?? [],
-              math.max(_imageHeight, _imageWidth),
-              math.min(_imageHeight, _imageWidth),
-              screen.height,
-              screen.width,
-              _model
-          ),
-        ],
-      ),
+                // shape: shape,
+                label: const Text('가즈아앙',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
+                icon: const Icon(
+                  Icons.camera_alt_outlined,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                backgroundColor: Colors.amber,
+              ),
+            )
+          : Stack(
+              children: [
+                cam.Camera(
+                  widget.cameras,
+                  _model,
+                  setRecognitions,
+                ),
+                BndBox(
+                    _recognitions ?? [],
+                    math.max(_imageHeight, _imageWidth),
+                    math.min(_imageHeight, _imageWidth),
+                    screen.height,
+                    screen.width,
+                    _model),
+              ],
+            ),
 
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),

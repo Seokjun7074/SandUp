@@ -9,7 +9,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFffead7),
+      // backgroundColor: Color(0xFFffead7),
+      backgroundColor: Color(0xFFffffff),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         // color: Color(0xFFffead7),

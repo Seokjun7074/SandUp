@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1097475188013",
-    "project_id": "sandup-8f2dc",
-    "storage_bucket": "sandup-8f2dc.appspot.com"
+    "project_number": "179249628945",
+    "project_id": "sandup",
+    "storage_bucket": "sandup.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1097475188013:android:f824ad7f3469902e045fa4",
+        "mobilesdk_app_id": "1:179249628945:android:77713da80b21e65d16eeb0",
         "android_client_info": {
           "package_name": "com.example.jolzak"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1097475188013-ft6mjursd9gpmcg6rjh318ti60p68td0.apps.googleusercontent.com",
+          "client_id": "179249628945-g3vhastgof010j6eh0rf2t0ougc75e35.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBGx064artFn6CXrssUg3qYGK5RrUzX46E"
+          "current_key": "AIzaSyBYidrRgCIJvtp2dB9sMRpxKd1-9N8X8ZQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1097475188013-ft6mjursd9gpmcg6rjh318ti60p68td0.apps.googleusercontent.com",
+              "client_id": "179249628945-g3vhastgof010j6eh0rf2t0ougc75e35.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
