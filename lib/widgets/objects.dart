@@ -46,7 +46,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
 
     // create by code
-    _level = Object(name: 'level', scale: Vector3(11.0, 11.0, 11.0), rotation: Vector3(0.0, 0.0, 0.0), backfaceCulling: false, fileName: 'assets/cube/model1.obj');
+    _level = Object(name: 'level', scale: Vector3(11.0, 11.0, 11.0), rotation: Vector3(0.0, 0.0, 5.0), backfaceCulling: false, fileName: 'assets/cube/model1.obj');
     generateSphereObject(_level!, 'surface', 0.485, true, 'assets/cube/SAA2EF~1.jpg');
     _scene.world.add(_level!);
 
@@ -109,12 +109,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFFffead7),
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: Color(0xFFffead7),
-      ),
+     // backgroundColor: const Color(0xFFffead7),
+     // appBar: AppBar(
+     //   elevation: 0,
+     //   centerTitle: true,
+     //   backgroundColor: Color(0xFFffead7),
+     // ),
       // body: ModelViewer(
       //   backgroundColor: Colors.teal[50],
       //   src: 'assets/cube/model1-2.glb',

@@ -34,7 +34,7 @@ class _CameraState extends State<Camera> {
     } else {
       controller = CameraController(
         widget.cameras[0],
-        ResolutionPreset.high,
+        ResolutionPreset.veryHigh,
       );
       controller.initialize().then((_) {
         if (!mounted) {
@@ -56,13 +56,10 @@ class _CameraState extends State<Camera> {
                 imageHeight: img.height,
                 imageWidth: img.width,
                 numResults: 1,
-                rotation: 0,
-                threshold: 0.5,
+
               ).then((recognitions) {
                 int endTime = DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
-                recognitions?.map((re){});
-
                 widget.setRecognitions(recognitions!, img.height, img.width);
                 isDetecting = false;
               });
@@ -85,13 +82,23 @@ class _CameraState extends State<Camera> {
       return Container();
     }
 
+    var tmp = MediaQuery.of(context).size;
+    var screenH = math.max(tmp.height, tmp.width);
+    var screenW = math.min(tmp.height, tmp.width);
+    tmp = controller.value.previewSize!;
+    var previewH = math.max(tmp.height, tmp.width);
+    var previewW = math.min(tmp.height, tmp.width);
+    var screenRatio = screenH / screenW;
+    var previewRatio = previewH / previewW;
+
+
     switch (status){
       case 0:
         return AspectRatio(
-          aspectRatio: 1 / controller!.value.aspectRatio,
+          aspectRatio: 1 / previewRatio,
           child: Stack(
             children: [
-              controller!.buildPreview(),
+              controller.buildPreview(),
               Center(
                 child: Image.asset('assets/images/camera_overlay2.png'),
               ),
@@ -101,10 +108,10 @@ class _CameraState extends State<Camera> {
 
       case 1:
         return AspectRatio(
-          aspectRatio: 1 / controller!.value.aspectRatio,
+          aspectRatio: controller.value.aspectRatio,
           child: Stack(
             children: [
-              controller!.buildPreview(),
+              controller.buildPreview(),
               Center(
                 child: Image.asset('assets/images/camera_overlay3.png'),
               ),
@@ -114,10 +121,10 @@ class _CameraState extends State<Camera> {
 
       case 2:
         return AspectRatio(
-          aspectRatio: 1 / controller!.value.aspectRatio,
+          aspectRatio: controller.value.aspectRatio,
           child: Stack(
             children: [
-              controller!.buildPreview(),
+              controller.buildPreview(),
               Center(
                 child: Image.asset('assets/images/camera_overlay4.png'),
               ),
@@ -126,15 +133,6 @@ class _CameraState extends State<Camera> {
         );
     }
 
-
-    Size? tmp = MediaQuery.of(context).size;
-    var screenH = math.max(tmp.height, tmp.width);
-    var screenW = math.min(tmp.height, tmp.width);
-    tmp = controller.value.previewSize;
-    var previewH = math.max(tmp!.height, tmp.width);
-    var previewW = math.min(tmp.height, tmp.width);
-    var screenRatio = screenH / screenW;
-    var previewRatio = previewH/ previewW;
 
     return OverflowBox(
       maxHeight:
