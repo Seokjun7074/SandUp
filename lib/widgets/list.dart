@@ -152,11 +152,18 @@ class _ObjectListState extends State<ObjectList> {
                         starNumber: 2,
                       ),
                     ),
-                    ListContent(
-                      level: "3",
-                      image: Image.asset("assets/capture/test_img.png"),
-                      starNumber: 3,
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/arcore");
+                      },
+                      child: ListContent(
+                        level: "3",
+                        image: Image.asset("assets/capture/test_img.png"),
+                        starNumber: 2,
+                      ),
                     ),
+
                     ListContent(
                       level: "4",
                       image: Image.asset("assets/capture/test_img.png"),

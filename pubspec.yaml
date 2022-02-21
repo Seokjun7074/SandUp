@@ -20,6 +20,8 @@ dependencies:
   percent_indicator: ^4.0.0
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   flutter_native_splash: ^2.0.4
+  arcore_flutter_plugin: ^0.1.0-null-safety.0
+
 
   model_viewer: ^0.8.1
 

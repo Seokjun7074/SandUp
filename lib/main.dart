@@ -11,6 +11,8 @@ import 'package:jolzak/login.dart';
 import 'package:jolzak/signup.dart';
 import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
+import 'package:jolzak/camera/arcore.dart';
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
         "/objects": (context) => Objects(cameras!),
         "/login": (context) => LogIn(),
         "/loginsignup": (context) => LoginSignupScreen(),
+        "/arcore": (context) =>  HelloWorld(),
       },
     );
   }
