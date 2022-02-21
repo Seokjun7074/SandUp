@@ -30,7 +30,10 @@ class _ObjectListState extends State<ObjectList> {
       if (user != null) {
         loggedUser = user;
         print(loggedUser.email);
-        print(loggedUser);
+        print(_authentication.currentUser);
+        print("로그인되어있음");
+      } else {
+        print("로그인 안되어있음");
       }
     } catch (e) {
       print(e);
@@ -50,7 +53,8 @@ class _ObjectListState extends State<ObjectList> {
           IconButton(
               onPressed: () {
                 _authentication.signOut();
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                Navigator.pushNamed(context, "/loginsignup");
               },
               icon: Icon(
                 Icons.logout_rounded,
@@ -145,6 +149,7 @@ class _ObjectListState extends State<ObjectList> {
                     GestureDetector(
                       onTap: () {
                         print("탭탭탭!!!!");
+                        Navigator.pushNamed(context, "/objects");
                       },
                       child: ListContent(
                         level: "2",
