@@ -16,8 +16,14 @@ class BndBox extends StatefulWidget {
   final double screenW;
   final String model;
 
-  BndBox(this.results, this.previewH, this.previewW, this.screenH, this.screenW,
-      this.model);
+  BndBox(
+    this.results,
+    this.previewH,
+    this.previewW,
+    this.screenH,
+    this.screenW,
+    this.model,
+  );
 
   @override
   _BndBoxState createState() => _BndBoxState();

@@ -150,11 +150,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
             )
           : Stack(
               children: [
-                cam.Camera(
-                  widget.cameras,
-                  _model,
-                  setRecognitions,
-                ),
+                // cam.Camera(
+                //   widget.cameras,
+                //   _model,
+                //   setRecognitions,
+                // ),
                 BndBox(
                     _recognitions ?? [],
                     math.max(_imageHeight, _imageWidth),

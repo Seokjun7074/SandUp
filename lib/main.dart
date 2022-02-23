@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
         "/login": (context) => LogIn(),
         "/loginsignup": (context) => LoginSignupScreen(),
         "/arcore": (context) => HelloWorld(),
+        // "/camera": (context) => Camera(),
       },
     );
   }
