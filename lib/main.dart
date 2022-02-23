@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:jolzak/camera/camera.dart';
 //Routes list
 import 'package:jolzak/home.dart';
 import 'package:jolzak/login.dart';
 import 'package:jolzak/signup.dart';
 import 'package:jolzak/widgets/list.dart';
-import 'package:jolzak/widgets/objects.dart';
+// import 'package:jolzak/widgets/objects.dart';
+import 'package:jolzak/widgets/objects_test.dart';
+import 'package:jolzak/camera/arcore.dart';
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +47,7 @@ class MyApp extends StatelessWidget {
         "/objects": (context) => Objects(cameras!),
         "/login": (context) => LogIn(),
         "/loginsignup": (context) => LoginSignupScreen(),
+        "/arcore": (context) => HelloWorld(),
       },
     );
   }
