@@ -1,6 +1,7 @@
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:jolzak/camera/camerapage.dart';
 import 'package:tflite/tflite.dart';
 import 'package:jolzak/camera/models.dart';
 import 'package:jolzak/camera/camera.dart' as cam;
@@ -118,7 +119,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Color(0xFFffead7),
+        backgroundColor: Colors.deepPurpleAccent,
       ),
       // body: ModelViewer(
       //   backgroundColor: Colors.teal[50],
@@ -127,7 +128,41 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       //   autoRotate: true,
       //   cameraControls: true,
       //   ),
-      body: Cube(onSceneCreated: _onSceneCreated),
+      body: Stack(
+        children: [
+          Cube(onSceneCreated: _onSceneCreated),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: FloatingActionButton(
+              onPressed: () {
+                // onSelect(sandup);
+                availableCameras().then((value) => onSelect(sandup)).then(
+                      (value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CameraPage(
+                            Cam: cam.Camera(
+                              widget.cameras,
+                              _model,
+                              setRecognitions,
+                            ),
+                            ProgressBar: BndBox(
+                                _recognitions ?? [],
+                                math.max(_imageHeight, _imageWidth),
+                                math.min(_imageHeight, _imageWidth),
+                                screen.height,
+                                screen.width,
+                                _model),
+                          ),
+                        ),
+                      ),
+                    );
+              },
+            ),
+          ),
+        ],
+      ),
       // floatingActionButton: _model == ""
       //     ? Padding(
       //         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
@@ -166,40 +201,42 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       //         ),
       //       ),
 
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-        child: ElevatedButton(
-          onPressed: () async {
-            await availableCameras().then((value) => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => cam.Camera(
-                      value, //카메라
-                      _model,
-                      setRecognitions,
-                      // _recognitions ?? [],
-                      // math.max(_imageHeight, _imageWidth),
-                      // math.min(_imageHeight, _imageWidth),
-                      // screen.height,
-                      // screen.width,
-                    ),
-                  ),
-                ));
-            onSelect(sandup);
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      //   child: ElevatedButton(
+      //     onPressed: () {
+      //       onSelect(sandup);
+      //       availableCameras().then(
+      //         (value) => Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: (context) => cam.Camera(
+      //               value, //카메라
+      //               _model,
+      //               setRecognitions,
+      //               // _recognitions ?? [],
+      //               // math.max(_imageHeight, _imageWidth),
+      //               // math.min(_imageHeight, _imageWidth),
+      //               // screen.height,
+      //               // screen.width,
+      //             ),
+      //           ),
+      //         ),
+      //       );
 
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => cam.Camera(
-            //       widget.cameras,
-            //       _model,
-            //       setRecognitions,
-            //     ),
-            //   ),
-            // );
-          },
-          child: const Text('카메라 가즈앙아'),
-        ),
-      ),
+      //       // Navigator.of(context).push(
+      //       //   MaterialPageRoute(
+      //       //     builder: (context) => cam.Camera(
+      //       //       widget.cameras,
+      //       //       _model,
+      //       //       setRecognitions,
+      //       //     ),
+      //       //   ),
+      //       // );
+      //     },
+      //     child: const Text('카메라 가즈앙아'),
+      //   ),
+      // ),
     );
   }
 }
