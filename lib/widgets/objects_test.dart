@@ -57,10 +57,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     _scene.world.add(_level!);
 
     // texture from https://www.solarsystemscope.com/textures/
-    _back = Object(name: 'back', scale: Vector3(20.0, 20.0, 20.0));
-    generateSphereObject(
-        _back, 'surface', 0.5, false, 'assets/images/background.png');
-    _scene.world.add(_back);
+    // _back = Object(name: 'back', scale: Vector3(20.0, 20.0, 20.0));
+    // generateSphereObject(
+    //     _back, 'surface', 0.5, false, 'assets/images/background.png');
+    // _scene.world.add(_back);
   }
 
   @override
@@ -114,129 +114,137 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
-    return Scaffold(
-      // backgroundColor: const Color(0xFFffead7),
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: Colors.deepPurpleAccent,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/background1.png'),
+        ),
       ),
-      // body: ModelViewer(
-      //   backgroundColor: Colors.teal[50],
-      //   src: 'assets/cube/model1-2.glb',
-      //   autoPlay: true,
-      //   autoRotate: true,
-      //   cameraControls: true,
-      //   ),
-      body: Stack(
-        children: [
-          Cube(onSceneCreated: _onSceneCreated),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: FloatingActionButton(
-              onPressed: () {
-                // onSelect(sandup);
-                availableCameras().then((value) => onSelect(sandup)).then(
-                      (value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CameraPage(
-                            Cam: cam.Camera(
-                              widget.cameras,
-                              _model,
-                              setRecognitions,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.deepPurpleAccent,
+        ),
+        // body: ModelViewer(
+        //   backgroundColor: Colors.teal[50],
+        //   src: 'assets/cube/model1-2.glb',
+        //   autoPlay: true,
+        //   autoRotate: true,
+        //   cameraControls: true,
+        //   ),
+        body: Stack(
+          children: [
+            Cube(onSceneCreated: _onSceneCreated),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: FloatingActionButton(
+                onPressed: () {
+                  // onSelect(sandup);
+                  availableCameras().then((value) => onSelect(sandup)).then(
+                        (value) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CameraPage(
+                              Cam: cam.Camera(
+                                widget.cameras,
+                                _model,
+                                setRecognitions,
+                              ),
+                              ProgressBar: BndBox(
+                                  _recognitions ?? [],
+                                  math.max(_imageHeight, _imageWidth),
+                                  math.min(_imageHeight, _imageWidth),
+                                  screen.height,
+                                  screen.width,
+                                  _model),
                             ),
-                            ProgressBar: BndBox(
-                                _recognitions ?? [],
-                                math.max(_imageHeight, _imageWidth),
-                                math.min(_imageHeight, _imageWidth),
-                                screen.height,
-                                screen.width,
-                                _model),
                           ),
                         ),
-                      ),
-                    );
-              },
+                      );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        // floatingActionButton: _model == ""
+        //     ? Padding(
+        //         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+        //         child: FloatingActionButton.extended(
+        //           onPressed: () => onSelect(sandup),
+        //           // Add your onPressed code here!
+
+        //           // shape: shape,
+        //           label: const Text('가즈아앙',
+        //               style: TextStyle(
+        //                   color: Colors.white, fontWeight: FontWeight.bold)),
+        //           icon: const Icon(
+        //             Icons.camera_alt_outlined,
+        //             color: Colors.white,
+        //             size: 30,
+        //           ),
+        //           backgroundColor: Colors.amber,
+        //         ),
+        //       )
+        //     : Scaffold(
+        //         body: Stack(
+        //           children: [
+        //             cam.Camera(
+        //               widget.cameras,
+        //               _model,
+        //               setRecognitions,
+        //             ),
+        //             BndBox(
+        //                 _recognitions ?? [],
+        //                 math.max(_imageHeight, _imageWidth),
+        //                 math.min(_imageHeight, _imageWidth),
+        //                 screen.height,
+        //                 screen.width,
+        //                 _model),
+        //           ],
+        //         ),
+        //       ),
+
+        // floatingActionButton: Padding(
+        //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+        //   child: ElevatedButton(
+        //     onPressed: () {
+        //       onSelect(sandup);
+        //       availableCameras().then(
+        //         (value) => Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => cam.Camera(
+        //               value, //카메라
+        //               _model,
+        //               setRecognitions,
+        //               // _recognitions ?? [],
+        //               // math.max(_imageHeight, _imageWidth),
+        //               // math.min(_imageHeight, _imageWidth),
+        //               // screen.height,
+        //               // screen.width,
+        //             ),
+        //           ),
+        //         ),
+        //       );
+
+        //       // Navigator.of(context).push(
+        //       //   MaterialPageRoute(
+        //       //     builder: (context) => cam.Camera(
+        //       //       widget.cameras,
+        //       //       _model,
+        //       //       setRecognitions,
+        //       //     ),
+        //       //   ),
+        //       // );
+        //     },
+        //     child: const Text('카메라 가즈앙아'),
+        //   ),
+        // ),
       ),
-      // floatingActionButton: _model == ""
-      //     ? Padding(
-      //         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-      //         child: FloatingActionButton.extended(
-      //           onPressed: () => onSelect(sandup),
-      //           // Add your onPressed code here!
-
-      //           // shape: shape,
-      //           label: const Text('가즈아앙',
-      //               style: TextStyle(
-      //                   color: Colors.white, fontWeight: FontWeight.bold)),
-      //           icon: const Icon(
-      //             Icons.camera_alt_outlined,
-      //             color: Colors.white,
-      //             size: 30,
-      //           ),
-      //           backgroundColor: Colors.amber,
-      //         ),
-      //       )
-      //     : Scaffold(
-      //         body: Stack(
-      //           children: [
-      //             cam.Camera(
-      //               widget.cameras,
-      //               _model,
-      //               setRecognitions,
-      //             ),
-      //             BndBox(
-      //                 _recognitions ?? [],
-      //                 math.max(_imageHeight, _imageWidth),
-      //                 math.min(_imageHeight, _imageWidth),
-      //                 screen.height,
-      //                 screen.width,
-      //                 _model),
-      //           ],
-      //         ),
-      //       ),
-
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-      //   child: ElevatedButton(
-      //     onPressed: () {
-      //       onSelect(sandup);
-      //       availableCameras().then(
-      //         (value) => Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => cam.Camera(
-      //               value, //카메라
-      //               _model,
-      //               setRecognitions,
-      //               // _recognitions ?? [],
-      //               // math.max(_imageHeight, _imageWidth),
-      //               // math.min(_imageHeight, _imageWidth),
-      //               // screen.height,
-      //               // screen.width,
-      //             ),
-      //           ),
-      //         ),
-      //       );
-
-      //       // Navigator.of(context).push(
-      //       //   MaterialPageRoute(
-      //       //     builder: (context) => cam.Camera(
-      //       //       widget.cameras,
-      //       //       _model,
-      //       //       setRecognitions,
-      //       //     ),
-      //       //   ),
-      //       // );
-      //     },
-      //     child: const Text('카메라 가즈앙아'),
-      //   ),
-      // ),
     );
   }
 }
