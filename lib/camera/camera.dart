@@ -117,83 +117,88 @@ class _CameraState extends State<Camera> {
     // final size = MediaQuery.of(context).size;
     // final deviceRatio = size.width / size.height;
     Size screen = MediaQuery.of(context).size;
-    switch (status) {
-      case 0:
-        return Scaffold(
-          body: Stack(
-            children: [
-              // controller.buildPreview(),
-              OverflowBox(
-                maxHeight: screenRatio > previewRatio
-                    ? screenH
-                    : screenW / previewW * previewH,
-                maxWidth: screenRatio > previewRatio
-                    ? screenH / previewH * previewW
-                    : screenW,
-                child: CameraPreview(controller),
-              ),
-              // Transform.scale(
-              //   scale: controller.value.aspectRatio / deviceRatio,
-              //   child: new AspectRatio(
-              //     aspectRatio: controller.value.aspectRatio,
-              //     child: CameraPreview(controller),
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
-                child: Image.asset('assets/images/circle.png'),
-              ),
-              BndBox(
-                  _recognitions ?? [],
-                  math.max(_imageHeight, _imageWidth),
-                  math.min(_imageHeight, _imageWidth),
-                  screen.height,
-                  screen.width,
-                  widget.model),
-            ],
-          ),
-        );
+    // switch (status) {
+    //   case 0:
+    //     return Scaffold(
+    //       body: Stack(
+    //         children: [
+    //           AspectRatio(
+    //             aspectRatio: 1 / controller.value.aspectRatio,
+    //             child: controller.buildPreview(),
+    //           ),
 
-      case 1:
-        return AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: Stack(
-            children: [
-              controller.buildPreview(),
-              Center(
-                child: Image.asset('assets/images/camera_overlay3.png'),
-              ),
-            ],
-          ),
-        );
+    //           // OverflowBox(
+    //           //   maxHeight: screenRatio > previewRatio
+    //           //       ? screenH
+    //           //       : screenW / previewW * previewH,
+    //           //   maxWidth: screenRatio > previewRatio
+    //           //       ? screenH / previewH * previewW
+    //           //       : screenW,
+    //           //   child: CameraPreview(controller),
+    //           // ),
+    //           // Transform.scale(
+    //           //   scale: controller.value.aspectRatio / deviceRatio,
+    //           //   child: new AspectRatio(
+    //           //     aspectRatio: controller.value.aspectRatio,
+    //           //     child: CameraPreview(controller),
+    //           //   ),
+    //           // ),
+    //           Padding(
+    //             padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+    //             child: Image.asset('assets/images/circle.png'),
+    //           ),
+    //           // BndBox(
+    //           //     _recognitions ?? [],
+    //           //     math.max(_imageHeight, _imageWidth),
+    //           //     math.min(_imageHeight, _imageWidth),
+    //           //     screen.height,
+    //           //     screen.width,
+    //           //     widget.model),
+    //         ],
+    //       ),
+    //     );
 
-      case 2:
-        return AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: Stack(
-            children: [
-              controller.buildPreview(),
-              Center(
-                child: Image.asset('assets/images/camera_overlay4.png'),
-              ),
-            ],
-          ),
-        );
-    }
+    //   case 1:
+    //     return AspectRatio(
+    //       aspectRatio: controller.value.aspectRatio,
+    //       child: Stack(
+    //         children: [
+    //           controller.buildPreview(),
+    //           Center(
+    //             child: Image.asset('assets/images/camera_overlay3.png'),
+    //           ),
+    //         ],
+    //       ),
+    //     );
+
+    //   case 2:
+    //     return AspectRatio(
+    //       aspectRatio: controller.value.aspectRatio,
+    //       child: Stack(
+    //         children: [
+    //           controller.buildPreview(),
+    //           Center(
+    //             child: Image.asset('assets/images/camera_overlay4.png'),
+    //           ),
+    //         ],
+    //       ),
+    //     );
+    // }
+    final scale = 1 /
+        (controller.value.aspectRatio *
+            MediaQuery.of(context).size.aspectRatio);
 
     return Scaffold(
       body: Stack(
         children: [
-          OverflowBox(
-            maxHeight: screenRatio > previewRatio
-                ? screenH
-                : screenW / previewW * previewH,
-            maxWidth: screenRatio > previewRatio
-                ? screenH / previewH * previewW
-                : screenW,
-            child: CameraPreview(controller),
+          Transform.scale(
+            scale: scale,
+            child: controller.buildPreview(),
           ),
-          // Image.asset('assets/images/camera_overlay4.png'),
+          // AspectRatio(
+          //   aspectRatio: 1 / controller.value.aspectRatio,
+          //   child: controller.buildPreview(),
+          // ),
         ],
       ),
     );

@@ -8,6 +8,7 @@ import 'package:jolzak/camera/camera.dart' as cam;
 import 'package:jolzak/camera/bndbox.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
+import 'package:model_viewer/model_viewer.dart';
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -32,15 +33,16 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       bool backfaceCulling, String texturePath) async {
     final Mesh mesh =
         await generateSphereMesh(radius: radius, texturePath: texturePath);
-    parent
-        .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
+    // parent
+    //     .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
     _scene.updateTexture();
   }
 
   void _onSceneCreated(Scene scene) {
     _scene = scene;
-    _scene.camera.position.z = 2.5;
-    _scene.camera.position.y = 8;
+    _scene.camera.position.z = 5.0;
+    _scene.camera.position.y = 5.0;
+    // _scene.camera.position.x = 1.0;
 
     // model from https://free3d.com/3d-model/planet-earth-99065.html
     // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
@@ -48,8 +50,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // create by code
     _level = Object(
         name: 'level',
-        scale: Vector3(11.0, 11.0, 11.0),
-        rotation: Vector3(0.0, 0.0, 5.0),
+        scale: Vector3(5.0, 5.0, 5.0),
+        rotation: Vector3(0.0, 2.0, 5.0),
         backfaceCulling: false,
         fileName: 'assets/cube/model1.obj');
     generateSphereObject(
@@ -128,16 +130,22 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
           centerTitle: true,
           backgroundColor: Colors.deepPurpleAccent,
         ),
-        // body: ModelViewer(
-        //   backgroundColor: Colors.teal[50],
-        //   src: 'assets/cube/model1-2.glb',
-        //   autoPlay: true,
-        //   autoRotate: true,
-        //   cameraControls: true,
-        //   ),
+
         body: Stack(
           children: [
             Cube(onSceneCreated: _onSceneCreated),
+
+            //모델뷰어 제공
+            // ModelViewer(
+            //   backgroundColor: Colors.white70,
+            //   src: "assets/cube/Pyramid.glb",
+            //   ar: true,
+            //   autoPlay: true,
+            //   autoRotate: true,
+            //   cameraControls: true,
+            //   autoRotateDelay: 0,
+            // ),
+
             Positioned(
               bottom: 10,
               right: 10,
