@@ -40,8 +40,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
 
   void _onSceneCreated(Scene scene) {
     _scene = scene;
-    _scene.camera.position.z = 5.0;
-    _scene.camera.position.y = 5.0;
+    // _scene.camera.position.z = 5.0;
+    // _scene.camera.position.y = 5.0;
     // _scene.camera.position.x = 1.0;
 
     // model from https://free3d.com/3d-model/planet-earth-99065.html
@@ -50,7 +50,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // create by code
     _level = Object(
         name: 'level',
-        scale: Vector3(5.0, 5.0, 5.0),
+        scale: Vector3(7.0, 7.0, 7.0),
         rotation: Vector3(0.0, 2.0, 5.0),
         backfaceCulling: false,
         fileName: 'assets/cube/model1.obj');

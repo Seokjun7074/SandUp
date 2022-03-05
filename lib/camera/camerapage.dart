@@ -59,97 +59,64 @@ class _CameraPageState extends State<CameraPage> {
 
           //   ),
           // ),
+
           Positioned(
-            bottom: 30,
-            left: 30,
-            child: SizedBox(
-              width: 10000,
-              height: 100,
-              child: ListView(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
+            top: MediaQuery.of(context).size.height - 200,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      width: 70,
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.amberAccent,
+                      ),
+                      width: 100,
+                      height: 100,
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      width: 70,
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.greenAccent,
+                      ),
+                      width: 100,
+                      height: 100,
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      width: 70,
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.blueAccent,
+                      ),
+                      width: 100,
+                      height: 100,
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      width: 70,
-                      color: Colors.red,
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
-                    child: Container(
-                      width: 70,
-                      color: Colors.red,
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
-                    child: Container(
-                      width: 70,
-                      color: Colors.red,
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      //모서리를 둥글게 하기 위해 사용
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    elevation: 4.0,
-                    child: Container(
-                      width: 70,
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.redAccent,
+                      ),
+                      width: 100,
+                      height: 100,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
