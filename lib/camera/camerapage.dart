@@ -68,6 +68,7 @@ class _CameraPageState extends State<CameraPage> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(5.0),
@@ -116,7 +117,7 @@ class _CameraPageState extends State<CameraPage> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
