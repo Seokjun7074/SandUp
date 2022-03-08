@@ -9,8 +9,6 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
 
-
-
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
   Objects(this.cameras);
@@ -20,7 +18,6 @@ class Objects extends StatefulWidget {
 }
 
 class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
-
   late Scene _scene;
   Object? _level;
   late Object _back;
@@ -31,9 +28,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageWidth = 0;
   String _model = "";
 
-  void generateSphereObject(Object parent, String name, double radius, bool backfaceCulling, String texturePath) async {
-    final Mesh mesh = await generateSphereMesh(radius: radius, texturePath: texturePath);
-    parent.add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
+  void generateSphereObject(Object parent, String name, double radius,
+      bool backfaceCulling, String texturePath) async {
+    final Mesh mesh =
+        await generateSphereMesh(radius: radius, texturePath: texturePath);
+    parent
+        .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
     _scene.updateTexture();
   }
 
@@ -46,13 +46,20 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
 
     // create by code
-    _level = Object(name: 'level', scale: Vector3(11.0, 11.0, 11.0), rotation: Vector3(0.0, 0.0, 5.0), backfaceCulling: false, fileName: 'assets/cube/model1.obj');
-    generateSphereObject(_level!, 'surface', 0.485, true, 'assets/cube/SAA2EF~1.jpg');
+    _level = Object(
+        name: 'level',
+        scale: Vector3(11.0, 11.0, 11.0),
+        rotation: Vector3(0.0, 0.0, 5.0),
+        backfaceCulling: false,
+        fileName: 'assets/cube/model1.obj');
+    generateSphereObject(
+        _level!, 'surface', 0.485, true, 'assets/cube/SAA2EF~1.JPG');
     _scene.world.add(_level!);
 
     // texture from https://www.solarsystemscope.com/textures/
     _back = Object(name: 'back', scale: Vector3(20.0, 20.0, 20.0));
-    generateSphereObject(_back, 'surface', 0.5, false, 'assets/images/background.png');
+    generateSphereObject(
+        _back, 'surface', 0.5, false, 'assets/images/background.png');
     _scene.world.add(_back);
   }
 
@@ -62,12 +69,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-
-
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(milliseconds: 30000), vsync: this)
+    _controller = AnimationController(
+        duration: Duration(milliseconds: 30000), vsync: this)
       ..addListener(() {
         if (_level != null) {
           _level!.rotation.y = _controller.value * 360;
@@ -84,7 +90,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       case sandup:
         res = await Tflite.loadModel(
           model: "assets/model/model.tflite",
-          labels: "assets/model/labels.txt",);
+          labels: "assets/model/labels.txt",
+        );
     }
     print(res);
   }
@@ -104,17 +111,16 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
-     // backgroundColor: const Color(0xFFffead7),
-     // appBar: AppBar(
-     //   elevation: 0,
-     //   centerTitle: true,
-     //   backgroundColor: Color(0xFFffead7),
-     // ),
+      // backgroundColor: const Color(0xFFffead7),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   centerTitle: true,
+      //   backgroundColor: Color(0xFFffead7),
+      // ),
       // body: ModelViewer(
       //   backgroundColor: Colors.teal[50],
       //   src: 'assets/cube/model1-2.glb',
@@ -149,6 +155,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   _model,
                   setRecognitions,
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+                  child: Image.asset('assets/images/circle.png'),
+                ),
                 BndBox(
                     _recognitions ?? [],
                     math.max(_imageHeight, _imageWidth),
@@ -156,6 +166,64 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
+                Positioned(
+                  top: MediaQuery.of(context).size.height - 200,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.amberAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.greenAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.blueAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.redAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
 
@@ -168,16 +236,20 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       //     child: const Text('카메라 가즈앙아'),
       //   ),
       // ),
-
     );
   }
 }
 
-Future<Mesh> generateSphereMesh({num radius = 0.5, int latSegments = 32, int lonSegments = 64, required String texturePath}) async {
+Future<Mesh> generateSphereMesh(
+    {num radius = 0.5,
+    int latSegments = 32,
+    int lonSegments = 64,
+    required String texturePath}) async {
   int count = (latSegments + 1) * (lonSegments + 1);
   List<Vector3> vertices = List<Vector3>.filled(count, Vector3.zero());
   List<Offset> texcoords = List<Offset>.filled(count, Offset.zero);
-  List<Polygon> indices = List<Polygon>.filled(latSegments * lonSegments * 2, Polygon(0, 0, 0));
+  List<Polygon> indices =
+      List<Polygon>.filled(latSegments * lonSegments * 2, Polygon(0, 0, 0));
 
   int i = 0;
   for (int y = 0; y <= latSegments; ++y) {
@@ -186,7 +258,8 @@ Future<Mesh> generateSphereMesh({num radius = 0.5, int latSegments = 32, int lon
     final double cv = math.cos(v * math.pi);
     for (int x = 0; x <= lonSegments; ++x) {
       final double u = x / lonSegments;
-      vertices[i] = Vector3(radius * math.cos(u * math.pi * 2.0) * sv, radius * cv, radius * math.sin(u * math.pi * 2.0) * sv);
+      vertices[i] = Vector3(radius * math.cos(u * math.pi * 2.0) * sv,
+          radius * cv, radius * math.sin(u * math.pi * 2.0) * sv);
       texcoords[i] = Offset(1.0 - u, 1.0 - v);
       i++;
     }
@@ -203,6 +276,11 @@ Future<Mesh> generateSphereMesh({num radius = 0.5, int latSegments = 32, int lon
   }
 
   ui.Image texture = await loadImageFromAsset(texturePath);
-  final Mesh mesh = Mesh(vertices: vertices, texcoords: texcoords, indices: indices, texture: texture, texturePath: texturePath);
+  final Mesh mesh = Mesh(
+      vertices: vertices,
+      texcoords: texcoords,
+      indices: indices,
+      texture: texture,
+      texturePath: texturePath);
   return mesh;
 }

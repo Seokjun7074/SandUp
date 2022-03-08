@@ -16,14 +16,20 @@ class BndBox extends StatefulWidget {
   final double screenW;
   final String model;
 
-  BndBox(this.results, this.previewH, this.previewW, this.screenH, this.screenW,
-      this.model);
+  BndBox(
+    this.results,
+    this.previewH,
+    this.previewW,
+    this.screenH,
+    this.screenW,
+    this.model,
+  );
 
   @override
   _BndBoxState createState() => _BndBoxState();
 }
-class _BndBoxState extends State<BndBox> {
 
+class _BndBoxState extends State<BndBox> {
   List<dynamic> _inputArr = [];
   String _label = 'progress_bar';
   double _percent = 0;
@@ -41,7 +47,6 @@ class _BndBoxState extends State<BndBox> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     List<Widget> _renderBoxes() {
@@ -52,7 +57,8 @@ class _BndBoxState extends State<BndBox> {
         var _h = re["rect"]["h"];
         var scaleW, scaleH, x, y, w, h;
 
-        if (widget.screenH / widget.screenW > widget.previewH / widget.previewW) {
+        if (widget.screenH / widget.screenW >
+            widget.previewH / widget.previewW) {
           scaleW = widget.screenH / widget.previewH * widget.previewW;
           scaleH = widget.screenH;
           var difW = (scaleW - widget.screenW) / scaleW;
@@ -105,10 +111,10 @@ class _BndBoxState extends State<BndBox> {
         if (re["label"] == "step1" && re["confidence"] > 0.95) {
           status = 1;
         }
-        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.95){
+        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.95) {
           status = 2;
         }
-        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.95){
+        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.95) {
           status = 3;
         }
 
@@ -126,11 +132,7 @@ class _BndBoxState extends State<BndBox> {
             ),
           ),
         );
-
-      }
-      ).toList();
-
-
+      }).toList();
     }
 
     List<Widget> _renderKeypoints() {
@@ -141,7 +143,8 @@ class _BndBoxState extends State<BndBox> {
           var _y = k["y"];
           var scaleW, scaleH, x, y;
 
-          if (widget.screenH / widget.screenW > widget.previewH / widget.previewW) {
+          if (widget.screenH / widget.screenW >
+              widget.previewH / widget.previewW) {
             scaleW = widget.screenH / widget.previewH * widget.previewW;
             scaleH = widget.screenH;
             var difW = (scaleW - widget.screenW) / scaleW;
@@ -214,8 +217,7 @@ class _BndBoxState extends State<BndBox> {
       Stack(
         children: _renderStrings(),
       ),
-    ]
-    );
+    ]);
   }
 
   Future<void> _getPrediction(List<double> steps) async {
@@ -229,18 +231,18 @@ class _BndBoxState extends State<BndBox> {
         _percent = result;
       }
       _label =
-      result < 0.5 ? "Wrong step" : (result * 100).toStringAsFixed(0) + "%";
+          result < 0.5 ? "Wrong step" : (result * 100).toStringAsFixed(0) + "%";
       updateCounter(_percent);
 
       print("Final Label: " + result.toString());
-    } on PlatformException catch (e) {
-
-    }
+    } on PlatformException catch (e) {}
   }
 
   void updateCounter(percent) {
     if (percent > 0.5) {
-      (_counter += percent / 100) >= 1 ? _counter = 1.0 : _counter += percent / 100;
+      (_counter += percent / 100) >= 1
+          ? _counter = 1.0
+          : _counter += percent / 100;
     }
     print("Counter: " + _counter.toString());
   }
