@@ -1,12 +1,16 @@
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
 import 'package:jolzak/camera/bndbox.dart';
 import 'package:jolzak/widgets/objects.dart';
+import 'package:jolzak/camera/camera.dart' as cam;
+import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
+
+import 'package:jolzak/camera/models.dart';
 
 import 'models.dart';
-
 
 typedef Callback = void Function(List<dynamic> list, int h, int w);
 
@@ -15,7 +19,12 @@ class Camera extends StatefulWidget {
   final Callback setRecognitions;
   final String model;
 
-  const Camera(this.cameras, this.model, this.setRecognitions);
+
+  const Camera(
+    this.cameras,
+    this.model,
+    this.setRecognitions,
+  );
 
   @override
   _CameraState createState() => _CameraState();
@@ -24,6 +33,7 @@ class Camera extends StatefulWidget {
 class _CameraState extends State<Camera> {
   late CameraController controller;
   bool isDetecting = false;
+
 
   @override
   void initState() {
@@ -56,7 +66,6 @@ class _CameraState extends State<Camera> {
                 imageHeight: img.height,
                 imageWidth: img.width,
                 numResults: 1,
-
               ).then((recognitions) {
                 int endTime = DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
@@ -92,141 +101,16 @@ class _CameraState extends State<Camera> {
     var previewRatio = previewH / previewW;
 
 
-    switch (status){
-      case 0:
-        return AspectRatio(
-          aspectRatio: 1 / previewRatio,
-          child: Stack(
-            children: [
-              controller.buildPreview(),
-              Center(
-                child: Image.asset('assets/images/camera_overlay2.png'),
-              ),
-            ],
-          ),
-        );
-
-      case 1:
-        return AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: Stack(
-            children: [
-              controller.buildPreview(),
-              Center(
-                child: Image.asset('assets/images/camera_overlay3.png'),
-              ),
-            ],
-          ),
-        );
-
-      case 2:
-        return AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: Stack(
-            children: [
-              controller.buildPreview(),
-              Center(
-                child: Image.asset('assets/images/camera_overlay4.png'),
-              ),
-            ],
-          ),
-        );
-    }
-
 
     return OverflowBox(
-      maxHeight:
-      screenRatio > previewRatio ? screenH : screenW / previewW * previewH,
-      maxWidth:
-      screenRatio > previewRatio ? screenH / previewH * previewW : screenW,
-      child: CameraPreview(controller),
-    );
+            maxHeight: screenRatio > previewRatio
+                ? screenH
+                : screenW / previewW * previewH,
+            maxWidth: screenRatio > previewRatio
+                ? screenH / previewH * previewW
+                : screenW,
+            child: CameraPreview(controller),
+      );
   }
 
-/*
-  Widget _predictionStatus() {
-    if (isPredicted!) {
-
-    }
-
-    switch (predictionStatus) {
-      case 1:
-        return Column(
-          children: <Widget>[
-            Text(
-              'Processing',
-              style: TextStyle(color: Colors.amber, fontSize: 16),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Colors.amber,
-                ),
-              ),
-            )
-          ],
-        );
-        break;
-      case 2:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Successful',
-              style: TextStyle(color: Colors.greenAccent, fontSize: 16),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Icon(
-                Icons.check_circle,
-                color: Colors.greenAccent,
-                size: 30,
-              ),
-            )
-          ],
-        );
-        break;
-      case 3:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Failed',
-              style: TextStyle(color: Colors.redAccent, fontSize: 16),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Icon(
-                Icons.close,
-                color: Colors.redAccent,
-                size: 30,
-              ),
-            )
-          ],
-        );
-        break;
-      default:
-        return Center(
-          child: Text(
-            'Follow the video',
-            style: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-        );
-        break;
-    }
-  }
-*/
 }

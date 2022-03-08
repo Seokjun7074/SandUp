@@ -111,8 +111,8 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
         var newNode = ARNode(
             type: NodeType.localGLTF2,
             uri:
-            "Models/Chicken_01/Chicken_01.gltf",
-            scale: Vector3(0.2, 0.2, 0.2),
+            "Models/Chicken_01/level1-obj2.gltf",
+            scale: Vector3(1.0, 1.0, 1.0),
             position: Vector3(0.0, 0.0, 0.0),
             rotation: Vector4(1.0, 0.0, 0.0, 0.0));
         bool? didAddNodeToAnchor =

@@ -407,7 +407,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           //ExtraData 추가하는 부분
                           await FirebaseFirestore.instance
                               .collection('user')
-                              .doc(newUser.user!.uid)
+                              .doc(newUser.user!.uid) //여기
                               .set({
                             "userName": userName,
                             "email": userEmail,
