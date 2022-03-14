@@ -96,19 +96,19 @@ class _ObjectListState extends State<ObjectList> {
                           spreadRadius: 1),
                     ],
                   ),
-                  height: 200,
+                  height: MediaQuery.of(context).size.height / 3.5,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Container(
-                          height: 150,
+                          height: MediaQuery.of(context).size.height / 5,
                           color: Colors.purple[300],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 7, 5, 0),
+                        padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                         child: Text(
                           "스페샬~~",
                           style: TextStyle(
@@ -137,8 +137,9 @@ class _ObjectListState extends State<ObjectList> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: SizedBox(
-                height: 380,
+              child: Container(
+                // color: Colors.amber,
+                height: 360, //
                 child: GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
