@@ -139,7 +139,7 @@ class _ObjectListState extends State<ObjectList> {
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Container(
                 // color: Colors.amber,
-                height: 360, //
+                height: MediaQuery.of(context).size.height / 2.15, //
                 child: GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

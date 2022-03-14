@@ -115,19 +115,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
-      // backgroundColor: const Color(0xFFffead7),
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   centerTitle: true,
-      //   backgroundColor: Color(0xFFffead7),
-      // ),
-      // body: ModelViewer(
-      //   backgroundColor: Colors.teal[200],
-      //   src: 'assets/cube/Pyramid.glb',
-      //   autoPlay: true,
-      //   autoRotate: true,
-      //   cameraControls: true,
-      // ),
       // body: Cube(onSceneCreated: _onSceneCreated),
       body: _model == ""
           ? Stack(
@@ -145,9 +132,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   right: 20,
                   child: FloatingActionButton.extended(
                     onPressed: () => onSelect(sandup),
-                    // Add your onPressed code here!
-
-                    // shape: shape,
                     label: const Text('가즈아앙',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
@@ -239,16 +223,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 ),
               ],
             ),
-
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-      //   child: ElevatedButton(
-      //     onPressed: () {
-      //       // Add your onPressed code here!
-      //     },
-      //     child: const Text('카메라 가즈앙아'),
-      //   ),
-      // ),
     );
   }
 }

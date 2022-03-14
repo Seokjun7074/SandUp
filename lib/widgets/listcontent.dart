@@ -8,7 +8,6 @@ class ListContent extends StatelessWidget {
       required this.starNumber})
       : super(key: key);
 
-  // ListContent({required this.level, required this.image});
   String level = "0";
   Widget image = Image.asset("assets/capture/test_img.png");
   int starNumber = 1;
@@ -50,16 +49,6 @@ class ListContent extends StatelessWidget {
                     ),
                   ),
                   StarDisplay(value: starNumber),
-
-                  // RatingBar.builder(
-                  //   itemBuilder: (context, _) => Icon(
-                  //     Icons.star,
-                  //     color: Colors.red,
-                  //   ),
-                  //   onRatingUpdate: (rating) {
-                  //     print(rating);
-                  //   },
-                  // ),
                 ],
               ),
             ),
