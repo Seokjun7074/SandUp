@@ -8,6 +8,7 @@ import 'package:jolzak/camera/bndbox.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
+import 'package:jolzak/camera/arcore.dart';
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -39,8 +40,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
 
   void _onSceneCreated(Scene scene) {
     _scene = scene;
-    _scene.camera.position.z = 2.5;
-    _scene.camera.position.y = 8;
+    _scene.camera.position.z = 1.7;
+    _scene.camera.position.y = 4.0;
 
     // model from https://free3d.com/3d-model/planet-earth-99065.html
     // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
@@ -48,12 +49,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // create by code
     _level = Object(
         name: 'level',
-        scale: Vector3(11.0, 11.0, 11.0),
-        rotation: Vector3(0.0, 0.0, 5.0),
+        scale: Vector3(5.0, 5.0, 5.0),
+        rotation: Vector3(0.0, 2.0, 5.0),
         backfaceCulling: false,
         fileName: 'assets/cube/model1.obj');
     generateSphereObject(
-        _level!, 'surface', 0.485, true, 'assets/cube/SAA2EF~1.JPG');
+        _level!, 'surface', 2.0, true, 'assets/cube/SAA2EF~1.JPG');
     _scene.world.add(_level!);
 
     // texture from https://www.solarsystemscope.com/textures/
@@ -134,6 +135,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
               child: FloatingActionButton.extended(
                 onPressed: () => onSelect(sandup),
+
                 // Add your onPressed code here!
 
                 // shape: shape,
@@ -150,11 +152,15 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
             )
           : Stack(
               children: [
-                 cam.Camera(
-                   widget.cameras,
-                   _model,
-                   setRecognitions,
-                 ),
+                cam.Camera(
+                  widget.cameras,
+                  _model,
+                  setRecognitions,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+                  child: Image.asset('assets/images/circle.png'),
+                ),
                 BndBox(
                     _recognitions ?? [],
                     math.max(_imageHeight, _imageWidth),
@@ -162,6 +168,64 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
+                // Positioned(
+                //   top: MediaQuery.of(context).size.height - 200,
+                //   left: 0,
+                //   right: 0,
+                //   bottom: 0,
+                //   child: SingleChildScrollView(
+                //     scrollDirection: Axis.horizontal,
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.all(5.0),
+                //           child: Container(
+                //             decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(20),
+                //               color: Colors.amberAccent,
+                //             ),
+                //             width: 100,
+                //             height: 100,
+                //           ),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.all(5.0),
+                //           child: Container(
+                //             decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(20),
+                //               color: Colors.greenAccent,
+                //             ),
+                //             width: 100,
+                //             height: 100,
+                //           ),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.all(5.0),
+                //           child: Container(
+                //             decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(20),
+                //               color: Colors.blueAccent,
+                //             ),
+                //             width: 100,
+                //             height: 100,
+                //           ),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.all(5.0),
+                //           child: Container(
+                //             decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(20),
+                //               color: Colors.redAccent,
+                //             ),
+                //             width: 100,
+                //             height: 100,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
 

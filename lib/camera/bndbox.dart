@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'models.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:jolzak/camera/arcore.dart';
 
 int status = 0;
 
@@ -114,8 +115,19 @@ class _BndBoxState extends State<BndBox> {
       ),
       Stack(
         children: _renderStrings(),
+
       ),
-    ]);
+      Container(
+          margin: EdgeInsets.fromLTRB(350, 50, 0, 0), //margin here
+          child: FloatingActionButton(
+            elevation: 2,
+            onPressed: () {
+              Navigator.pushNamed(context, "/arcore");
+            },
+          ),
+      ),
+    ],
+    );
   }
 
   Future<void> _getPrediction(List<double> steps) async {

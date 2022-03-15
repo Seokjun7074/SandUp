@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'dart:math';
 
+import 'package:jolzak/camera/camera.dart';
+import 'package:jolzak/camera/bndbox.dart';
+
 class ObjectGesturesWidget extends StatefulWidget {
   ObjectGesturesWidget({Key? key}) : super(key: key);
   @override
@@ -56,7 +59,10 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
                           child: Text("Remove Everything")),
                     ]),
               )
-            ])));
+            ],
+            ),
+        ),
+    );
   }
 
   void onARViewCreated(

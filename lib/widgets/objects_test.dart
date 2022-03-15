@@ -8,6 +8,7 @@ import 'package:jolzak/camera/camera.dart' as cam;
 import 'package:jolzak/camera/bndbox.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
+import 'package:model_viewer/model_viewer.dart';
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -19,7 +20,8 @@ class Objects extends StatefulWidget {
 
 class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   late Scene _scene;
-  Object?_level;
+  Object? _level;
+  late Object _back;
   late AnimationController _controller;
 
   List<dynamic>? _recognitions;
@@ -109,6 +111,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       _imageWidth = imageWidth;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -126,27 +129,33 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
           centerTitle: true,
           backgroundColor: Colors.deepPurpleAccent,
         ),
-        // body: ModelViewer(
-        //   backgroundColor: Colors.teal[50],
-        //   src: 'assets/cube/model1-2.glb',
-        //   autoPlay: true,
-        //   autoRotate: true,
-        //   cameraControls: true,
-        //   ),
+
         body: Stack(
           children: [
             Cube(onSceneCreated: _onSceneCreated),
+
+            //모델뷰어 제공
+            // ModelViewer(
+            //   backgroundColor: Colors.white70,
+            //   src: "assets/cube/Pyramid.glb",
+            //   ar: true,
+            //   autoPlay: true,
+            //   autoRotate: true,
+            //   cameraControls: true,
+            //   autoRotateDelay: 0,
+            // ),
+
             Positioned(
               bottom: 10,
               right: 10,
-              child: FloatingActionButton (
+              child: FloatingActionButton(
                 onPressed: () {
+                  // onSelect(sandup);
                   availableCameras().then((value) => onSelect(sandup)).then(
                         (value) => Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => CameraPage(
-
                               Cam: cam.Camera(
                                 widget.cameras,
                                 _model,
@@ -168,9 +177,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
             ),
           ],
         ),
-
-
-
         // floatingActionButton: _model == ""
         //     ? Padding(
         //         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
