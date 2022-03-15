@@ -34,8 +34,8 @@ class Home extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 70, 0, 0),
-                  height: 60,
-                  width: 300,
+                  height: MediaQuery.of(context).size.height / 12,
+                  width: MediaQuery.of(context).size.width * 2 / 3,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber[600],
@@ -56,8 +56,8 @@ class Home extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  height: 60,
-                  width: 300,
+                  height: MediaQuery.of(context).size.height / 12,
+                  width: MediaQuery.of(context).size.width * 2 / 3,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber[600],
