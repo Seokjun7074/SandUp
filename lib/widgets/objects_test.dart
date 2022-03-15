@@ -33,8 +33,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       bool backfaceCulling, String texturePath) async {
     final Mesh mesh =
         await generateSphereMesh(radius: radius, texturePath: texturePath);
-    parent
-        .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
+    // parent
+    //     .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
     _scene.updateTexture();
   }
 

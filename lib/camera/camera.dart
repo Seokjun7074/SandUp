@@ -16,23 +16,11 @@ class Camera extends StatefulWidget {
   final List<CameraDescription> cameras;
   final Callback setRecognitions;
   final String model;
-  //카메라
-  // final List<dynamic> results;
-  // final int previewH;
-  // final int previewW;
-  // final double screenH;
-  // final double screenW;
-  //bnd용
 
   const Camera(
     this.cameras,
     this.model,
     this.setRecognitions,
-    // this.results,
-    // this.previewH,
-    // this.previewW,
-    // this.screenH,
-    // this.screenW,
   );
 
   @override
@@ -114,8 +102,7 @@ class _CameraState extends State<Camera> {
     var previewRatio = previewH / previewW;
 
     //석준 추가
-    // final size = MediaQuery.of(context).size;
-    // final deviceRatio = size.width / size.height;
+
     Size screen = MediaQuery.of(context).size;
     // switch (status) {
     //   case 0:

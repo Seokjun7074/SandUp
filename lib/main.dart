@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Sand UP',
       theme: ThemeData(
           // primaryColor: Colors.white,
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         "/objects": (context) => Objects(cameras!),
         "/login": (context) => LogIn(),
         "/loginsignup": (context) => LoginSignupScreen(),
+
         // "/camera": (context) => Camera(),
         "/arcore": (context) =>  ObjectGesturesWidget(),
       },

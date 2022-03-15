@@ -33,13 +33,15 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       bool backfaceCulling, String texturePath) async {
     final Mesh mesh =
         await generateSphereMesh(radius: radius, texturePath: texturePath);
-    parent
-        .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
+    // parent
+    //     .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
     _scene.updateTexture();
   }
 
   void _onSceneCreated(Scene scene) {
     _scene = scene;
+    // _scene.camera.position.z = 2.5;
+    // _scene.camera.position.y = 8;
     _scene.camera.position.z = 1.7;
     _scene.camera.position.y = 4.0;
 
@@ -49,8 +51,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // create by code
     _level = Object(
         name: 'level',
-        scale: Vector3(5.0, 5.0, 5.0),
-        rotation: Vector3(0.0, 2.0, 5.0),
+        scale: Vector3(11.0, 11.0, 11.0),
+        rotation: Vector3(0.0, 0.0, 5.0),
         backfaceCulling: false,
         fileName: 'assets/cube/model1.obj');
     generateSphereObject(
@@ -58,10 +60,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     _scene.world.add(_level!);
 
     // texture from https://www.solarsystemscope.com/textures/
-    _back = Object(name: 'back', scale: Vector3(20.0, 20.0, 20.0));
-    generateSphereObject(
-        _back, 'surface', 0.5, false, 'assets/images/background.png');
-    _scene.world.add(_back);
+    // _back = Object(name: 'back', scale: Vector3(20.0, 20.0, 20.0));
+    // generateSphereObject(
+    //     _back, 'surface', 0.5, false, 'assets/images/background.png');
+    // _scene.world.add(_back);
   }
 
   @override
@@ -116,39 +118,35 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
-      // backgroundColor: const Color(0xFFffead7),
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   centerTitle: true,
-      //   backgroundColor: Color(0xFFffead7),
-      // ),
-      // body: ModelViewer(
-      //   backgroundColor: Colors.teal[50],
-      //   src: 'assets/cube/model1-2.glb',
-      //   autoPlay: true,
-      //   autoRotate: true,
-      //   cameraControls: true,
-      //   ),
-      body: Cube(onSceneCreated: _onSceneCreated),
-      floatingActionButton: _model == ""
-          ? Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: FloatingActionButton.extended(
-                onPressed: () => onSelect(sandup),
-
-                // Add your onPressed code here!
-
-                // shape: shape,
-                label: const Text('가즈아앙',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-                icon: const Icon(
-                  Icons.camera_alt_outlined,
-                  color: Colors.white,
-                  size: 30,
+      // body: Cube(onSceneCreated: _onSceneCreated),
+      body: _model == ""
+          ? Stack(
+              children: [
+                ModelViewer(
+                  backgroundColor: Colors.teal[200],
+                  src: 'assets/cube/Pyramid.glb',
+                  autoPlay: true,
+                  autoRotate: true,
+                  cameraControls: true,
                 ),
-                backgroundColor: Colors.amber,
-              ),
+                // Cube(onSceneCreated: _onSceneCreated),
+                Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: FloatingActionButton.extended(
+                    onPressed: () => onSelect(sandup),
+                    label: const Text('가즈아앙',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    icon: const Icon(
+                      Icons.camera_alt_outlined,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    backgroundColor: Colors.amber,
+                  ),
+                ),
+              ],
             )
           : Stack(
               children: [
@@ -168,76 +166,66 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
-                // Positioned(
-                //   top: MediaQuery.of(context).size.height - 200,
-                //   left: 0,
-                //   right: 0,
-                //   bottom: 0,
-                //   child: SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //       children: [
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.amberAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.greenAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.blueAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.redAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height - 200,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.amberAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.greenAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.blueAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.redAccent,
+                            ),
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
-
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-      //   child: ElevatedButton(
-      //     onPressed: () {
-      //       // Add your onPressed code here!
-      //     },
-      //     child: const Text('카메라 가즈앙아'),
-      //   ),
-      // ),
     );
   }
 }
