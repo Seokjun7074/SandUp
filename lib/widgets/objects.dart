@@ -10,6 +10,8 @@ import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'buttom_drawer.dart';
+
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
   Objects(this.cameras);
@@ -23,6 +25,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   Object? _level;
   late Object _back;
   late AnimationController _controller;
+
+  bool show = false;
 
   List<dynamic>? _recognitions;
   int _imageHeight = 0;
@@ -115,6 +119,9 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
+
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       // body: Cube(onSceneCreated: _onSceneCreated),
       body: _model == ""
@@ -151,11 +158,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
             )
           : Stack(
               children: [
-                cam.Camera(
-                  widget.cameras,
-                  _model,
-                  setRecognitions,
-                ),
+                // cam.Camera(
+                //   widget.cameras,
+                //   _model,
+                //   setRecognitions,
+                // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
                   child: Image.asset('assets/images/circle.png'),
@@ -186,7 +193,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                       ),
                     ),
                     height: 100.h,
-                    width: MediaQuery.of(context).size.width,
+                    width: width,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Padding(
@@ -232,28 +239,55 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   bottom: 70,
                   left: 0,
                   right: 0,
-                  child: Container(
-                    height: 70.h,
-                    width: 70.w,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 5,
-                          offset: Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.arrow_upward_rounded,
-                      size: 60.sp,
-                      color: Colors.grey[800],
+                  child: GestureDetector(
+                    onPanEnd: (details) => {
+                      if (details.velocity.pixelsPerSecond.dy <= 100)
+                        {
+                          setState(() {
+                            show = !show;
+                          })
+                        }
+                    },
+                    child: Container(
+                      height: 70.h,
+                      width: 70.w,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
+                        ],
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.arrow_upward_rounded,
+                        size: 60.sp,
+                        color: Colors.grey[800],
+                      ),
                     ),
                   ),
-                )
+                ),
+                AnimatedPositioned(
+                  duration: Duration(
+                    milliseconds: 200,
+                  ),
+                  bottom: show ? 0 : -height / 2,
+                  child: GestureDetector(
+                    onPanEnd: (details) => {
+                      if (details.velocity.pixelsPerSecond.dy > 100)
+                        {
+                          setState(() {
+                            show = !show;
+                          })
+                        }
+                    },
+                    child: ButtomDrawer(),
+                  ),
+                ),
               ],
             ),
     );
