@@ -8,6 +8,7 @@ import 'package:jolzak/camera/bndbox.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -132,9 +133,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   right: 20,
                   child: FloatingActionButton.extended(
                     onPressed: () => onSelect(sandup),
-                    label: const Text('가즈아앙',
+                    label: const Text('시작',
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        )),
                     icon: const Icon(
                       Icons.camera_alt_outlined,
                       color: Colors.white,
@@ -164,63 +168,92 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.width,
                     _model),
                 Positioned(
-                  top: MediaQuery.of(context).size.height - 200,
-                  left: 0,
-                  right: 0,
                   bottom: 0,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.amberAccent,
-                            ),
-                            width: 100,
-                            height: 100,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.greenAccent,
-                            ),
-                            width: 100,
-                            height: 100,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.blueAccent,
-                            ),
-                            width: 100,
-                            height: 100,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.redAccent,
-                            ),
-                            width: 100,
-                            height: 100,
-                          ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
                       ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                    height: 100.h,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
+                Positioned(
+                  bottom: 70,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 70.h,
+                    width: 70.w,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 1), // changes position of shadow
+                        ),
+                      ],
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.arrow_upward_rounded,
+                      size: 60.sp,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                )
               ],
             ),
     );

@@ -15,6 +15,7 @@ import 'package:jolzak/widgets/objects.dart';
 // import 'package:jolzak/widgets/objects_test.dart';
 import 'package:jolzak/camera/arcore.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,23 +35,30 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Sand UP',
-      theme: ThemeData(
-          // primaryColor: Colors.white,
-          ),
-      initialRoute: "/",
-      //라우터는 여기에
-      routes: {
-        "/": (context) => Home(),
-        "/objectlist": (context) => ObjectList(),
-        "/objects": (context) => Objects(cameras!),
-        "/login": (context) => LogIn(),
-        "/loginsignup": (context) => LoginSignupScreen(),
-        "/arcore": (context) => HelloWorld(),
-        // "/camera": (context) => Camera(),
-      },
+    return ScreenUtilInit(
+// double width = 180.w // 숫자 뒤에 *.w를 쓰면, designSize 기준 가로 길이가 된다.
+// double height = 300.h // 숫자 뒤에 *.h를 쓰면, designSize 기준 세로 길이가 된다.
+// double textSize = 18.sp // 숫자 뒤에 *.sp를 쓰면, designSize 기준 폰트 크기가 설정된다.
+// 기타 .sw .sh .r
+      // designSize: Size(350, 960), 안쓸래
+      builder: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Sand UP',
+        theme: ThemeData(
+            // primaryColor: Colors.white,
+            ),
+        initialRoute: "/",
+        //라우터는 여기에
+        routes: {
+          "/": (context) => Home(),
+          "/objectlist": (context) => ObjectList(),
+          "/objects": (context) => Objects(cameras!),
+          "/login": (context) => LogIn(),
+          "/loginsignup": (context) => LoginSignupScreen(),
+          "/arcore": (context) => HelloWorld(),
+          // "/camera": (context) => Camera(),
+        },
+      ),
     );
   }
 }

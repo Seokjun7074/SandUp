@@ -5,6 +5,7 @@ import 'objects.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 List<CameraDescription>? cameras;
 
@@ -73,7 +74,7 @@ class _ObjectListState extends State<ObjectList> {
                   "Special Level",
                   style: TextStyle(
                       color: Colors.grey[800],
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -112,7 +113,7 @@ class _ObjectListState extends State<ObjectList> {
                         child: Text(
                           "스페샬~~",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[800]),
                         ),
@@ -139,7 +140,7 @@ class _ObjectListState extends State<ObjectList> {
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Container(
                 // color: Colors.amber,
-                height: MediaQuery.of(context).size.height / 2.15, //
+                height: MediaQuery.of(context).size.height / 2.2, //
                 child: GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -164,7 +165,7 @@ class _ObjectListState extends State<ObjectList> {
                       child: ListContent(
                         level: "3",
                         image: Image.asset("assets/capture/test_img.png"),
-                        starNumber: 2,
+                        starNumber: 3,
                       ),
                     ),
                     ListContent(
