@@ -43,6 +43,8 @@ class _ObjectListState extends State<ObjectList> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Color(0xFFFFFFFF),
       appBar: AppBar(
@@ -67,7 +69,7 @@ class _ObjectListState extends State<ObjectList> {
         child: Column(
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: width,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                 child: Text(
@@ -97,14 +99,14 @@ class _ObjectListState extends State<ObjectList> {
                           spreadRadius: 1),
                     ],
                   ),
-                  height: MediaQuery.of(context).size.height / 3.5,
-                  width: MediaQuery.of(context).size.width,
+                  height: height / 3.5,
+                  width: width,
                   child: Column(
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 5,
+                          height: height / 5,
                           color: Colors.purple[300],
                         ),
                       ),
@@ -123,25 +125,25 @@ class _ObjectListState extends State<ObjectList> {
                 ),
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Text(
-                  "Level",
-                  style: TextStyle(
-                      color: Colors.grey[800],
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              child: Text(
+                "Level",
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Container(
-                // color: Colors.amber,
-                height: MediaQuery.of(context).size.height / 2.2, //
+              child: SizedBox(
+                // height: height / 2.2,
                 child: GridView(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 10,

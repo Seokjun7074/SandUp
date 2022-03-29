@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListContent extends StatelessWidget {
   ListContent(
@@ -17,7 +18,7 @@ class ListContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
-        height: 170,
+        height: 170.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -43,7 +44,7 @@ class ListContent extends StatelessWidget {
                     "Level " + level,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800],
                     ),
@@ -71,7 +72,7 @@ class StarDisplay extends StatelessWidget {
       children: List.generate(5, (index) {
         return Icon(
           index < value ? Icons.star : Icons.star_border,
-          size: 18,
+          size: 18.sp,
           // color: Color(0xFF4ADEA3),
           color: Colors.indigo,
         );

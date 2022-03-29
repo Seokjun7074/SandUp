@@ -17,17 +17,8 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
     double width = MediaQuery.of(context).size.width;
     return Container(
       height: height / 2,
-      width: width,
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 7,
-            blurRadius: 5,
-            offset: Offset(0, 1), // changes position of shadow
-          ),
-        ],
+        // color: Colors.red,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
@@ -41,7 +32,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
             child: Container(
               width: width / 2,
               height: height / 5,
-              child: Image.asset('assets/cube/Pyramid.gif'),
+              child: Image.asset('assets/cube/toto.gif'),
               //로딩 문제
               // child: ModelViewer(
               //   backgroundColor: Colors.white,
@@ -57,7 +48,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
             child: Container(
               height: height / 4,
               width: width,
-              color: Colors.amber,
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
