@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'widgets/list.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
                 'Sand Up',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 70,
+                    fontSize: 70.sp,
                     color: Colors.amber[600]),
               ),
             ),
@@ -34,8 +34,8 @@ class Home extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 70, 0, 0),
-                  height: MediaQuery.of(context).size.height / 12,
-                  width: MediaQuery.of(context).size.width * 2 / 3,
+                  height: 60.h,
+                  width: 250.w,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber[600],
@@ -49,15 +49,15 @@ class Home extends StatelessWidget {
                       style: TextStyle(
                           // backgroundColor: Colors.amber[300],
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 30.sp,
                           color: Colors.amber[100]),
                     ),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  height: MediaQuery.of(context).size.height / 12,
-                  width: MediaQuery.of(context).size.width * 2 / 3,
+                  height: 60.h,
+                  width: 250.w,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber[600],
@@ -71,7 +71,7 @@ class Home extends StatelessWidget {
                       style: TextStyle(
                           // backgroundColor: Colors.amber[300],
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 30.sp,
                           color: Colors.amber[100]),
                     ),
                   ),
