@@ -3,6 +3,7 @@ import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:ar_flutter_plugin/models/ar_anchor.dart';
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
@@ -10,12 +11,17 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/datatypes/hittest_result_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
-import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'dart:math';
 
-import 'package:jolzak/camera/camera.dart';
+import 'package:jolzak/camera/camera.dart' as cam;
 import 'package:jolzak/camera/bndbox.dart';
+import 'package:flutter_cube/flutter_cube.dart';
+
+import 'package:tflite/tflite.dart';
+import 'package:jolzak/camera/models.dart';
+import 'dart:math' as math;
+
 
 class ObjectGesturesWidget extends StatefulWidget {
   ObjectGesturesWidget({Key? key}) : super(key: key);
@@ -24,25 +30,59 @@ class ObjectGesturesWidget extends StatefulWidget {
 }
 
 class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
+
   late ARSessionManager arSessionManager;
   late ARObjectManager arObjectManager;
   late ARAnchorManager arAnchorManager;
-
+  late ArCoreController arCoreController;
+  //
+  // List<dynamic>? _recognitions;
+  // int _imageHeight = 0;
+  // int _imageWidth = 0;
+  // String _model = "";
+  //
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   arSessionManager.dispose();
+  // }
+  //
+  // loadModel() async {
+  //   String? res;
+  //   switch (_model) {
+  //     case sandup:
+  //       res = await Tflite.loadModel(
+  //         model: "assets/model/model.tflite",
+  //         labels: "assets/model/labels.txt",
+  //       );
+  //   }
+  //   print(res);
+  // }
+  //
+  // onSelect(model) {
+  //   setState(() {
+  //     _model = model;
+  //   });
+  //   loadModel();
+  // }
+  //
+  // setRecognitions(recognitions, imageHeight, imageWidth) {
+  //   setState(() {
+  //     _recognitions = recognitions;
+  //     _imageHeight = imageHeight;
+  //     _imageWidth = imageWidth;
+  //   });
+  // }
+  //
 
-  @override
-  void dispose() {
-    super.dispose();
-    arSessionManager.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    Size screen = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Object Transformation Gestures'),
-        ),
         body: Container(
             child: Stack(children: [
               ARView(
@@ -56,9 +96,27 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
                     children: [
                       ElevatedButton(
                           onPressed: onRemoveEverything,
-                          child: Text("Remove Everything")),
+                          child: Text("Remove Everything"),
+                      ),
                     ]),
-              )
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+              //   child: Image.asset('assets/images/circle.png'),
+              // ),
+              // cam.Camera(
+              //   ARView.,
+              //   _model,
+              //   setRecognitions,
+              // ),
+              // BndBox(
+              //     _recognitions ?? [],
+              //     math.max(_imageHeight, _imageWidth),
+              //     math.min(_imageHeight, _imageWidth),
+              //     screen.height,
+              //     screen.width,
+              //     _model),
+
             ],
             ),
         ),

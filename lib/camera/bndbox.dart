@@ -84,11 +84,11 @@ class _BndBoxState extends State<BndBox> {
 
     return Stack(children: <Widget>[
       Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 16.0),
+            padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
             child: Text(
               _label.toString(),
               style: TextStyle(
