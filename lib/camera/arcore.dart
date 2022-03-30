@@ -89,17 +89,17 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
                 onARViewCreated: onARViewCreated,
                 planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
               ),
-              Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: onRemoveEverything,
-                          child: Text("Remove Everything"),
-                      ),
-                    ]),
-              ),
+              // Align(
+              //   alignment: FractionalOffset.bottomCenter,
+              //   child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       children: [
+              //         ElevatedButton(
+              //             onPressed: onRemoveEverything,
+              //             child: Text("Remove Everything"),
+              //         ),
+              //       ]),
+              // ),
               // Padding(
               //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
               //   child: Image.asset('assets/images/circle.png'),

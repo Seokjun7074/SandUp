@@ -99,84 +99,18 @@ class _CameraState extends State<Camera> {
 
     //석준 추가
 
-    Size screen = MediaQuery.of(context).size;
-    // switch (status) {
-    //   case 0:
-    //     return Scaffold(
-    //       body: Stack(
-    //         children: [
-    //           AspectRatio(
-    //             aspectRatio: 1 / controller.value.aspectRatio,
-    //             child: controller.buildPreview(),
-    //           ),
+    final size = MediaQuery.of(context).size;
 
-    //           // OverflowBox(
-    //           //   maxHeight: screenRatio > previewRatio
-    //           //       ? screenH
-    //           //       : screenW / previewW * previewH,
-    //           //   maxWidth: screenRatio > previewRatio
-    //           //       ? screenH / previewH * previewW
-    //           //       : screenW,
-    //           //   child: CameraPreview(controller),
-    //           // ),
-    //           // Transform.scale(
-    //           //   scale: controller.value.aspectRatio / deviceRatio,
-    //           //   child: new AspectRatio(
-    //           //     aspectRatio: controller.value.aspectRatio,
-    //           //     child: CameraPreview(controller),
-    //           //   ),
-    //           // ),
-    //           Padding(
-    //             padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
-    //             child: Image.asset('assets/images/circle.png'),
-    //           ),
-    //           // BndBox(
-    //           //     _recognitions ?? [],
-    //           //     math.max(_imageHeight, _imageWidth),
-    //           //     math.min(_imageHeight, _imageWidth),
-    //           //     screen.height,
-    //           //     screen.width,
-    //           //     widget.model),
-    //         ],
-    //       ),
-    //     );
-
-    //   case 1:
-    //     return AspectRatio(
-    //       aspectRatio: controller.value.aspectRatio,
-    //       child: Stack(
-    //         children: [
-    //           controller.buildPreview(),
-    //           Center(
-    //             child: Image.asset('assets/images/camera_overlay3.png'),
-    //           ),
-    //         ],
-    //       ),
-    //     );
-
-    //   case 2:
-    //     return AspectRatio(
-    //       aspectRatio: controller.value.aspectRatio,
-    //       child: Stack(
-    //         children: [
-    //           controller.buildPreview(),
-    //           Center(
-    //             child: Image.asset('assets/images/camera_overlay4.png'),
-    //           ),
-    //         ],
-    //       ),
-    //     );
-    // }
-    final scale = 1 /
-        (controller.value.aspectRatio *
-            MediaQuery.of(context).size.aspectRatio);
+    final scale = 1 / (controller.value.aspectRatio * size.aspectRatio);
 
     return Scaffold(
       body: Stack(
         children: [
           Transform.scale(
             scale: scale,
-            child: ObjectGesturesWidget(),
+            child: controller.buildPreview(),
+            // arcore뷰 가져오기.. ml이 작동 안함..
+            //ObjectGesturesWidget(),
           ),
           // AspectRatio(
           //   aspectRatio: 1 / controller.value.aspectRatio,

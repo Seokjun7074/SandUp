@@ -9,6 +9,9 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
 import 'package:jolzak/camera/arcore.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'buttom_drawer.dart';
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -23,6 +26,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   Object? _level;
   late Object _back;
   late AnimationController _controller;
+
+  bool show = false;
 
   List<dynamic>? _recognitions;
   int _imageHeight = 0;
@@ -118,6 +123,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
 
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       // body: Cube(onSceneCreated: _onSceneCreated),
       body: _model == ""
@@ -132,19 +139,34 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 ),
                 // Cube(onSceneCreated: _onSceneCreated),
                 Positioned(
-                  bottom: 20,
-                  right: 20,
-                  child: FloatingActionButton.extended(
-                    onPressed: () => onSelect(sandup),
-                    label: const Text('가즈아앙',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
-                    icon: const Icon(
-                      Icons.camera_alt_outlined,
-                      color: Colors.white,
-                      size: 30,
+                  bottom: 30.h,
+                  right: 20.w,
+                  child: GestureDetector(
+                    onTap: () => onSelect(sandup),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 7,
+                              blurRadius: 5,
+                              offset:
+                                  Offset(0, 1), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(40)),
+                      height: 60.h,
+                      width: 100.w,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.camera_alt_outlined,
+                          size: 40.sp,
+                          color: Colors.grey[800],
+                        ),
+                      ),
                     ),
-                    backgroundColor: Colors.amber,
                   ),
                 ),
               ],
@@ -156,10 +178,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   _model,
                   setRecognitions,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
-                  child: Image.asset('assets/images/circle.png'),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+                //   child: Image.asset('assets/images/circle.png'),
+                // ),
                 BndBox(
                     _recognitions ?? [],
                     math.max(_imageHeight, _imageWidth),
@@ -167,63 +189,116 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
-
-                // Positioned(
-                //   top: MediaQuery.of(context).size.height - 200,
-                //   left: 0,
-                //   right: 0,
-                //   bottom: 0,
-                //   child: SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //       children: [
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.amberAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.greenAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.blueAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(5.0),
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(20),
-                //               color: Colors.redAccent,
-                //             ),
-                //             width: 100,
-                //             height: 100,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                    height: 100.h,
+                    width: width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: Icon(
+                                Icons.home,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 70.h,
+                  left: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () => showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ButtomDrawer();
+                        }),
+                    child: Container(
+                      height: 70.h,
+                      width: 70.w,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
+                        ],
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.arrow_upward_rounded,
+                        size: 60.sp,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                  ),
+                ),
+                // AnimatedPositioned(
+                //   duration: Duration(
+                //     milliseconds: 200,
+                //   ),
+                //   bottom: show ? 0 : -height / 2,
+                //   child: GestureDetector(
+                //     onPanEnd: (details) => {
+                //       if (details.velocity.pixelsPerSecond.dy > 100)
+                //         {
+                //           setState(() {
+                //             show = !show;
+                //           })
+                //         }
+                //     },
+                //     child: ButtomDrawer(),
                 //   ),
                 // ),
               ],

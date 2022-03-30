@@ -87,45 +87,45 @@ class _BndBoxState extends State<BndBox> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 0.0),
-            child: Text(
-              _label.toString(),
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 25.0),
-            child: LinearPercentIndicator(
-              animation: true,
-              lineHeight: 20.0,
-              animationDuration: 500,
-              animateFromLastPercent: true,
-              percent: _counter,
-              center: Text("${(_counter * 100).toStringAsFixed(1)} %"),
-              linearStrokeCap: LinearStrokeCap.roundAll,
-              progressColor: Colors.green,
-            ),
-          ),
+          //하단 메뉴를 위해 주석처리
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 16.0),
+          //   child: Text(
+          //     _label.toString(),
+          //     style: TextStyle(
+          //       fontSize: 15,
+          //       fontWeight: FontWeight.bold,
+          //       color: Colors.green,
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 25.0),
+          //   child: LinearPercentIndicator(
+          //     animation: true,
+          //     lineHeight: 20.0,
+          //     animationDuration: 500,
+          //     animateFromLastPercent: true,
+          //     percent: _counter,
+          //     center: Text("${(_counter * 100).toStringAsFixed(1)} %"),
+          //     linearStrokeCap: LinearStrokeCap.roundAll,
+          //     progressColor: Colors.green,
+          //   ),
+          // ),
         ],
       ),
       Stack(
         children: _renderStrings(),
-
       ),
-      Container(
-          margin: EdgeInsets.fromLTRB(350, 50, 0, 0), //margin here
-          child: FloatingActionButton(
-            elevation: 2,
-            onPressed: () {
-              Navigator.pushNamed(context, "/arcore");
-            },
-          ),
-      ),
+      // Container(
+      //     margin: EdgeInsets.fromLTRB(350, 50, 0, 0), //margin here
+      //     child: FloatingActionButton(
+      //       elevation: 2,
+      //       onPressed: () {
+      //         Navigator.pushNamed(context, "/arcore");
+      //       },
+      //     ),
+      // ),
     ],
     );
   }
