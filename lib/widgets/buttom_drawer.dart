@@ -32,7 +32,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
             child: Container(
               width: width / 2,
               height: height / 5,
-              child: Image.asset('assets/cube/toto.gif'),
+              child: Image.asset('assets/cube/Pyramid.gif'),
               //로딩 문제
               // child: ModelViewer(
               //   backgroundColor: Colors.white,
