@@ -8,6 +8,7 @@ import 'package:jolzak/camera/bndbox.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
+import 'package:jolzak/camera/arcore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'buttom_drawer.dart';
@@ -46,6 +47,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     _scene = scene;
     // _scene.camera.position.z = 2.5;
     // _scene.camera.position.y = 8;
+    _scene.camera.position.z = 1.7;
+    _scene.camera.position.y = 4.0;
 
     // model from https://free3d.com/3d-model/planet-earth-99065.html
     // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
@@ -53,12 +56,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // create by code
     _level = Object(
         name: 'level',
-        scale: Vector3(7.0, 7.0, 7.0),
-        rotation: Vector3(0.0, 2.0, 5.0),
+        scale: Vector3(11.0, 11.0, 11.0),
+        rotation: Vector3(0.0, 0.0, 5.0),
         backfaceCulling: false,
         fileName: 'assets/cube/model1.obj');
     generateSphereObject(
-        _level!, 'surface', 0.485, true, 'assets/cube/SAA2EF~1.JPG');
+        _level!, 'surface', 2.0, true, 'assets/cube/SAA2EF~1.JPG');
     _scene.world.add(_level!);
 
     // texture from https://www.solarsystemscope.com/textures/
@@ -175,10 +178,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   _model,
                   setRecognitions,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
-                  child: Image.asset('assets/images/circle.png'),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+                //   child: Image.asset('assets/images/circle.png'),
+                // ),
                 BndBox(
                     _recognitions ?? [],
                     math.max(_imageHeight, _imageWidth),
@@ -215,7 +218,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                           children: [
                             Container(
                               child: Icon(
-                                Icons.camera,
+                                Icons.home,
                                 size: 50.sp,
                                 color: Colors.grey[800],
                               ),

@@ -1,3 +1,4 @@
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
@@ -5,10 +6,10 @@ import 'dart:math' as math;
 import 'package:jolzak/camera/bndbox.dart';
 import 'package:jolzak/widgets/objects.dart';
 import 'package:jolzak/camera/camera.dart' as cam;
-
+import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:jolzak/camera/models.dart';
-
 import 'models.dart';
+import 'package:jolzak/camera/arcore.dart';
 
 typedef Callback = void Function(List<dynamic> list, int h, int w);
 
@@ -30,11 +31,6 @@ class Camera extends StatefulWidget {
 class _CameraState extends State<Camera> {
   late CameraController controller;
   bool isDetecting = false;
-
-  List<dynamic>? _recognitions;
-  int _imageHeight = 0;
-  int _imageWidth = 0;
-  String _model = "";
 
   @override
   void initState() {
@@ -113,6 +109,8 @@ class _CameraState extends State<Camera> {
           Transform.scale(
             scale: scale,
             child: controller.buildPreview(),
+            // arcore뷰 가져오기.. ml이 작동 안함..
+            //ObjectGesturesWidget(),
           ),
           // AspectRatio(
           //   aspectRatio: 1 / controller.value.aspectRatio,

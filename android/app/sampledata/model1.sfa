@@ -1,0 +1,58 @@
+{
+  materials: [
+    {
+      name: '/Sand2_B01_500cm',
+      parameters: [
+        {
+          baseColor: 'SAND_B~3',
+        },
+        {
+          baseColorTint: [
+            0.97650000000000003,
+            0.97650000000000003,
+            0.97650000000000003,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'C:\\Users\\user\\Desktop\\google-ar-asset-converter-master\\sceneform_sdk\\default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'C:\\Users\\user\\Desktop\\google-ar-asset-converter-master\\input\\model1.obj',
+    name: 'model1',
+    recenter: 'root',
+    scale: 9.9999999999999995e-07,
+  },
+  samplers: [
+    {
+      file: 'C:\\Users\\user\\Desktop\\google-ar-asset-converter-master\\input\\SAND_B~3.jpg',
+      name: 'SAND_B~3',
+      pipeline_name: 'SAND_B~3.JPG',
+    },
+    {
+      file: 'C:\\Users\\user\\Desktop\\google-ar-asset-converter-master\\input\\SAND_B~4.jpg',
+      name: 'SAND_B~4',
+      params: {
+        usage_type: 'Data',
+      },
+      pipeline_name: 'SAND_B~4.JPG',
+    },
+  ],
+  version: '0.54:2',
+}

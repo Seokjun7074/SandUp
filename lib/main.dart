@@ -14,7 +14,7 @@ import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
 // import 'package:jolzak/widgets/objects_test.dart';
 import 'package:jolzak/camera/arcore.dart';
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<Null> main() async {
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           "/objects": (context) => Objects(cameras!),
           "/login": (context) => LogIn(),
           "/loginsignup": (context) => LoginSignupScreen(),
-          "/arcore": (context) => HelloWorld(),
+          "/arcore": (context) => ObjectGesturesWidget(),
           // "/camera": (context) => Camera(),
         },
       ),
