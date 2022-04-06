@@ -16,9 +16,9 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-      height: height / 2,
+      height: height * 2 / 3,
       decoration: BoxDecoration(
-        // color: Colors.red,
+        // color: Colors.grey[200],
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
@@ -33,20 +33,12 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
               width: width / 2,
               height: height / 5,
               child: Image.asset('assets/cube/Pyramid.gif'),
-              //로딩 문제
-              // child: ModelViewer(
-              //   backgroundColor: Colors.white,
-              //   src: 'assets/cube/Pyramid.glb',
-              //   autoPlay: true,
-              //   autoRotate: true,
-              //   cameraControls: true,
-              // ),
             ),
           ),
           Positioned(
             bottom: 0,
             child: Container(
-              height: height / 4,
+              height: height / 3,
               width: width,
               color: Colors.white,
               child: Padding(
@@ -54,7 +46,136 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('미리 준비해주세요'),
+                    Text(
+                      '미리 준비해주세요',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 20),
+                      child: Divider(
+                        color: Colors.grey[700],
+                        thickness: 1.5,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: 100.h,
+                          width: 100.w,
+                          // color: Colors.blueAccent,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[500],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 7,
+                                blurRadius: 5,
+                                offset:
+                                    Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Image(
+                            image: AssetImage('assets/images/piece_1.png'),
+                          ),
+                        ),
+                        Container(
+                          height: 100.h,
+                          width: 100.w,
+                          // color: Colors.blueAccent,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[500],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 7,
+                                blurRadius: 5,
+                                offset:
+                                    Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Image(
+                            image: AssetImage('assets/images/piece_2.png'),
+                          ),
+                        ),
+                        Container(
+                          height: 100.h,
+                          width: 100.w,
+                          // color: Colors.blueAccent,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[500],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 7,
+                                blurRadius: 5,
+                                offset:
+                                    Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Image(
+                            image: AssetImage('assets/images/piece_3.png'),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Center(
+                              child: Text(
+                                '2',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                            ),
+                            width: 100.w,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                '2',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                            ),
+                            width: 100.w,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                '2',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                            ),
+                            width: 100.w,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

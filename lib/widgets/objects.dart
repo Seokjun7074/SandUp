@@ -132,7 +132,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               children: [
                 ModelViewer(
                   backgroundColor: Colors.teal[200],
-                  src: 'assets/cube/Pyramid.glb',
+                  src: 'assets/cube/sand.glb',
                   autoPlay: true,
                   autoRotate: true,
                   cameraControls: true,
@@ -145,17 +145,17 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     onTap: () => onSelect(sandup),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 7,
-                              blurRadius: 5,
-                              offset:
-                                  Offset(0, 1), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(40)),
+                        color: Colors.redAccent,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 7,
+                            blurRadius: 5,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(40),
+                      ),
                       height: 60.h,
                       width: 100.w,
                       child: Padding(
@@ -284,23 +284,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                // AnimatedPositioned(
-                //   duration: Duration(
-                //     milliseconds: 200,
-                //   ),
-                //   bottom: show ? 0 : -height / 2,
-                //   child: GestureDetector(
-                //     onPanEnd: (details) => {
-                //       if (details.velocity.pixelsPerSecond.dy > 100)
-                //         {
-                //           setState(() {
-                //             show = !show;
-                //           })
-                //         }
-                //     },
-                //     child: ButtomDrawer(),
-                //   ),
-                // ),
               ],
             ),
     );

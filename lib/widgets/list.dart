@@ -127,12 +127,16 @@ class _ObjectListState extends State<ObjectList> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: Text(
-                "Level",
-                style: TextStyle(
-                  color: Colors.grey[800],
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w900,
+              child: SizedBox(
+                width: width,
+                child: Text(
+                  "Level",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
             ),
