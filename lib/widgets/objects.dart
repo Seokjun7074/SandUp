@@ -119,6 +119,21 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     });
   }
 
+  //이미지 토글
+  bool _visibility = true;
+
+  void showWidget() {
+    setState(() {
+      _visibility = true;
+    });
+  }
+
+  void hideWidget() {
+    setState(() {
+      _visibility = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -189,6 +204,19 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
+                Visibility(
+                  visible: _visibility,
+                  child: Positioned(
+                    right: 0,
+                    left: 0,
+                    top: height / 2,
+                    child: Container(
+                      width: width / 2,
+                      height: height / 5,
+                      child: Image.asset('assets/cube/Pyramid.gif'),
+                    ),
+                  ),
+                ),
                 Positioned(
                   bottom: 0,
                   child: Container(
@@ -223,11 +251,15 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                 color: Colors.grey[800],
                               ),
                             ),
-                            Container(
-                              child: Icon(
-                                Icons.camera,
-                                size: 50.sp,
-                                color: Colors.grey[800],
+                            GestureDetector(
+                              onTap: () =>
+                                  {_visibility ? hideWidget() : showWidget()},
+                              child: Container(
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 50.sp,
+                                  color: Colors.grey[800],
+                                ),
                               ),
                             ),
                             Container(

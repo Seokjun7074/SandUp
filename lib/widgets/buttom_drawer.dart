@@ -16,7 +16,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-      height: height * 2 / 3,
+      height: height * 1 / 3,
       decoration: BoxDecoration(
         // color: Colors.grey[200],
         borderRadius: BorderRadius.only(
@@ -26,21 +26,28 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
       ),
       child: Stack(
         children: [
-          Positioned(
-            right: 0,
-            left: 0,
-            child: Container(
-              width: width / 2,
-              height: height / 5,
-              child: Image.asset('assets/cube/Pyramid.gif'),
-            ),
-          ),
+          // Positioned(
+          //   right: 0,
+          //   left: 0,
+          //   child: Container(
+          //     width: width / 2,
+          //     height: height / 5,
+          //     child: Image.asset('assets/cube/Pyramid.gif'),
+          //   ),
+          // ),
           Positioned(
             bottom: 0,
             child: Container(
               height: height / 3,
               width: width,
-              color: Colors.white,
+              // color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
