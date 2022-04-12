@@ -1,7 +1,5 @@
-import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:model_viewer/model_viewer.dart';
 
 class ButtomDrawer extends StatefulWidget {
   const ButtomDrawer({Key? key}) : super(key: key);
@@ -26,15 +24,6 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
       ),
       child: Stack(
         children: [
-          // Positioned(
-          //   right: 0,
-          //   left: 0,
-          //   child: Container(
-          //     width: width / 2,
-          //     height: height / 5,
-          //     child: Image.asset('assets/cube/Pyramid.gif'),
-          //   ),
-          // ),
           Positioned(
             bottom: 0,
             child: Container(
