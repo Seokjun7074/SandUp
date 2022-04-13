@@ -130,30 +130,30 @@ class _BndBoxState extends State<BndBox> {
     );
   }
 
-  Future<void> _getPrediction(List<double> steps) async {
-    try {
-      final double result = await BndBox.platform.invokeMethod('predictData', {
-        "model": widget.model,
-        "arg": steps,
-      }); // passing arguments
-      if (result <= 1) {
-        _percent = 0;
-        _percent = result;
-      }
-      _label =
-          result < 0.5 ? "Wrong step" : (result * 100).toStringAsFixed(0) + "%";
-      updateCounter(_percent);
-
-      print("Final Label: " + result.toString());
-    } on PlatformException catch (e) {}
-  }
-
-  void updateCounter(percent) {
-    if (percent > 0.5) {
-      (_counter += percent / 100) >= 1
-          ? _counter = 1.0
-          : _counter += percent / 100;
-    }
-    print("Counter: " + _counter.toString());
-  }
+  // Future<void> _getPrediction(List<double> steps) async {
+  //   try {
+  //     final double result = await BndBox.platform.invokeMethod('predictData', {
+  //       "model": widget.model,
+  //       "arg": steps,
+  //     }); // passing arguments
+  //     if (result <= 1) {
+  //       _percent = 0;
+  //       _percent = result;
+  //     }
+  //     _label =
+  //         result < 0.5 ? "Wrong step" : (result * 100).toStringAsFixed(0) + "%";
+  //     updateCounter(_percent);
+  //
+  //     print("Final Label: " + result.toString());
+  //   } on PlatformException catch (e) {}
+  // }
+  //
+  // void updateCounter(percent) {
+  //   if (percent > 0.5) {
+  //     (_counter += percent / 100) >= 1
+  //         ? _counter = 1.0
+  //         : _counter += percent / 100;
+  //   }
+  //   print("Counter: " + _counter.toString());
+  // }
 }
