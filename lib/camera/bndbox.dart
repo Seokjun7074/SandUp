@@ -54,13 +54,13 @@ class _BndBoxState extends State<BndBox> {
       var lists = <Widget>[];
 
       return widget.results.map((re) {
-        if (re["label"] == "step1" && re["confidence"] > 0.95) {
+        if (re["label"] == "step1" && re["confidence"] > 0.9) {
           status = 1;
         }
-        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.95) {
+        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.9) {
           status = 2;
         }
-        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.95) {
+        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.9) {
           status = 3;
         }
 
@@ -99,19 +99,19 @@ class _BndBoxState extends State<BndBox> {
           //     ),
           //   ),
           // ),
-          // Padding(
-          //   padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 25.0),
-          //   child: LinearPercentIndicator(
-          //     animation: true,
-          //     lineHeight: 20.0,
-          //     animationDuration: 500,
-          //     animateFromLastPercent: true,
-          //     percent: _counter,
-          //     center: Text("${(_counter * 100).toStringAsFixed(1)} %"),
-          //     linearStrokeCap: LinearStrokeCap.roundAll,
-          //     progressColor: Colors.green,
-          //   ),
-          // ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(25.0, 60.0, 25.0, 25.0),
+            child: LinearPercentIndicator(
+              animation: true,
+              lineHeight: 20.0,
+              animationDuration: 2500,
+              animateFromLastPercent: true,
+              percent: status * 0.33,
+              center: Text("${(status * 33.3).toStringAsFixed(1)} %"),
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: Colors.purpleAccent,
+            ),
+          ),
         ],
       ),
       Stack(

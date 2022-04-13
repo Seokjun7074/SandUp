@@ -216,12 +216,13 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(
+                            GestureDetector(
                               child: Icon(
                                 Icons.home,
                                 size: 50.sp,
                                 color: Colors.grey[800],
                               ),
+                              onTap: () => print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'),
                             ),
                             Container(
                               child: Icon(

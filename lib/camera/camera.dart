@@ -18,6 +18,7 @@ class Camera extends StatefulWidget {
   final Callback setRecognitions;
   final String model;
 
+
   const Camera(
     this.cameras,
     this.model,
@@ -106,12 +107,14 @@ class _CameraState extends State<Camera> {
     return Scaffold(
       body: Stack(
         children: [
-          Transform.scale(
-            scale: scale,
-            child: controller.buildPreview(),
-            // arcore뷰 가져오기.. ml이 작동 안함..
-            //ObjectGesturesWidget(),
-          ),
+          controller.buildPreview(),
+          // Transform.scale(
+          //   scale: scale,
+          //   child: controller.buildPreview(),
+          //   // arcore뷰 가져오기.. ml이 작동 안함..
+          //   //ObjectGesturesWidget(),
+          // ),
+          // ObjectGesturesWidget(),
           // AspectRatio(
           //   aspectRatio: 1 / controller.value.aspectRatio,
           //   child: controller.buildPreview(),

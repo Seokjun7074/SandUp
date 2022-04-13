@@ -12,15 +12,14 @@ import 'package:ar_flutter_plugin/datatypes/hittest_result_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
 import 'package:vector_math/vector_math_64.dart';
-import 'dart:math';
 
 import 'package:jolzak/camera/camera.dart' as cam;
 import 'package:jolzak/camera/bndbox.dart';
 import 'package:flutter_cube/flutter_cube.dart';
-
+import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
-import 'package:jolzak/camera/models.dart';
-import 'dart:math' as math;
+
+import 'models.dart';
 
 
 class ObjectGesturesWidget extends StatefulWidget {
@@ -35,48 +34,48 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   late ARObjectManager arObjectManager;
   late ARAnchorManager arAnchorManager;
   late ArCoreController arCoreController;
-  //
-  // List<dynamic>? _recognitions;
-  // int _imageHeight = 0;
-  // int _imageWidth = 0;
-  // String _model = "";
-  //
+
+  List<dynamic>? _recognitions;
+  int _imageHeight = 0;
+  int _imageWidth = 0;
+  String _model = "";
+
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
-  //
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   arSessionManager.dispose();
-  // }
-  //
-  // loadModel() async {
-  //   String? res;
-  //   switch (_model) {
-  //     case sandup:
-  //       res = await Tflite.loadModel(
-  //         model: "assets/model/model.tflite",
-  //         labels: "assets/model/labels.txt",
-  //       );
-  //   }
-  //   print(res);
-  // }
-  //
-  // onSelect(model) {
-  //   setState(() {
-  //     _model = model;
-  //   });
-  //   loadModel();
-  // }
-  //
-  // setRecognitions(recognitions, imageHeight, imageWidth) {
-  //   setState(() {
-  //     _recognitions = recognitions;
-  //     _imageHeight = imageHeight;
-  //     _imageWidth = imageWidth;
-  //   });
-  // }
-  //
+
+  @override
+  void dispose() {
+    super.dispose();
+    arSessionManager.dispose();
+  }
+
+  loadModel() async {
+    String? res;
+    switch (_model) {
+      case sandup:
+        res = await Tflite.loadModel(
+          model: "assets/model/model.tflite",
+          labels: "assets/model/labels.txt",
+        );
+    }
+    print(res);
+  }
+
+  onSelect(model) {
+    setState(() {
+      _model = model;
+    });
+    loadModel();
+  }
+
+  setRecognitions(recognitions, imageHeight, imageWidth) {
+    setState(() {
+      _recognitions = recognitions;
+      _imageHeight = imageHeight;
+      _imageWidth = imageWidth;
+    });
+  }
+
 
 
   @override
@@ -105,7 +104,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
               //   child: Image.asset('assets/images/circle.png'),
               // ),
               // cam.Camera(
-              //   ARView.,
+              //   ,
               //   _model,
               //   setRecognitions,
               // ),
