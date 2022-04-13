@@ -34,62 +34,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageWidth = 0;
   String _model = "";
 
-  void generateSphereObject(Object parent, String name, double radius,
-      bool backfaceCulling, String texturePath) async {
-    final Mesh mesh =
-        await generateSphereMesh(radius: radius, texturePath: texturePath);
-    // parent
-    //     .add(Object(name: name, mesh: mesh, backfaceCulling: backfaceCulling));
-    _scene.updateTexture();
-  }
-
-  void _onSceneCreated(Scene scene) {
-    _scene = scene;
-    // _scene.camera.position.z = 2.5;
-    // _scene.camera.position.y = 8;
-    _scene.camera.position.z = 1.7;
-    _scene.camera.position.y = 4.0;
-
-    // model from https://free3d.com/3d-model/planet-earth-99065.html
-    // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
-
-    // create by code
-    _level = Object(
-        name: 'level',
-        scale: Vector3(11.0, 11.0, 11.0),
-        rotation: Vector3(0.0, 0.0, 5.0),
-        backfaceCulling: false,
-        fileName: 'assets/cube/model1.obj');
-    generateSphereObject(
-        _level!, 'surface', 2.0, true, 'assets/cube/SAA2EF~1.JPG');
-    _scene.world.add(_level!);
-
-    // texture from https://www.solarsystemscope.com/textures/
-    // _back = Object(name: 'back', scale: Vector3(20.0, 20.0, 20.0));
-    // generateSphereObject(
-    //     _back, 'surface', 0.5, false, 'assets/images/background.png');
-    // _scene.world.add(_back);
-  }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-        duration: Duration(milliseconds: 30000), vsync: this)
-      ..addListener(() {
-        if (_level != null) {
-          _level!.rotation.y = _controller.value * 360;
-          _level!.updateTransform();
-          _scene.update();
-        }
-      })
-      ..repeat();
   }
 
   loadModel() async {
@@ -119,6 +67,21 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     });
   }
 
+  //이미지 토글
+  bool _visibility = true;
+
+  void showWidget() {
+    setState(() {
+      _visibility = true;
+    });
+  }
+
+  void hideWidget() {
+    setState(() {
+      _visibility = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -132,7 +95,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               children: [
                 ModelViewer(
                   backgroundColor: Colors.teal[200],
-                  src: 'assets/cube/Pyramid.glb',
+                  src: 'assets/cube/sand.glb',
                   autoPlay: true,
                   autoRotate: true,
                   cameraControls: true,
@@ -145,17 +108,17 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     onTap: () => onSelect(sandup),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 7,
-                              blurRadius: 5,
-                              offset:
-                                  Offset(0, 1), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(40)),
+                        color: Colors.redAccent,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 7,
+                            blurRadius: 5,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(40),
+                      ),
                       height: 60.h,
                       width: 100.w,
                       child: Padding(
@@ -189,6 +152,19 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
+                Visibility(
+                  visible: _visibility,
+                  child: Positioned(
+                    right: 0,
+                    left: 0,
+                    top: height / 2,
+                    child: Container(
+                      width: width / 2,
+                      height: height / 5,
+                      child: Image.asset('assets/cube/Pyramid.gif'),
+                    ),
+                  ),
+                ),
                 Positioned(
                   bottom: 0,
                   child: Container(
@@ -224,11 +200,15 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                               ),
                               onTap: () => print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'),
                             ),
-                            Container(
-                              child: Icon(
-                                Icons.camera,
-                                size: 50.sp,
-                                color: Colors.grey[800],
+                            GestureDetector(
+                              onTap: () =>
+                                  {_visibility ? hideWidget() : showWidget()},
+                              child: Container(
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 50.sp,
+                                  color: Colors.grey[800],
+                                ),
                               ),
                             ),
                             Container(
@@ -285,70 +265,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                // AnimatedPositioned(
-                //   duration: Duration(
-                //     milliseconds: 200,
-                //   ),
-                //   bottom: show ? 0 : -height / 2,
-                //   child: GestureDetector(
-                //     onPanEnd: (details) => {
-                //       if (details.velocity.pixelsPerSecond.dy > 100)
-                //         {
-                //           setState(() {
-                //             show = !show;
-                //           })
-                //         }
-                //     },
-                //     child: ButtomDrawer(),
-                //   ),
-                // ),
               ],
             ),
     );
   }
-}
-
-Future<Mesh> generateSphereMesh(
-    {num radius = 0.5,
-    int latSegments = 32,
-    int lonSegments = 64,
-    required String texturePath}) async {
-  int count = (latSegments + 1) * (lonSegments + 1);
-  List<Vector3> vertices = List<Vector3>.filled(count, Vector3.zero());
-  List<Offset> texcoords = List<Offset>.filled(count, Offset.zero);
-  List<Polygon> indices =
-      List<Polygon>.filled(latSegments * lonSegments * 2, Polygon(0, 0, 0));
-
-  int i = 0;
-  for (int y = 0; y <= latSegments; ++y) {
-    final double v = y / latSegments;
-    final double sv = math.sin(v * math.pi);
-    final double cv = math.cos(v * math.pi);
-    for (int x = 0; x <= lonSegments; ++x) {
-      final double u = x / lonSegments;
-      vertices[i] = Vector3(radius * math.cos(u * math.pi * 2.0) * sv,
-          radius * cv, radius * math.sin(u * math.pi * 2.0) * sv);
-      texcoords[i] = Offset(1.0 - u, 1.0 - v);
-      i++;
-    }
-  }
-
-  i = 0;
-  for (int y = 0; y < latSegments; ++y) {
-    final int base1 = (lonSegments + 1) * y;
-    final int base2 = (lonSegments + 1) * (y + 1);
-    for (int x = 0; x < lonSegments; ++x) {
-      indices[i++] = Polygon(base1 + x, base1 + x + 1, base2 + x);
-      indices[i++] = Polygon(base1 + x + 1, base2 + x + 1, base2 + x);
-    }
-  }
-
-  ui.Image texture = await loadImageFromAsset(texturePath);
-  final Mesh mesh = Mesh(
-      vertices: vertices,
-      texcoords: texcoords,
-      indices: indices,
-      texture: texture,
-      texturePath: texturePath);
-  return mesh;
 }
