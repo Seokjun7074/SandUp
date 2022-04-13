@@ -24,7 +24,9 @@ dependencies:
   ar_flutter_plugin: ^0.6.2
   flutter_screenutil: ^5.3.1
 
+
   model_viewer: ^0.8.1
+
 
 dev_dependencies:
   flutter_test:
@@ -43,6 +45,7 @@ flutter:
     - assets/cube/
     - assets/capture/
     - Models/Chicken_01/
+
 
 flutter_native_splash:
   color: "#42a5f5"
