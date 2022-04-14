@@ -10,8 +10,12 @@ import 'dart:ui' as ui;
 import 'package:model_viewer/model_viewer.dart';
 import 'package:jolzak/camera/arcore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'buttom_drawer.dart';
+
+
+
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -33,6 +37,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageHeight = 0;
   int _imageWidth = 0;
   String _model = "";
+
 
   @override
   void dispose() {
@@ -211,9 +216,13 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            Container(
+                            GestureDetector(
+                              onTap: () {
+                                final player = AudioCache();
+                                player.play('audio/sound.mp3');
+                              },
                               child: Icon(
-                                Icons.camera,
+                                Icons.play_arrow,
                                 size: 50.sp,
                                 color: Colors.grey[800],
                               ),

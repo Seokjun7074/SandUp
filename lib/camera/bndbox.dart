@@ -4,6 +4,7 @@ import 'models.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:jolzak/camera/arcore.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 int status = 0;
 
@@ -35,6 +36,7 @@ class _BndBoxState extends State<BndBox> {
   String _label = 'progress_bar';
   double _percent = 0;
   double _counter = 0;
+  AudioCache audioCache = AudioCache();
 
   @override
   void initState() {
@@ -55,6 +57,7 @@ class _BndBoxState extends State<BndBox> {
 
       return widget.results.map((re) {
         if (re["label"] == "step1" && re["confidence"] > 0.9) {
+          audioCache.play('audio/sound.mp3');
           status = 1;
         }
         if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.9) {
