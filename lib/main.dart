@@ -16,6 +16,7 @@ import 'package:jolzak/widgets/objects.dart';
 import 'package:jolzak/camera/arcore.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jolzak/widgets/scaled_list.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           "/login": (context) => LogIn(),
           "/loginsignup": (context) => LoginSignupScreen(),
           "/arcore": (context) => ObjectGesturesWidget(),
-          // "/camera": (context) => Camera(),
+          "/testlist": (context) => TestList(),
         },
       ),
     );

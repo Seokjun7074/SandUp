@@ -72,7 +72,7 @@ class StarDisplay extends StatelessWidget {
       children: List.generate(5, (index) {
         return Icon(
           index < value ? Icons.star : Icons.star_border,
-          size: 18.sp,
+          size: 15.sp,
           // color: Color(0xFF4ADEA3),
           color: Colors.indigo,
         );

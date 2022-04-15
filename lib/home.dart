@@ -42,7 +42,8 @@ class Home extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30))),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/objectlist");
+                      // Navigator.pushNamed(context, "/objectlist");
+                      Navigator.pushNamed(context, "/testlist");
                     },
                     child: Text(
                       'START',
