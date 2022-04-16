@@ -24,9 +24,13 @@ dependencies:
   ar_flutter_plugin: ^0.6.2
   flutter_screenutil: ^5.3.1
   audioplayers: ^0.20.1
-  scaled_list: ^1.0.1+6
-
   model_viewer: ^0.8.1
+
+  # scaled_list: ^1.0.1+6
+  scaled_list:
+    git:
+      url: https://github.com/Seokjun7074/scaled_list.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +50,15 @@ flutter:
     - assets/capture/
     - Models/Chicken_01/
     - assets/audio/
+
+  fonts:
+    - family: yanolja
+      fonts:
+        - asset: assets/font/yanoljaRegular.ttf
+
+    - family: Dongle
+      fonts:
+        - asset: assets/font/Dongle-Regular.ttf
 
 flutter_native_splash:
   color: "#42a5f5"

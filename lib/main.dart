@@ -46,8 +46,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Sand UP',
         theme: ThemeData(
-            // primaryColor: Colors.white,
-            ),
+          fontFamily: 'yanolja',
+        ),
         initialRoute: "/",
         //라우터는 여기에
         routes: {

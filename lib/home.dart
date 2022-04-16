@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 6,
               child: Text(
-                'Sand Up',
+                'Sand up',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 70.sp,
