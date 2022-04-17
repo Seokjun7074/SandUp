@@ -9,10 +9,44 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:scaled_list/scaled_list.dart';
 
-class TestList extends StatelessWidget {
+List<CameraDescription>? cameras;
+
+class TestList extends StatefulWidget {
+  const TestList({Key? key}) : super(key: key);
+
+  @override
+  State<TestList> createState() => _TestListState();
+}
+
+class _TestListState extends State<TestList> {
+  final _authentication = FirebaseAuth.instance;
+
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _authentication.currentUser;
+      User? loggedUser;
+      if (user != null) {
+        loggedUser = user;
+        print(loggedUser.email);
+        print(_authentication.currentUser);
+        print("로그인되어있음");
+      } else {
+        print("로그인 안되어있음");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber[50],
       body: Center(
         child: ScaledList(
           itemCount: categories.length,
@@ -21,21 +55,40 @@ class TestList extends StatelessWidget {
           },
           itemBuilder: (index, selectedIndex) {
             final category = categories[index];
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: selectedIndex == index ? 100 : 80,
-                  child: Image.asset(category.image),
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  "/objects",
+                  arguments: ObjectsArguments(index: index + 1),
+                );
+              },
+              child: Container(
+                color: Colors.transparent,
+                width: 100,
+                height: 100,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: selectedIndex == index ? 200 : 80,
+                      child: Image.asset(category.image),
+                    ),
+                    SizedBox(height: 20.h),
+                    Text(
+                      category.name,
+                      style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: selectedIndex == index ? 25 : 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    StarDisplay(value: index + 1),
+                  ],
                 ),
-                SizedBox(height: 15),
-                Text(
-                  category.name,
-                  style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: selectedIndex == index ? 25 : 20),
-                )
-              ],
+              ),
             );
           },
         ),
@@ -66,4 +119,25 @@ class Category {
   final String name;
 
   Category({required this.image, required this.name});
+}
+
+class StarDisplay extends StatelessWidget {
+  final int value;
+  const StarDisplay({Key? key, this.value = 0})
+      : assert(value != null),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(5, (index) {
+        return Icon(
+          index < value ? Icons.star : Icons.star_border,
+          size: 18.sp,
+          // color: Color(0xFF4ADEA3),
+          color: Colors.grey[800],
+        );
+      }),
+    );
+  }
 }

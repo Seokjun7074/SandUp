@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => Home(),
           "/objectlist": (context) => ObjectList(),
+          // "/objects": (context) => Objects(cameras!),
           "/objects": (context) => Objects(cameras!),
           "/login": (context) => LogIn(),
           "/loginsignup": (context) => LoginSignupScreen(),

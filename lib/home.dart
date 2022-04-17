@@ -10,7 +10,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color(0xFFffead7),
-      backgroundColor: Color(0xFFffffff),
+      // backgroundColor: Color(0xFFffffff),
+      backgroundColor: Colors.amber[50],
+
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         // color: Color(0xFFffead7),

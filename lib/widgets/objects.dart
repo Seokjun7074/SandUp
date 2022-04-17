@@ -14,8 +14,11 @@ import 'package:audioplayers/audioplayers.dart';
 
 import 'buttom_drawer.dart';
 
+class ObjectsArguments {
+  final int index;
 
-
+  ObjectsArguments({required this.index});
+}
 
 class Objects extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -29,7 +32,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   late Scene _scene;
   Object? _level;
   late Object _back;
-  late AnimationController _controller;
+  // late AnimationController _controller;
 
   bool show = false;
 
@@ -38,12 +41,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageWidth = 0;
   String _model = "";
 
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   loadModel() async {
     String? res;
@@ -90,9 +92,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    final args = ModalRoute.of(context)!.settings.arguments as ObjectsArguments;
+    print(args.index.toString() + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
+    // 리스트에서 받아온 인덱스(레벨)
     return Scaffold(
       // body: Cube(onSceneCreated: _onSceneCreated),
       body: _model == ""
@@ -105,7 +110,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   autoRotate: true,
                   cameraControls: true,
                 ),
-                // Cube(onSceneCreated: _onSceneCreated),
                 Positioned(
                   bottom: 30.h,
                   right: 20.w,
@@ -203,7 +207,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                 size: 50.sp,
                                 color: Colors.grey[800],
                               ),
-                              onTap: () => print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'),
+                              onTap: () => print(
+                                  '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'),
                             ),
                             GestureDetector(
                               onTap: () =>

@@ -8,7 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-List<CameraDescription>? cameras;
+//원래있던 코드
+// List<CameraDescription>? cameras;
 
 class ObjectList extends StatefulWidget {
   const ObjectList({Key? key}) : super(key: key);
