@@ -104,8 +104,9 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
           ? Stack(
               children: [
                 ModelViewer(
-                  backgroundColor: Colors.teal[200],
-                  src: 'assets/cube/sand.glb',
+                  backgroundColor: Colors.amber[50],
+                  // src: 'assets/cube/sand.glb',
+                  src: 'assets/test/sjsj.glb',
                   autoPlay: true,
                   autoRotate: true,
                   cameraControls: true,

@@ -50,6 +50,7 @@ flutter:
     - assets/capture/
     - Models/Chicken_01/
     - assets/audio/
+    - assets/test/
 
   fonts:
     - family: yanolja
