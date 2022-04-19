@@ -18,7 +18,6 @@ class Camera extends StatefulWidget {
   final Callback setRecognitions;
   final String model;
 
-
   const Camera(
     this.cameras,
     this.model,

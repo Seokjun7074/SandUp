@@ -8,6 +8,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       // backgroundColor: Color(0xFFffead7),
       // backgroundColor: Color(0xFFffffff),
@@ -25,7 +27,7 @@ class Home extends StatelessWidget {
                 'Sand up',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 70.sp,
+                    fontSize: 80.sp,
                     color: Colors.amber[600]),
               ),
             ),
@@ -37,7 +39,7 @@ class Home extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 70, 0, 0),
                   height: 60.h,
-                  width: 250.w,
+                  width: width / 3 * 1.8,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber[600],
@@ -60,7 +62,8 @@ class Home extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
                   height: 60.h,
-                  width: 250.w,
+                  // width: 250.w,
+                  width: width / 3 * 1.8,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber[600],
