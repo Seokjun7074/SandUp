@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         //라우터는 여기에
         routes: {
           "/": (context) => Home(),
-          "/objectlist": (context) => ObjectList(),
+          // "/objectlist": (context) => ObjectList(),
           // "/objects": (context) => Objects(cameras!),
           "/objects": (context) => Objects(cameras!),
           "/login": (context) => LogIn(),
