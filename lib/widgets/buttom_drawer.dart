@@ -31,7 +31,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
               width: width,
               // color: Colors.white,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.amber[50],
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -45,7 +45,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                     Text(
                       '미리 준비해주세요',
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1,
                       ),
@@ -137,7 +137,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueGrey,
+                                  color: Colors.grey[700],
                                 ),
                               ),
                             ),
@@ -150,7 +150,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueGrey,
+                                  color: Colors.grey[700],
                                 ),
                               ),
                             ),
@@ -163,7 +163,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blueGrey,
+                                  color: Colors.grey[700],
                                 ),
                               ),
                             ),

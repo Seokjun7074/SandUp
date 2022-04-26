@@ -75,7 +75,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   }
 
   //이미지 토글
-  bool _visibility = true;
+  bool _visibility = false;
 
   void showWidget() {
     setState(() {
@@ -112,6 +112,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   autoPlay: true,
                   autoRotate: true,
                   cameraControls: true,
+                  // ar: true,
                 ),
                 Positioned(
                   bottom: 30.h,
@@ -180,11 +181,19 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   child: Positioned(
                     right: 0,
                     left: 0,
-                    top: height / 2,
+                    // bottom: 100.h,
                     child: Container(
                       width: width / 2,
-                      height: height / 5,
-                      child: Image.asset('assets/cube/Pyramid.gif'),
+                      height: height,
+                      // child: Image.asset('assets/cube/Pyramid.gif'),
+                      child: ModelViewer(
+                        backgroundColor: Colors.amber[50],
+                        // src: 'assets/cube/sand.glb',
+                        src: 'assets/test/sjsj.glb',
+                        autoPlay: true,
+                        autoRotate: true,
+                        cameraControls: true,
+                      ),
                     ),
                   ),
                 ),
@@ -200,11 +209,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                           offset: Offset(0, 3), // changes position of shadow
                         ),
                       ],
-                      color: Colors.amber[600],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
+                      color: Color.fromRGBO(0, 0, 0, 0.7),
+                      // borderRadius: BorderRadius.only(
+                      //   topLeft: Radius.circular(10),
+                      //   topRight: Radius.circular(10),
+                      // ),
                     ),
                     height: 100.h,
                     width: width,
@@ -219,7 +228,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                               child: Icon(
                                 Icons.info_outline_rounded,
                                 size: 50.sp,
-                                color: Colors.grey[800],
+                                color: Colors.amber[300],
                               ),
                               onTap: () => showModalBottomSheet(
                                   backgroundColor: Colors.transparent,
@@ -235,7 +244,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                 child: Icon(
                                   Icons.gif_rounded,
                                   size: 50.sp,
-                                  color: Colors.grey[800],
+                                  color: Colors.amber[300],
                                 ),
                               ),
                             ),
@@ -247,14 +256,14 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                               child: Icon(
                                 Icons.play_arrow,
                                 size: 50.sp,
-                                color: Colors.grey[800],
+                                color: Colors.amber[300],
                               ),
                             ),
                             Container(
                               child: Icon(
                                 Icons.camera,
                                 size: 50.sp,
-                                color: Colors.grey[800],
+                                color: Colors.amber[300],
                               ),
                             ),
                           ],
@@ -263,40 +272,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                // Positioned(
-                //   bottom: 70.h,
-                //   left: 0,
-                //   right: 0,
-                //   child: GestureDetector(
-                //     onTap: () => showModalBottomSheet(
-                //         backgroundColor: Colors.transparent,
-                //         context: context,
-                //         builder: (BuildContext context) {
-                //           return ButtomDrawer();
-                //         }),
-                //     child: Container(
-                //       height: 70.h,
-                //       width: 70.w,
-                //       decoration: BoxDecoration(
-                //         boxShadow: [
-                //           BoxShadow(
-                //             color: Colors.grey.withOpacity(0.2),
-                //             spreadRadius: 1,
-                //             blurRadius: 5,
-                //             offset: Offset(0, 1), // changes position of shadow
-                //           ),
-                //         ],
-                //         color: Colors.white,
-                //         shape: BoxShape.circle,
-                //       ),
-                //       child: Icon(
-                //         Icons.arrow_upward_rounded,
-                //         size: 60.sp,
-                //         color: Colors.grey[800],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
     );
