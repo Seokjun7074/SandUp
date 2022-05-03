@@ -200,22 +200,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 Positioned(
                   bottom: 0,
                   child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      color: Color.fromRGBO(0, 0, 0, 0.7),
-                      // borderRadius: BorderRadius.only(
-                      //   topLeft: Radius.circular(10),
-                      //   topRight: Radius.circular(10),
-                      // ),
-                    ),
-                    height: 100.h,
+                    color: Color.fromRGBO(0, 0, 0, 0.7),
+                    height: 110.h,
                     width: width,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -226,7 +212,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                           children: [
                             GestureDetector(
                               child: Icon(
-                                Icons.info_outline_rounded,
+                                Icons.lightbulb_outline,
                                 size: 50.sp,
                                 color: Colors.amber[300],
                               ),
@@ -241,24 +227,29 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                               onTap: () =>
                                   {_visibility ? hideWidget() : showWidget()},
                               child: Container(
-                                child: Icon(
-                                  Icons.gif_rounded,
-                                  size: 50.sp,
-                                  color: Colors.amber[300],
-                                ),
+                                child: Icon(Icons.view_in_ar_outlined,
+                                    size: 50.sp,
+                                    // color: Colors.amber[300],
+                                    color: !_visibility
+                                        ? Colors.amber[300]
+                                        : Colors.amber[800]),
+                                // child: Image(
+                                //   image: AssetImage(
+                                //       'assets/icons/castle_icon.png'),
+                                // ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                final player = AudioCache();
-                                player.play('audio/sound.mp3');
-                              },
-                              child: Icon(
-                                Icons.play_arrow,
-                                size: 50.sp,
-                                color: Colors.amber[300],
-                              ),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     final player = AudioCache();
+                            //     player.play('audio/sound.mp3');
+                            //   },
+                            //   child: Icon(
+                            //     Icons.play_arrow,
+                            //     size: 50.sp,
+                            //     color: Colors.amber[300],
+                            //   ),
+                            // ),
                             Container(
                               child: Icon(
                                 Icons.camera,

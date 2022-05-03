@@ -51,6 +51,7 @@ flutter:
     - Models/Chicken_01/
     - assets/audio/
     - assets/test/
+    - assets/icons/
 
   fonts:
     - family: yanolja
