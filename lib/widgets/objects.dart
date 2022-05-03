@@ -18,7 +18,7 @@ import 'buttom_drawer.dart';
 
 
 class Objects extends StatefulWidget {
-  final List<CameraDescription> cameras;
+  final List<dynamic> cameras;
   Objects(this.cameras);
 
   @override
@@ -150,130 +150,135 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
                 //   child: Image.asset('assets/images/circle.png'),
                 // ),
-                BndBox(
-                    _recognitions ?? [],
-                    math.max(_imageHeight, _imageWidth),
-                    math.min(_imageHeight, _imageWidth),
-                    screen.height,
-                    screen.width,
-                    _model),
-                Visibility(
-                  visible: _visibility,
-                  child: Positioned(
-                    right: 0,
-                    left: 0,
-                    top: height / 2,
-                    child: Container(
-                      width: width / 2,
-                      height: height / 5,
-                      child: Image.asset('assets/cube/Pyramid.gif'),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40),
-                      ),
-                    ),
-                    height: 100.h,
-                    width: width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              child: Icon(
-                                Icons.home,
-                                size: 50.sp,
-                                color: Colors.grey[800],
-                              ),
-                              onTap: () => print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'),
-                            ),
-                            GestureDetector(
-                              onTap: () =>
-                                  {_visibility ? hideWidget() : showWidget()},
-                              child: Container(
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 50.sp,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                final player = AudioCache();
-                                player.play('audio/sound.mp3');
-                              },
-                              child: Icon(
-                                Icons.play_arrow,
-                                size: 50.sp,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                            Container(
-                              child: Icon(
-                                Icons.camera,
-                                size: 50.sp,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 70.h,
-                  left: 0,
-                  right: 0,
-                  child: GestureDetector(
-                    onTap: () => showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ButtomDrawer();
-                        }),
-                    child: Container(
-                      height: 70.h,
-                      width: 70.w,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(0, 1), // changes position of shadow
-                          ),
-                        ],
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.arrow_upward_rounded,
-                        size: 60.sp,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-                  ),
-                ),
+
+                  // ObjectGesturesWidget(),
+                  BndBox(
+                      _recognitions ?? [],
+                      math.max(_imageHeight, _imageWidth),
+                      math.min(_imageHeight, _imageWidth),
+                      screen.height,
+                      screen.width,
+                      _model),
+
+
+
+              //   Visibility(
+              //     visible: _visibility,
+              //     child: Positioned(
+              //       right: 0,
+              //       left: 0,
+              //       top: height / 2,
+              //       child: Container(
+              //         width: width / 2,
+              //         height: height / 5,
+              //         child: Image.asset('assets/cube/Pyramid.gif'),
+              //       ),
+              //     ),
+              //   ),
+              //   Positioned(
+              //     bottom: 0,
+              //     child: Container(
+              //       decoration: BoxDecoration(
+              //         boxShadow: [
+              //           BoxShadow(
+              //             color: Colors.grey.withOpacity(0.2),
+              //             spreadRadius: 5,
+              //             blurRadius: 7,
+              //             offset: Offset(0, 3), // changes position of shadow
+              //           ),
+              //         ],
+              //         color: Colors.white,
+              //         borderRadius: BorderRadius.only(
+              //           topLeft: Radius.circular(40),
+              //           topRight: Radius.circular(40),
+              //         ),
+              //       ),
+              //       height: 100.h,
+              //       width: width,
+              //       child: Padding(
+              //         padding: const EdgeInsets.all(10.0),
+              //         child: Padding(
+              //           padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //             children: [
+              //               GestureDetector(
+              //                 child: Icon(
+              //                   Icons.home,
+              //                   size: 50.sp,
+              //                   color: Colors.grey[800],
+              //                 ),
+              //                 onTap: () => print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'),
+              //               ),
+              //               GestureDetector(
+              //                 onTap: () =>
+              //                     {_visibility ? hideWidget() : showWidget()},
+              //                 child: Container(
+              //                   child: Icon(
+              //                     Icons.circle,
+              //                     size: 50.sp,
+              //                     color: Colors.grey[800],
+              //                   ),
+              //                 ),
+              //               ),
+              //               GestureDetector(
+              //                 onTap: () {
+              //                   final player = AudioCache();
+              //                   player.play('audio/sound.mp3');
+              //                 },
+              //                 child: Icon(
+              //                   Icons.play_arrow,
+              //                   size: 50.sp,
+              //                   color: Colors.grey[800],
+              //                 ),
+              //               ),
+              //               Container(
+              //                 child: Icon(
+              //                   Icons.camera,
+              //                   size: 50.sp,
+              //                   color: Colors.grey[800],
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              //   Positioned(
+              //     bottom: 70.h,
+              //     left: 0,
+              //     right: 0,
+              //     child: GestureDetector(
+              //       onTap: () => showModalBottomSheet(
+              //           backgroundColor: Colors.transparent,
+              //           context: context,
+              //           builder: (BuildContext context) {
+              //             return ButtomDrawer();
+              //           }),
+              //       child: Container(
+              //         height: 70.h,
+              //         width: 70.w,
+              //         decoration: BoxDecoration(
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.grey.withOpacity(0.2),
+              //               spreadRadius: 1,
+              //               blurRadius: 5,
+              //               offset: Offset(0, 1), // changes position of shadow
+              //             ),
+              //           ],
+              //           color: Colors.white,
+              //           shape: BoxShape.circle,
+              //         ),
+              //         child: Icon(
+              //           Icons.arrow_upward_rounded,
+              //           size: 60.sp,
+              //           color: Colors.grey[800],
+              //         ),
+              //       ),
+              //     ),
+              //   ),
               ],
             ),
     );
