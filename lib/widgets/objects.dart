@@ -93,7 +93,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
