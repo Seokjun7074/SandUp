@@ -116,9 +116,9 @@ class _TestListState extends State<TestList> {
   ];
 
   final List<Category> categories = [
-    Category(image: "assets/images/piece_1.png", name: "Level 1"),
-    Category(image: "assets/images/piece_2.png", name: "Level 2"),
-    Category(image: "assets/images/piece_3.png", name: "Level 3"),
+    Category(image: "assets/images/level1.png", name: "Level 1"),
+    Category(image: "assets/images/level2.png", name: "Level 2"),
+    Category(image: "assets/images/level3.png", name: "Level 3"),
     // Category(image: "assets/images/piece_4.png", name: "Level 4"),
   ];
 }
