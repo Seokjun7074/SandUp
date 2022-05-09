@@ -415,6 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.2"
   matcher:
     dependency: transitive
     description:
@@ -562,6 +569,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  progress_stepper:
+    dependency: "direct main"
+    description:
+      name: progress_stepper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   quiver:
     dependency: transitive
     description:
@@ -569,6 +583,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1+1"
+  scaled_list:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "067c8f21681def9e89143b7f09e3b7de659f133a"
+      url: "https://github.com/Seokjun7074/scaled_list.git"
+    source: git
+    version: "1.0.1+6"
   sky_engine:
     dependency: transitive
     description: flutter

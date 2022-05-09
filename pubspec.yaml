@@ -25,10 +25,15 @@ dependencies:
   flutter_screenutil: ^5.3.1
   audioplayers: ^0.20.1
   image_picker: ^0.8.5
-
-
+  progress_stepper: ^1.0.0
+  lottie: ^1.2.2
   model_viewer: ^0.8.1
 
+  # scaled_list: ^1.0.1+6
+  scaled_list:
+    git:
+      url: https://github.com/Seokjun7074/scaled_list.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +53,18 @@ flutter:
     - assets/capture/
     - Models/Chicken_01/
     - assets/audio/
+    - assets/test/
+    - assets/icons/
+    - assets/effects/
 
+  fonts:
+    - family: yanolja
+      fonts:
+        - asset: assets/font/yanoljaRegular.ttf
+
+    - family: Dongle
+      fonts:
+        - asset: assets/font/Dongle-Regular.ttf
 
 flutter_native_splash:
   color: "#42a5f5"

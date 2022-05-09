@@ -42,6 +42,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   late ARObjectManager arObjectManager;
   late ARAnchorManager arAnchorManager;
 
+  final picker = ImagePicker();
 
 
 
@@ -77,9 +78,8 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
-    return Scaffold(
-      body:
-        Stack(children: <Widget>[
+    return Stack(
+        children: <Widget>[
           // cam.Camera(
           //   widget.cameras,
           //   _model,
@@ -105,6 +105,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
                   ]),
             ),
 
+
             // BndBox(
             //     _recognitions ?? [],
             //     math.max(_imageHeight, _imageWidth),
@@ -114,7 +115,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
             //     _model),
 
           ],
-          ),
+
 
     );
 
@@ -188,8 +189,25 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     }
   }
 
+
   Future<void> onTakeScreenshot() async {
-  //   var image = await this.arSessionManager.snapshot();
+    var image = await this.arSessionManager.snapshot();
+
+
+
+
+
+
+
+    // await showDialog(
+    //     context: context,
+    //     builder: (_) => Dialog(
+    //       child: Container(
+    //         decoration: BoxDecoration(
+    //             image: DecorationImage(image: img, fit: BoxFit.cover)),
+    //       ),
+    //     ));
+
   //   var img = await ImagePicker.platform.pickImage(source: ImageSource.camera);
   //   if (image == null) return;
   //   setState(() {
@@ -243,4 +261,5 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     */
     //rotatedNode.transform = newTransform;
   }
+
 }
