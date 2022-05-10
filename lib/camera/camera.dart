@@ -1,20 +1,28 @@
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/services.dart';
+import 'package:jolzak/camera/arcore.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
-import 'package:jolzak/camera/bndbox.dart';
-import 'package:jolzak/widgets/objects.dart';
-import 'package:jolzak/camera/camera.dart' as cam;
-import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:jolzak/camera/models.dart';
 import 'models.dart';
-import 'package:jolzak/camera/arcore.dart';
+
+
+import 'package:ar_flutter_plugin/models/ar_anchor.dart';
+
+import 'package:ar_flutter_plugin/models/ar_node.dart';
+
+
+
+
+
 
 typedef Callback = void Function(List<dynamic> list, int h, int w);
 
 class Camera extends StatefulWidget {
-  final List<CameraDescription> cameras;
+  final List<dynamic> cameras;
   final Callback setRecognitions;
   final String model;
 
@@ -31,6 +39,18 @@ class Camera extends StatefulWidget {
 class _CameraState extends State<Camera> {
   late CameraController controller;
   bool isDetecting = false;
+
+
+  ObjectGesturesWidget _ObjectGesturesWidget = ObjectGesturesWidget();
+
+
+
+
+
+
+  List<ARNode> nodes = [];
+  List<ARAnchor> anchors = [];
+
 
   @override
   void initState() {
@@ -53,7 +73,9 @@ class _CameraState extends State<Camera> {
           if (!isDetecting) {
             isDetecting = true;
 
-            int startTime = DateTime.now().millisecondsSinceEpoch;
+            int startTime = DateTime
+                .now()
+                .millisecondsSinceEpoch;
 
             if (widget.model == sandup) {
               Tflite.runModelOnFrame(
@@ -64,7 +86,9 @@ class _CameraState extends State<Camera> {
                 imageWidth: img.width,
                 numResults: 1,
               ).then((recognitions) {
-                int endTime = DateTime.now().millisecondsSinceEpoch;
+                int endTime = DateTime
+                    .now()
+                    .millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
                 widget.setRecognitions(recognitions!, img.height, img.width);
                 isDetecting = false;
@@ -75,6 +99,7 @@ class _CameraState extends State<Camera> {
       });
     }
   }
+
 
   @override
   void dispose() {
@@ -88,7 +113,9 @@ class _CameraState extends State<Camera> {
       return Container();
     }
 
-    var tmp = MediaQuery.of(context).size;
+    var tmp = MediaQuery
+        .of(context)
+        .size;
     var screenH = math.max(tmp.height, tmp.width);
     var screenW = math.min(tmp.height, tmp.width);
     tmp = controller.value.previewSize!;
@@ -99,27 +126,24 @@ class _CameraState extends State<Camera> {
 
     //석준 추가
 
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery
+        .of(context)
+        .size;
 
     final scale = 1 / (controller.value.aspectRatio * size.aspectRatio);
-
     return Scaffold(
       body: Stack(
         children: [
           controller.buildPreview(),
+          // ObjectGesturesWidget(),
           // Transform.scale(
           //   scale: scale,
-          //   child: controller.buildPreview(),
-          //   // arcore뷰 가져오기.. ml이 작동 안함..
-          //   //ObjectGesturesWidget(),
-          // ),
-          // ObjectGesturesWidget(),
-          // AspectRatio(
-          //   aspectRatio: 1 / controller.value.aspectRatio,
           //   child: controller.buildPreview(),
           // ),
         ],
       ),
     );
   }
+
+
 }

@@ -1,3 +1,4 @@
+import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -21,7 +22,7 @@ class ObjectsArguments {
 }
 
 class Objects extends StatefulWidget {
-  final List<CameraDescription> cameras;
+  final List<dynamic> cameras;
   Objects(this.cameras);
 
   @override
@@ -108,7 +109,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 ModelViewer(
                   backgroundColor: Colors.amber[50],
                   // src: 'assets/cube/sand.glb',
-                  src: 'assets/test/sjsj.glb',
+                  src: 'assets/test/model_01.glb',
                   autoPlay: true,
                   autoRotate: true,
                   cameraControls: true,
@@ -160,6 +161,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
             )
           : Stack(
               children: [
+                // ObjectGesturesWidget(),
                 cam.Camera(
                   widget.cameras,
                   _model,
@@ -189,7 +191,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                       child: ModelViewer(
                         backgroundColor: Colors.amber[50],
                         // src: 'assets/cube/sand.glb',
-                        src: 'assets/test/sjsj.glb',
+                        src: 'assets/test/model_01.glb',
                         autoPlay: true,
                         autoRotate: true,
                         cameraControls: true,

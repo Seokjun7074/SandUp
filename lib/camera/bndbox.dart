@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'models.dart';
@@ -5,8 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:jolzak/camera/arcore.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:progress_stepper/progress_stepper.dart';
+import 'package:lottie/lottie.dart';
+
 
 int status = 0;
+int eff_timer = 0;
+
 
 class BndBox extends StatefulWidget {
   static const platform = MethodChannel('ondeviceML');
@@ -32,21 +40,17 @@ class BndBox extends StatefulWidget {
 }
 
 class _BndBoxState extends State<BndBox> {
-  List<dynamic> _inputArr = [];
-  String _label = 'progress_bar';
-  double _percent = 0;
-  double _counter = 0;
+
   AudioCache audioCache = AudioCache();
+
 
   @override
   void initState() {
     super.initState();
-    _counter = 0;
   }
 
   void resetCounter() {
     setState(() {
-      _counter = 0;
     });
   }
 
@@ -54,24 +58,32 @@ class _BndBoxState extends State<BndBox> {
   Widget build(BuildContext context) {
     List<Widget> _renderStrings() {
       var lists = <Widget>[];
+      final now = DateTime.now();
+      final later = now.add(const Duration(seconds: 5));
 
       return widget.results.map((re) {
-        if (re["label"] == "step1" && re["confidence"] > 0.9) {
+        if ( status == 0 && re["label"] == "step1" && re["confidence"] > 0.5) {
           audioCache.play('audio/sound.mp3');
           status = 1;
+          eff_timer = 1;
+          Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+
         }
-        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.9) {
+        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.8) {
+          audioCache.play('audio/sound.mp3');
           status = 2;
+          eff_timer = 1;
+          Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
         }
-        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.9) {
+        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.8) {
+          audioCache.play('audio/sound.mp3');
           status = 3;
         }
+
 
         return Positioned(
           left: 30,
           top: 30,
-          width: widget.screenW,
-          height: widget.screenH,
           child: Text(
             "${re["label"]} ${(re["confidence"] * 100).toStringAsFixed(0)}% ${status}",
             style: TextStyle(
@@ -85,11 +97,14 @@ class _BndBoxState extends State<BndBox> {
     }
 
 
+
     return Stack(children: <Widget>[
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
+
         children: <Widget>[
+
           //하단 메뉴를 위해 주석처리
           // Padding(
           //   padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 16.0),
@@ -104,59 +119,34 @@ class _BndBoxState extends State<BndBox> {
           // ),
           Padding(
             padding: EdgeInsets.fromLTRB(25.0, 60.0, 25.0, 25.0),
-            child: LinearPercentIndicator(
-              animation: true,
-              lineHeight: 20.0,
-              animationDuration: 2500,
-              animateFromLastPercent: true,
-              percent: status * 0.33,
-              center: Text("${(status * 33.3).toStringAsFixed(1)} %"),
-              linearStrokeCap: LinearStrokeCap.roundAll,
-              progressColor: Colors.purpleAccent,
-            ),
+            child: ProgressStepper(
+              width: 330,
+              height: 20,
+              stepCount: 3,
+              color: Colors.white,
+              progressColor: Colors.amber,
+              currentStep: status,
+            )
           ),
+
+          if (eff_timer == 1)
+            Container(
+              child: Lottie.asset('assets/effects/fireworks.json'),
+            ),
+
+
+
+          // Container(
+          //     child: Lottie.asset('assets/effects/fireworks.json')
+          // ),
         ],
+
       ),
       Stack(
         children: _renderStrings(),
       ),
-      // Container(
-      //     margin: EdgeInsets.fromLTRB(350, 50, 0, 0), //margin here
-      //     child: FloatingActionButton(
-      //       elevation: 2,
-      //       onPressed: () {
-      //         Navigator.pushNamed(context, "/arcore");
-      //       },
-      //     ),
-      // ),
     ],
+
     );
   }
-
-  // Future<void> _getPrediction(List<double> steps) async {
-  //   try {
-  //     final double result = await BndBox.platform.invokeMethod('predictData', {
-  //       "model": widget.model,
-  //       "arg": steps,
-  //     }); // passing arguments
-  //     if (result <= 1) {
-  //       _percent = 0;
-  //       _percent = result;
-  //     }
-  //     _label =
-  //         result < 0.5 ? "Wrong step" : (result * 100).toStringAsFixed(0) + "%";
-  //     updateCounter(_percent);
-  //
-  //     print("Final Label: " + result.toString());
-  //   } on PlatformException catch (e) {}
-  // }
-  //
-  // void updateCounter(percent) {
-  //   if (percent > 0.5) {
-  //     (_counter += percent / 100) >= 1
-  //         ? _counter = 1.0
-  //         : _counter += percent / 100;
-  //   }
-  //   print("Counter: " + _counter.toString());
-  // }
 }

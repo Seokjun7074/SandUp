@@ -1,9 +1,16 @@
+import 'dart:async';
+import 'dart:ffi';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:ar_flutter_plugin/models/ar_anchor.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
@@ -11,15 +18,16 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/datatypes/hittest_result_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
+import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart';
+import 'dart:math' as math;
+import 'package:tflite/tflite.dart';
 
 import 'package:jolzak/camera/camera.dart' as cam;
 import 'package:jolzak/camera/bndbox.dart';
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:camera/camera.dart';
-import 'package:tflite/tflite.dart';
-
-import 'models.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class ObjectGesturesWidget extends StatefulWidget {
@@ -33,93 +41,84 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   late ARSessionManager arSessionManager;
   late ARObjectManager arObjectManager;
   late ARAnchorManager arAnchorManager;
-  late ArCoreController arCoreController;
 
-  List<dynamic>? _recognitions;
-  int _imageHeight = 0;
-  int _imageWidth = 0;
-  String _model = "";
+  final picker = ImagePicker();
+
+
+
 
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
 
+  // List<dynamic>? _recognitions;
+  // int _imageHeight = 0;
+  // int _imageWidth = 0;
+  // String _model = "";
+
+  late File _image;
+  late List _recognitions;
+  String _model = "Sand_Up";
+  late double _imageHeight;
+  late double _imageWidth;
+  bool _busy = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
   @override
   void dispose() {
-    super.dispose();
     arSessionManager.dispose();
+    super.dispose();
   }
-
-  loadModel() async {
-    String? res;
-    switch (_model) {
-      case sandup:
-        res = await Tflite.loadModel(
-          model: "assets/model/model.tflite",
-          labels: "assets/model/labels.txt",
-        );
-    }
-    print(res);
-  }
-
-  onSelect(model) {
-    setState(() {
-      _model = model;
-    });
-    loadModel();
-  }
-
-  setRecognitions(recognitions, imageHeight, imageWidth) {
-    setState(() {
-      _recognitions = recognitions;
-      _imageHeight = imageHeight;
-      _imageWidth = imageWidth;
-    });
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Container(
-            child: Stack(children: [
-              ARView(
-                onARViewCreated: onARViewCreated,
-                planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-              ),
-              // Align(
-              //   alignment: FractionalOffset.bottomCenter,
-              //   child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         ElevatedButton(
-              //             onPressed: onRemoveEverything,
-              //             child: Text("Remove Everything"),
-              //         ),
-              //       ]),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
-              //   child: Image.asset('assets/images/circle.png'),
-              // ),
-              // cam.Camera(
-              //   ,
-              //   _model,
-              //   setRecognitions,
-              // ),
-              // BndBox(
-              //     _recognitions ?? [],
-              //     math.max(_imageHeight, _imageWidth),
-              //     math.min(_imageHeight, _imageWidth),
-              //     screen.height,
-              //     screen.width,
-              //     _model),
+    return Stack(
+        children: <Widget>[
+          // cam.Camera(
+          //   widget.cameras,
+          //   _model,
+          //   setRecognitions,
+          // ),
 
-            ],
+           ARView(
+            onARViewCreated: onARViewCreated,
+            planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
+          ),
+
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        onPressed: onRemoveEverything,
+                        child: Text("Remove Everything")),
+                    ElevatedButton(
+                        onPressed: onTakeScreenshot,
+                        child: Text("Take Screenshot")),
+                  ]),
             ),
-        ),
+
+
+            // BndBox(
+            //     _recognitions ?? [],
+            //     math.max(_imageHeight, _imageWidth),
+            //     math.min(_imageHeight, _imageWidth),
+            //     screen.height,
+            //     screen.width,
+            //     _model),
+
+          ],
+
+
     );
+
   }
 
   void onARViewCreated(
@@ -140,7 +139,6 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
       handleRotation: true,
     );
     this.arObjectManager.onInitialize();
-
     this.arSessionManager.onPlaneOrPointTap = onPlaneOrPointTapped;
     this.arObjectManager.onPanStart = onPanStarted;
     this.arObjectManager.onPanChange = onPanChanged;
@@ -175,7 +173,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
             type: NodeType.localGLTF2,
             uri:
             "Models/Chicken_01/level1-obj2.gltf",
-            scale: Vector3(1.0, 1.0, 1.0),
+            scale: Vector3(.5, .5, .5),
             position: Vector3(0.0, 0.0, 0.0),
             rotation: Vector4(1.0, 0.0, 0.0, 0.0));
         bool? didAddNodeToAnchor =
@@ -189,6 +187,40 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
         this.arSessionManager.onError("Adding Anchor failed");
       }
     }
+  }
+
+
+  Future<void> onTakeScreenshot() async {
+    var image = await this.arSessionManager.snapshot();
+
+
+
+
+
+
+
+    // await showDialog(
+    //     context: context,
+    //     builder: (_) => Dialog(
+    //       child: Container(
+    //         decoration: BoxDecoration(
+    //             image: DecorationImage(image: img, fit: BoxFit.cover)),
+    //       ),
+    //     ));
+
+  //   var img = await ImagePicker.platform.pickImage(source: ImageSource.camera);
+  //   if (image == null) return;
+  //   setState(() {
+  //     _busy = true;
+  //   });
+  //   predictImage(img);
+  // }
+  // Future predictImage(File img) async {
+  //   if (img == null) return;
+  //   switch (_model) {
+  //     default:
+  //       await Sand-Up(img);
+  //   }
   }
 
   onPanStarted(String nodeName) {
@@ -223,11 +255,11 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     print("Ended rotating node " + nodeName);
     final rotatedNode =
     this.nodes.firstWhere((element) => element.name == nodeName);
-
     /*
     * Uncomment the following command if you want to keep the transformations of the Flutter representations of the nodes up to date
     * (e.g. if you intend to share the nodes through the cloud)
     */
     //rotatedNode.transform = newTransform;
   }
+
 }

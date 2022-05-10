@@ -24,6 +24,9 @@ dependencies:
   ar_flutter_plugin: ^0.6.2
   flutter_screenutil: ^5.3.1
   audioplayers: ^0.20.1
+  image_picker: ^0.8.5
+  progress_stepper: ^1.0.0
+  lottie: ^1.2.2
   model_viewer: ^0.8.1
 
   # scaled_list: ^1.0.1+6
@@ -52,6 +55,7 @@ flutter:
     - assets/audio/
     - assets/test/
     - assets/icons/
+    - assets/effects/
 
   fonts:
     - family: yanolja
