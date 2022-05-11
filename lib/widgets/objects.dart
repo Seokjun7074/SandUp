@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tflite/tflite.dart';
 import 'package:jolzak/camera/models.dart';
 import 'package:jolzak/camera/camera.dart' as cam;
@@ -76,6 +79,17 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     });
   }
 
+  //딜레이
+  bool delay = true;
+
+  void makeDelay() {
+    if (this.mounted) {
+      setState(() {
+        delay = false;
+      });
+    }
+  }
+
   //이미지 토글
   bool _visibility = false;
 
@@ -101,6 +115,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     int count = int.parse(args.count.toString());
     print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // 리스트에서 받아온 인덱스(레벨)
+
+    Timer(Duration(milliseconds: 1500), () => makeDelay());
     return Scaffold(
       appBar: _model == ""
           ? AppBar(
@@ -127,7 +143,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 Positioned(
                   child: ModelViewer(
                     backgroundColor: Colors.amber[50],
-                    // backgroundColor: Color.fromRGBO(44, 56, 74, 0),
                     // src: 'assets/cube/sand.glb',
                     src: 'assets/test/model_01.glb',
                     autoPlay: true,
@@ -228,13 +243,16 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                             color: Colors.amber[100],
                           ),
                         ),
-                        // child: Icon(
-                        //   Icons.arrow_forward_ios_rounded,
-                        //   size: 40.sp,
-                        //   color: Colors.grey[800],
-                        // ),
                       ),
                     ),
+                  ),
+                ),
+                Visibility(
+                  visible: delay,
+                  child: Container(
+                    height: height,
+                    color: Colors.amber[50],
+                    child: Lottie.asset('assets/effects/loading.json'),
                   ),
                 ),
               ],
@@ -315,23 +333,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                     color: !_visibility
                                         ? Colors.amber[300]
                                         : Colors.amber[800]),
-                                // child: Image(
-                                //   image: AssetImage(
-                                //       'assets/icons/castle_icon.png'),
-                                // ),
                               ),
                             ),
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     final player = AudioCache();
-                            //     player.play('audio/sound.mp3');
-                            //   },
-                            //   child: Icon(
-                            //     Icons.play_arrow,
-                            //     size: 50.sp,
-                            //     color: Colors.amber[300],
-                            //   ),
-                            // ),
                             Container(
                               child: Icon(
                                 Icons.camera,
