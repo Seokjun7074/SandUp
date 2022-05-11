@@ -17,9 +17,9 @@ import 'buttom_drawer.dart';
 
 class ObjectsArguments {
   final int index;
-  // final String count;
+  final String count;
 
-  ObjectsArguments({required this.index});
+  ObjectsArguments({required this.index, required this.count});
 }
 
 class Objects extends StatefulWidget {
@@ -98,6 +98,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     final args = ModalRoute.of(context)!.settings.arguments as ObjectsArguments;
     String level = args.index.toString();
+    int count = int.parse(args.count.toString());
     print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // 리스트에서 받아온 인덱스(레벨)
     return Scaffold(
@@ -126,6 +127,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 Positioned(
                   child: ModelViewer(
                     backgroundColor: Colors.amber[50],
+                    // backgroundColor: Color.fromRGBO(44, 56, 74, 0),
                     // src: 'assets/cube/sand.glb',
                     src: 'assets/test/model_01.glb',
                     autoPlay: true,
@@ -139,11 +141,62 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   child: Container(
                     width: width,
                     height: height / 7,
-                    color: Colors.black,
+                    // color: Colors.black38,
+                    child: Row(
+                      mainAxisAlignment: count < 6
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (int i = 1; i <= count; i++)
+                          Padding(
+                            padding: count < 6
+                                ? const EdgeInsets.fromLTRB(5.0, 0, 10, 40)
+                                : const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                            child: Container(
+                              width: width / 7,
+                              height: width / 7,
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.amber, width: 2),
+                                color: Colors.amber[50],
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 1.0,
+                                    offset: Offset(
+                                        0, 2), // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Image.asset(
+                                'assets/images/piece_1.png',
+                                width: 100,
+                                height: 100,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    // child: ListView.builder(
+                    //   // padding: const EdgeInsets.all(8),
+                    //   scrollDirection: Axis.horizontal,
+                    //   itemCount: count + 2,
+                    //   itemBuilder: (BuildContext context, int index) {
+                    //     return Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: Container(
+                    //         color: Colors.amber,
+                    //         width: 100,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   ),
                 ),
                 Positioned(
-                  bottom: 30.h,
+                  bottom: 20.h,
                   right: 30.w,
                   left: 30.w,
                   child: GestureDetector(
@@ -154,10 +207,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                         color: Colors.amber,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 7,
-                            blurRadius: 10,
-                            offset: Offset(0, 1), // changes position of shadow
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 2,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 10), // changes position of shadow
                           ),
                         ],
                         borderRadius: BorderRadius.circular(30),

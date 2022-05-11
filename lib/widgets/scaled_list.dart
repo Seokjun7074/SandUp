@@ -84,7 +84,8 @@ class _TestListState extends State<TestList> {
                       Navigator.pushNamed(
                         context,
                         "/objects",
-                        arguments: ObjectsArguments(index: index + 1),
+                        arguments: ObjectsArguments(
+                            index: index + 1, count: category.count),
                       );
                     },
                     child: Container(
@@ -138,9 +139,9 @@ class _TestListState extends State<TestList> {
   ];
 
   final List<Category> categories = [
-    Category(image: "assets/images/level1.png", name: "Level 1", count: '1'),
-    Category(image: "assets/images/level2.png", name: "Level 2", count: '2'),
-    Category(image: "assets/images/level3.png", name: "Level 3", count: '3'),
+    Category(image: "assets/images/level1.png", name: "Level 1", count: '3'),
+    Category(image: "assets/images/level2.png", name: "Level 2", count: '4'),
+    Category(image: "assets/images/level3.png", name: "Level 3", count: '6'),
   ];
 }
 
