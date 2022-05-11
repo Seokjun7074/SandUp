@@ -17,6 +17,7 @@ import 'buttom_drawer.dart';
 
 class ObjectsArguments {
   final int index;
+  // final String count;
 
   ObjectsArguments({required this.index});
 }
@@ -95,25 +96,51 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     Size screen = MediaQuery.of(context).size;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     final args = ModalRoute.of(context)!.settings.arguments as ObjectsArguments;
-    print('Level of this page:' +
-        args.index.toString() +
-        'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
+    String level = args.index.toString();
+    print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // 리스트에서 받아온 인덱스(레벨)
     return Scaffold(
-      // body: Cube(onSceneCreated: _onSceneCreated),
+      appBar: _model == ""
+          ? AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.amber[50],
+              elevation: 0,
+              title: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                child: Text(
+                  'Level ${level}',
+                  style: TextStyle(
+                    fontSize: 35.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber[600],
+                  ),
+                ),
+              ),
+              centerTitle: true,
+            )
+          : null,
       body: _model == ""
           ? Stack(
               children: [
-                ModelViewer(
-                  backgroundColor: Colors.amber[50],
-                  // src: 'assets/cube/sand.glb',
-                  src: 'assets/test/model_01.glb',
-                  autoPlay: true,
-                  autoRotate: true,
-                  cameraControls: true,
-                  // ar: true,
+                Positioned(
+                  child: ModelViewer(
+                    backgroundColor: Colors.amber[50],
+                    // src: 'assets/cube/sand.glb',
+                    src: 'assets/test/model_01.glb',
+                    autoPlay: true,
+                    autoRotate: true,
+                    cameraControls: true,
+                    // ar: true,
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  child: Container(
+                    width: width,
+                    height: height / 7,
+                    color: Colors.black,
+                  ),
                 ),
                 Positioned(
                   bottom: 30.h,
@@ -135,15 +162,15 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                         ],
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      height: 60.h,
-                      width: 100.w,
+                      height: 55.h,
+                      width: 90.w,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           '만들어 볼까요?',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 30.sp,
+                            fontSize: 28.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.amber[100],
                           ),

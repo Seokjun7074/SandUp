@@ -49,12 +49,30 @@ class _TestListState extends State<TestList> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.amber[50],
-      // backgroundColor: Color.fromRGBO(254, 204, 50, 1.0),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.amber[50],
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+          child: Text(
+            'Sand Up',
+            style: TextStyle(
+              fontSize: 35.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.amber[600],
+            ),
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Center(
         child: Stack(
           children: [
             Positioned(
               child: ScaledList(
+                unSelectedCardHeightRatio: 0.35,
+                selectedCardHeightRatio: 0.8,
                 itemCount: categories.length,
                 itemColor: (index) {
                   return kMixedColors[index % kMixedColors.length];
@@ -76,6 +94,7 @@ class _TestListState extends State<TestList> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // Text('${category.count}'),
                           Container(
                             height: selectedIndex == index ? 200 : 80,
                             child: Image.asset(category.image),
@@ -92,6 +111,9 @@ class _TestListState extends State<TestList> {
                             height: 10.h,
                           ),
                           StarDisplay(value: index + 1),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                         ],
                       ),
                     ),
@@ -116,18 +138,18 @@ class _TestListState extends State<TestList> {
   ];
 
   final List<Category> categories = [
-    Category(image: "assets/images/level1.png", name: "Level 1"),
-    Category(image: "assets/images/level2.png", name: "Level 2"),
-    Category(image: "assets/images/level3.png", name: "Level 3"),
-    // Category(image: "assets/images/piece_4.png", name: "Level 4"),
+    Category(image: "assets/images/level1.png", name: "Level 1", count: '1'),
+    Category(image: "assets/images/level2.png", name: "Level 2", count: '2'),
+    Category(image: "assets/images/level3.png", name: "Level 3", count: '3'),
   ];
 }
 
 class Category {
   final String image;
   final String name;
+  final String count;
 
-  Category({required this.image, required this.name});
+  Category({required this.image, required this.name, required this.count});
 }
 
 class StarDisplay extends StatelessWidget {
