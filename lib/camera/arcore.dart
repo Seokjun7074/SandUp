@@ -77,7 +77,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Size screen = MediaQuery.of(context).size;
+    // Size screen = MediaQuery.of(context).size;
     return Stack(
         children: <Widget>[
           // cam.Camera(
