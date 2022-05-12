@@ -1,9 +1,10 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:jolzak/widgets/random_text.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tflite/tflite.dart';
 import 'package:jolzak/camera/models.dart';
@@ -123,7 +124,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     // print(block[1]);
     // 리스트에서 받아온 props
 
-    Timer(Duration(milliseconds: 1500), () => makeDelay());
+    Timer(Duration(milliseconds: 1500), () => makeDelay()); //딜레이 만들기
+
     return Scaffold(
       appBar: _model == ""
           ? AppBar(
@@ -193,21 +195,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 ),
             ],
           ),
-          // child: ListView.builder(
-          //   // padding: const EdgeInsets.all(8),
-          //   // scrollDirection: Axis.horizontal,
-          //   itemCount: count,
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return Padding(
-          //       padding: const EdgeInsets.all(8.0),
-          //       child: Container(
-          //         color: Colors.amber,
-          //         width: 100,
-          //         height: 100,
-          //       ),
-          //     );
-          //   },
-          // ),
         ),
       ),
       body: _model == ""
@@ -270,20 +257,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                           ),
                       ],
                     ),
-                    // child: ListView.builder(
-                    //   // padding: const EdgeInsets.all(8),
-                    //   scrollDirection: Axis.horizontal,
-                    //   itemCount: count + 2,
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     return Padding(
-                    //       padding: const EdgeInsets.all(8.0),
-                    //       child: Container(
-                    //         color: Colors.amber,
-                    //         width: 100,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
                   ),
                 ),
                 Positioned(
@@ -374,26 +347,26 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
+                // Positioned(
+                //   top: 100,
+                //   right: 20,
+                //   child: Builder(
+                //     builder: (context) {
+                //       return GestureDetector(
+                //         onTap: () {
+                //           Scaffold.of(context).openDrawer();
+                //         },
+                //         child: Icon(
+                //           Icons.question_mark_rounded,
+                //           size: 40.sp,
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
                 Positioned(
-                  top: 100,
-                  right: 20,
-                  child: Builder(
-                    builder: (context) {
-                      return GestureDetector(
-                        onTap: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        child: Icon(
-                          Icons.question_mark_rounded,
-                          size: 40.sp,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 100,
-                  right: 60,
+                  top: 100.h,
+                  right: 50.w,
                   child: GestureDetector(
                     child: Icon(
                       Icons.question_mark_rounded,
@@ -424,42 +397,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   /////////////////////////////////////////////////////////
-                  // child: Container(
-                  //   color: Color.fromRGBO(0, 0, 0, 0.7),
-                  //   height: 110.h,
-                  //   width: width,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(10.0),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //         children: [
-                  //           GestureDetector(
-                  //             child: Icon(
-                  //               Icons.question_mark_rounded,
-                  //               size: 50.sp,
-                  //               color: Colors.amber[300],
-                  //             ),
-                  //             onTap: () => showModalBottomSheet(
-                  //                 backgroundColor: Colors.transparent,
-                  //                 context: context,
-                  //                 builder: (BuildContext context) {
-                  //                   return ButtomDrawer();
-                  //                 }),
-                  //           ),
-                  //           Container(
-                  //             child: Icon(
-                  //               Icons.camera,
-                  //               size: 50.sp,
-                  //               color: Colors.amber[300],
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ),
               ],
             ),
