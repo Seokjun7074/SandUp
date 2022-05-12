@@ -8,12 +8,12 @@ import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
 import 'package:jolzak/camera/models.dart';
 import 'models.dart';
-
+import 'dart:async';
 
 import 'package:ar_flutter_plugin/models/ar_anchor.dart';
 
 import 'package:ar_flutter_plugin/models/ar_node.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 
 
@@ -109,6 +109,7 @@ class _CameraState extends State<Camera> {
 
   @override
   Widget build(BuildContext context) {
+    // Future.delayed(Duration.zero, () => _onBasicAlertPressed(context));
     if (!controller.value.isInitialized) {
       return Container();
     }
@@ -144,6 +145,5 @@ class _CameraState extends State<Camera> {
       ),
     );
   }
-
 
 }

@@ -10,7 +10,7 @@ import 'package:jolzak/camera/arcore.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:progress_stepper/progress_stepper.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 int status = 0;
 int eff_timer = 0;
@@ -42,6 +42,8 @@ class BndBox extends StatefulWidget {
 class _BndBoxState extends State<BndBox> {
 
   AudioCache audioCache = AudioCache();
+  bool _visible = false;
+  bool _repeat = true;
 
 
   @override
@@ -56,28 +58,31 @@ class _BndBoxState extends State<BndBox> {
 
   @override
   Widget build(BuildContext context) {
+
     List<Widget> _renderStrings() {
       var lists = <Widget>[];
       final now = DateTime.now();
       final later = now.add(const Duration(seconds: 5));
 
       return widget.results.map((re) {
-        if ( status == 0 && re["label"] == "step1" && re["confidence"] > 0.5) {
+        if ( status == 0 && re["label"] == "step1" && re["confidence"] > 0.1) {
           audioCache.play('audio/sound.mp3');
           status = 1;
           eff_timer = 1;
           Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
 
         }
-        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.8) {
+        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.1) {
           audioCache.play('audio/sound.mp3');
           status = 2;
           eff_timer = 1;
           Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
         }
-        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.8) {
+        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.1) {
           audioCache.play('audio/sound.mp3');
-          status = 3;
+          Future.delayed(Duration(seconds: 1)).then((value) => status=3);
+          Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
+          Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
         }
 
 
@@ -129,6 +134,7 @@ class _BndBoxState extends State<BndBox> {
             )
           ),
 
+
           if (eff_timer == 1)
             Container(
               child: Lottie.asset('assets/effects/fireworks.json'),
@@ -141,12 +147,70 @@ class _BndBoxState extends State<BndBox> {
           // ),
         ],
 
+
       ),
+
       Stack(
         children: _renderStrings(),
       ),
-    ],
 
+      //뒷배경
+        if (status == 3)(
+            Container(
+              color: Colors.black.withOpacity(0.8),
+            )
+        ),
+
+        if (status==3)
+          //라이팅 효과
+          Lottie.asset('assets/effects/complete.json',
+          animate: true,
+          repeat: _repeat),
+
+
+            //팝업페이지..
+            Padding(padding: EdgeInsets.fromLTRB(41.0, 280.0, 25.0, 25.0),
+              child:  AnimatedOpacity(
+                // If the widget is visible, animate to 0.0 (invisible).
+                // If the widget is hidden, animate to 1.0 (fully visible).
+                opacity: _visible ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 500),
+                // The green box must be a child of the AnimatedOpacity widget.
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber[200],
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    width: 310.0,
+                    height: 300.0,
+                    child: Padding( padding:EdgeInsets.all(0),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Lottie.asset('assets/effects/castle.json',
+                            repeat: true),
+                            // Image.asset('assets/images/level1.png',
+                            //   height: 100,
+                            //   width: 1500,
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                RaisedButton(onPressed: ()=>status = 0),
+                                RaisedButton(onPressed: ()=>status = 0),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                ),
+              ),
+            ),
+
+    ],
     );
   }
 }

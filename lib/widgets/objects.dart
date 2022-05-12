@@ -144,7 +144,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   child: ModelViewer(
                     backgroundColor: Colors.amber[50],
                     // src: 'assets/cube/sand.glb',
-                    src: 'assets/test/model_01.glb',
+                    src: 'assets/test/castle1.glb',
                     autoPlay: true,
                     autoRotate: true,
                     cameraControls: true,
@@ -289,7 +289,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                       child: ModelViewer(
                         backgroundColor: Colors.amber[50],
                         // src: 'assets/cube/sand.glb',
-                        src: 'assets/test/model_01.glb',
+                        src: 'assets/test/castle1.glb',
                         autoPlay: true,
                         autoRotate: true,
                         cameraControls: true,
