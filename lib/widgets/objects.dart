@@ -15,14 +15,16 @@ import 'package:model_viewer/model_viewer.dart';
 import 'package:jolzak/camera/arcore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:audioplayers/audioplayers.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'buttom_drawer.dart';
 
 class ObjectsArguments {
   final int index;
   final String count;
+  final List block;
 
-  ObjectsArguments({required this.index, required this.count});
+  ObjectsArguments(
+      {required this.index, required this.count, required this.block});
 }
 
 class Objects extends StatefulWidget {
@@ -113,8 +115,10 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     final args = ModalRoute.of(context)!.settings.arguments as ObjectsArguments;
     String level = args.index.toString();
     int count = int.parse(args.count.toString());
+    List block = args.block;
     print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
-    // 리스트에서 받아온 인덱스(레벨)
+    print(block[1]);
+    // 리스트에서 받아온 props
 
     Timer(Duration(milliseconds: 1500), () => makeDelay());
     return Scaffold(
@@ -141,14 +145,17 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
           ? Stack(
               children: [
                 Positioned(
-                  child: ModelViewer(
-                    backgroundColor: Colors.amber[50],
-                    // src: 'assets/cube/sand.glb',
-                    src: 'assets/test/model_01.glb',
-                    autoPlay: true,
-                    autoRotate: true,
-                    cameraControls: true,
-                    // ar: true,
+                  child: Container(
+                    height: height,
+                    child: ModelViewer(
+                      backgroundColor: Colors.amber[50],
+                      // src: 'assets/cube/sand.glb',
+                      src: 'assets/objects/model_0${level}.glb',
+                      autoPlay: true,
+                      autoRotate: true,
+                      cameraControls: true,
+                      // ar: true,
+                    ),
                   ),
                 ),
                 Positioned(
@@ -162,7 +169,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                           ? MainAxisAlignment.end
                           : MainAxisAlignment.spaceEvenly,
                       children: [
-                        for (int i = 1; i <= count; i++)
+                        for (int i = 0; i < count; i++)
                           Padding(
                             padding: count < 6
                                 ? const EdgeInsets.fromLTRB(5.0, 0, 10, 40)
@@ -185,8 +192,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                 ],
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Image.asset(
-                                'assets/images/piece_1.png',
+                              child: SvgPicture.asset(
+                                'assets/blocks/block${block[i]}.svg',
                                 width: 100,
                                 height: 100,
                               ),
@@ -289,7 +296,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                       child: ModelViewer(
                         backgroundColor: Colors.amber[50],
                         // src: 'assets/cube/sand.glb',
-                        src: 'assets/test/model_01.glb',
+                        src: 'assets/objects/model_0${level}.glb',
                         autoPlay: true,
                         autoRotate: true,
                         cameraControls: true,

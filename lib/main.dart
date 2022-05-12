@@ -10,7 +10,6 @@ import 'package:jolzak/camera/camera.dart';
 import 'package:jolzak/home.dart';
 import 'package:jolzak/login.dart';
 import 'package:jolzak/signup.dart';
-import 'package:jolzak/widgets/list.dart';
 import 'package:jolzak/widgets/objects.dart';
 // import 'package:jolzak/widgets/objects_test.dart';
 import 'package:jolzak/camera/arcore.dart';
