@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'widgets/list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Home extends StatelessWidget {

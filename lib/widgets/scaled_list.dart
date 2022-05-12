@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'listcontent.dart';
 import 'objects.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
@@ -85,7 +84,9 @@ class _TestListState extends State<TestList> {
                         context,
                         "/objects",
                         arguments: ObjectsArguments(
-                            index: index + 1, count: category.count),
+                            index: index + 1,
+                            count: category.count,
+                            block: category.block),
                       );
                     },
                     child: Container(
@@ -139,9 +140,37 @@ class _TestListState extends State<TestList> {
   ];
 
   final List<Category> categories = [
-    Category(image: "assets/images/level1.png", name: "Level 1", count: '3'),
-    Category(image: "assets/images/level2.png", name: "Level 2", count: '4'),
-    Category(image: "assets/images/level3.png", name: "Level 3", count: '6'),
+    Category(
+        image: "assets/images/level1.png",
+        name: "Level 1",
+        count: '3',
+        block: [
+          [1, 1],
+          [3, 1],
+          [5, 1]
+        ]),
+    Category(
+        image: "assets/images/level2.png",
+        name: "Level 2",
+        count: '4',
+        block: [
+          [1, 2],
+          [4, 5],
+          [6, 2],
+          [7, 1]
+        ]),
+    Category(
+        image: "assets/images/level3.png",
+        name: "Level 3",
+        count: '6',
+        block: [
+          [1, 3],
+          [3, 1],
+          [4, 4],
+          [5, 1],
+          [6, 2],
+          [7, 2]
+        ]),
   ];
 }
 
@@ -149,8 +178,14 @@ class Category {
   final String image;
   final String name;
   final String count;
+  final List block;
 
-  Category({required this.image, required this.name, required this.count});
+  Category({
+    required this.image,
+    required this.name,
+    required this.count,
+    required this.block,
+  });
 }
 
 class StarDisplay extends StatelessWidget {
