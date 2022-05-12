@@ -41,6 +41,9 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   late Object _back;
   // late AnimationController _controller;
 
+  GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>(); //Drawer 커스텀 키
+
   bool show = false;
 
   List<dynamic>? _recognitions;
@@ -116,8 +119,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     String level = args.index.toString();
     int count = int.parse(args.count.toString());
     List block = args.block;
-    print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
-    print(block[1]);
+    // print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
+    // print(block[1]);
     // 리스트에서 받아온 props
 
     Timer(Duration(milliseconds: 1500), () => makeDelay());
@@ -141,6 +144,72 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               centerTitle: true,
             )
           : null,
+      drawer: Container(
+        // height: height * 0.8,
+        width: width / 3,
+        decoration: BoxDecoration(
+          // color: Colors.grey[200],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
+          ),
+        ),
+        child: Drawer(
+          backgroundColor: Colors.amber[50],
+          child: Column(
+            // mainAxisAlignment:
+            //     count < 6 ? MainAxisAlignment.end : MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                height: height / 4,
+              ),
+              for (int i = 0; i < count; i++)
+                Padding(
+                  padding: count < 6
+                      ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
+                      : const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Container(
+                    width: width / 6,
+                    height: width / 6,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.amber, width: 2),
+                      color: Colors.amber[50],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 1.0,
+                          offset: Offset(0, 2), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Image.asset(
+                      'assets/blocks/SANDUP_block_block${block[i][0]}.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          // child: ListView.builder(
+          //   // padding: const EdgeInsets.all(8),
+          //   // scrollDirection: Axis.horizontal,
+          //   itemCount: count,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     return Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Container(
+          //         color: Colors.amber,
+          //         width: 100,
+          //         height: 100,
+          //       ),
+          //     );
+          //   },
+          // ),
+        ),
+      ),
       body: _model == ""
           ? Stack(
               children: [
@@ -192,8 +261,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                                 ],
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: SvgPicture.asset(
-                                'assets/blocks/block${block[i]}.svg',
+                              child: Image.asset(
+                                'assets/blocks/SANDUP_block_block${block[i][0]}.png',
                                 width: 100,
                                 height: 100,
                               ),
@@ -264,6 +333,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 ),
               ],
             )
+          // 카메라부분
           : Stack(
               children: [
                 // ObjectGesturesWidget(),
@@ -290,7 +360,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     left: 0,
                     // bottom: 100.h,
                     child: Container(
-                      width: width / 2,
+                      // width: width / 2,
                       height: height,
                       // child: Image.asset('assets/cube/Pyramid.gif'),
                       child: ModelViewer(
@@ -305,55 +375,91 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Positioned(
-                  bottom: 0,
-                  child: Container(
-                    color: Color.fromRGBO(0, 0, 0, 0.7),
-                    height: 110.h,
-                    width: width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              child: Icon(
-                                Icons.lightbulb_outline,
-                                size: 50.sp,
-                                color: Colors.amber[300],
-                              ),
-                              onTap: () => showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ButtomDrawer();
-                                  }),
-                            ),
-                            GestureDetector(
-                              onTap: () =>
-                                  {_visibility ? hideWidget() : showWidget()},
-                              child: Container(
-                                child: Icon(Icons.view_in_ar_outlined,
-                                    size: 50.sp,
-                                    // color: Colors.amber[300],
-                                    color: !_visibility
-                                        ? Colors.amber[300]
-                                        : Colors.amber[800]),
-                              ),
-                            ),
-                            Container(
-                              child: Icon(
-                                Icons.camera,
-                                size: 50.sp,
-                                color: Colors.amber[300],
-                              ),
-                            ),
-                          ],
+                  top: 100,
+                  right: 20,
+                  child: Builder(
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                        child: Icon(
+                          Icons.question_mark_rounded,
+                          size: 40.sp,
                         ),
-                      ),
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: 100,
+                  right: 60,
+                  child: GestureDetector(
+                    child: Icon(
+                      Icons.question_mark_rounded,
+                      size: 50.sp,
+                      color: Colors.amber[300],
+                    ),
+                    onTap: () => showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ButtomDrawer(block: block, count: count);
+                        }),
+                  ),
+                ),
+                Positioned(
+                  bottom: 40.h,
+                  left: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () => {_visibility ? hideWidget() : showWidget()},
+                    child: Container(
+                      child: Icon(Icons.view_in_ar_outlined,
+                          size: 50.sp,
+                          // color: Colors.amber[300],
+                          color: !_visibility
+                              ? Colors.amber[300]
+                              : Colors.amber[800]),
                     ),
                   ),
+                  /////////////////////////////////////////////////////////
+                  // child: Container(
+                  //   color: Color.fromRGBO(0, 0, 0, 0.7),
+                  //   height: 110.h,
+                  //   width: width,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(10.0),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //         children: [
+                  //           GestureDetector(
+                  //             child: Icon(
+                  //               Icons.question_mark_rounded,
+                  //               size: 50.sp,
+                  //               color: Colors.amber[300],
+                  //             ),
+                  //             onTap: () => showModalBottomSheet(
+                  //                 backgroundColor: Colors.transparent,
+                  //                 context: context,
+                  //                 builder: (BuildContext context) {
+                  //                   return ButtomDrawer();
+                  //                 }),
+                  //           ),
+                  //           Container(
+                  //             child: Icon(
+                  //               Icons.camera,
+                  //               size: 50.sp,
+                  //               color: Colors.amber[300],
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ],
             ),

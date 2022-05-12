@@ -144,17 +144,33 @@ class _TestListState extends State<TestList> {
         image: "assets/images/level1.png",
         name: "Level 1",
         count: '3',
-        block: [1, 3, 5]),
+        block: [
+          [1, 1],
+          [3, 1],
+          [5, 1]
+        ]),
     Category(
         image: "assets/images/level2.png",
         name: "Level 2",
         count: '4',
-        block: [1, 4, 6, 7]),
+        block: [
+          [1, 2],
+          [4, 5],
+          [6, 2],
+          [7, 1]
+        ]),
     Category(
         image: "assets/images/level3.png",
         name: "Level 3",
         count: '6',
-        block: [1, 3, 4, 5, 6, 7]),
+        block: [
+          [1, 3],
+          [3, 1],
+          [4, 4],
+          [5, 1],
+          [6, 2],
+          [7, 2]
+        ]),
   ];
 }
 
