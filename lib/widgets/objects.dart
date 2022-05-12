@@ -276,78 +276,78 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
-                // Visibility(
-                //   visible: _visibility,
-                //   child: Positioned(
-                //     right: 0,
-                //     left: 0,
-                //     // bottom: 100.h,
-                //     child: Container(
-                //       width: width / 2,
-                //       height: height,
-                //       // child: Image.asset('assets/cube/Pyramid.gif'),
-                //       child: ModelViewer(
-                //         backgroundColor: Colors.amber[50],
-                //         // src: 'assets/cube/sand.glb',
-                //         src: 'assets/test/castle1.glb',
-                //         autoPlay: true,
-                //         autoRotate: true,
-                //         cameraControls: true,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // Positioned(
-                //   bottom: 0,
-                //   child: Container(
-                //     color: Color.fromRGBO(0, 0, 0, 0.7),
-                //     height: 110.h,
-                //     width: width,
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(10.0),
-                //       child: Padding(
-                //         padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //           children: [
-                //             GestureDetector(
-                //               child: Icon(
-                //                 Icons.lightbulb_outline,
-                //                 size: 50.sp,
-                //                 color: Colors.amber[300],
-                //               ),
-                //               onTap: () => showModalBottomSheet(
-                //                   backgroundColor: Colors.transparent,
-                //                   context: context,
-                //                   builder: (BuildContext context) {
-                //                     return ButtomDrawer();
-                //                   }),
-                //             ),
-                //             GestureDetector(
-                //               onTap: () =>
-                //                   {_visibility ? hideWidget() : showWidget()},
-                //               child: Container(
-                //                 child: Icon(Icons.view_in_ar_outlined,
-                //                     size: 50.sp,
-                //                     // color: Colors.amber[300],
-                //                     color: !_visibility
-                //                         ? Colors.amber[300]
-                //                         : Colors.amber[800]),
-                //               ),
-                //             ),
-                //             Container(
-                //               child: Icon(
-                //                 Icons.camera,
-                //                 size: 50.sp,
-                //                 color: Colors.amber[300],
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Visibility(
+                  visible: _visibility,
+                  child: Positioned(
+                    right: 0,
+                    left: 0,
+                    // bottom: 100.h,
+                    child: Container(
+                      width: width / 2,
+                      height: height,
+                      // child: Image.asset('assets/cube/Pyramid.gif'),
+                      child: ModelViewer(
+                        backgroundColor: Colors.amber[50],
+                        // src: 'assets/cube/sand.glb',
+                        src: 'assets/test/castle1.glb',
+                        autoPlay: true,
+                        autoRotate: true,
+                        cameraControls: true,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    color: Color.fromRGBO(0, 0, 0, 0.7),
+                    height: 110.h,
+                    width: width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              child: Icon(
+                                Icons.lightbulb_outline,
+                                size: 50.sp,
+                                color: Colors.amber[300],
+                              ),
+                              onTap: () => showModalBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ButtomDrawer();
+                                  }),
+                            ),
+                            GestureDetector(
+                              onTap: () =>
+                                  {_visibility ? hideWidget() : showWidget()},
+                              child: Container(
+                                child: Icon(Icons.view_in_ar_outlined,
+                                    size: 50.sp,
+                                    // color: Colors.amber[300],
+                                    color: !_visibility
+                                        ? Colors.amber[300]
+                                        : Colors.amber[800]),
+                              ),
+                            ),
+                            Container(
+                              child: Icon(
+                                Icons.camera,
+                                size: 50.sp,
+                                color: Colors.amber[300],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
     );
