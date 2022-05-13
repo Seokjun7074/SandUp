@@ -326,69 +326,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
-                // Visibility(
-                //   visible: _visibility,
-                //   child: Positioned(
-                //     right: 0,
-                //     left: 0,
-                //     // bottom: 100.h,
-                //     child: Container(
-                //       // width: width / 2,
-                //       height: height,
-                //       // child: Image.asset('assets/cube/Pyramid.gif'),
-                //       child: ModelViewer(
-                //         backgroundColor: Colors.amber[50],
-                //         // src: 'assets/cube/sand.glb',
-                //         src: 'assets/objects/model_0${level}.glb',
-                //         autoPlay: true,
-                //         autoRotate: true,
-                //         cameraControls: true,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 100,
-                //   right: 20,
-                //   child: Builder(
-                //     builder: (context) {
-                //       return GestureDetector(
-                //         onTap: () {
-                //           Scaffold.of(context).openDrawer();
-                //         },
-                //         child: Icon(
-                //           Icons.question_mark_rounded,
-                //           size: 40.sp,
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 100.h,
-                //   left: 50.w,
-                //   child: GestureDetector(
-                //     child: Container(
-                //       width: 50.w,
-                //       height: 50.w,
-                //       decoration: BoxDecoration(
-                //         color: Colors.amber,
-                //         borderRadius: BorderRadius.circular(50),
-                //       ),
-                //       child: Icon(
-                //         Icons.question_mark_rounded,
-                //         size: 45.sp,
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //     onTap: () => showModalBottomSheet(
-                //         backgroundColor: Colors.transparent,
-                //         context: context,
-                //         builder: (BuildContext context) {
-                //           return ButtomDrawer(block: block, count: count);
-                //         }),
-                //   ),
-                // ),
+
                 Positioned(
                   bottom: 0,
                   child: Container(
@@ -417,7 +355,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (BuildContext context) {
-                                return ButtomDrawer(block: block, count: count);
+                                return ButtomDrawer(
+                                    block: block, count: count, level: level);
                               }),
                         ),
                         Container(
@@ -429,23 +368,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                // Positioned(
-                //   bottom: 40.h,
-                //   left: 0,
-                //   right: 0,
-                //   child: GestureDetector(
-                //     onTap: () => {_visibility ? hideWidget() : showWidget()},
-                //     child: Container(
-                //       child: Icon(Icons.view_in_ar_outlined,
-                //           size: 50.sp,
-                //           // color: Colors.amber[300],
-                //           color: !_visibility
-                //               ? Colors.amber[300]
-                //               : Colors.amber[800]),
-                //     ),
-                //   ),
-                //   /////////////////////////////////////////////////////////
-                // ),
               ],
             ),
     );
