@@ -146,57 +146,57 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               centerTitle: true,
             )
           : null,
-      drawer: Container(
-        // height: height * 0.8,
-        width: width / 3,
-        decoration: BoxDecoration(
-          // color: Colors.grey[200],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40),
-            topRight: Radius.circular(40),
-          ),
-        ),
-        child: Drawer(
-          backgroundColor: Colors.amber[50],
-          child: Column(
-            // mainAxisAlignment:
-            //     count < 6 ? MainAxisAlignment.end : MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                height: height / 4,
-              ),
-              for (int i = 0; i < count; i++)
-                Padding(
-                  padding: count < 6
-                      ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
-                      : const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Container(
-                    width: width / 6,
-                    height: width / 6,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.amber, width: 2),
-                      color: Colors.amber[50],
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 1.0,
-                          offset: Offset(0, 2), // changes position of shadow
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Image.asset(
-                      'assets/blocks/SANDUP_block_block${block[i][0]}.png',
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
+      // drawer: Container(
+      //   // height: height * 0.8,
+      //   width: width / 3,
+      //   decoration: BoxDecoration(
+      //     // color: Colors.grey[200],
+      //     borderRadius: BorderRadius.only(
+      //       topLeft: Radius.circular(40),
+      //       topRight: Radius.circular(40),
+      //     ),
+      //   ),
+      //   child: Drawer(
+      //     backgroundColor: Colors.amber[50],
+      //     child: Column(
+      //       // mainAxisAlignment:
+      //       //     count < 6 ? MainAxisAlignment.end : MainAxisAlignment.spaceEvenly,
+      //       children: [
+      //         SizedBox(
+      //           height: height / 4,
+      //         ),
+      //         for (int i = 0; i < count; i++)
+      //           Padding(
+      //             padding: count < 6
+      //                 ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
+      //                 : const EdgeInsets.fromLTRB(0, 0, 0, 0),
+      //             child: Container(
+      //               width: width / 6,
+      //               height: width / 6,
+      //               decoration: BoxDecoration(
+      //                 border: Border.all(color: Colors.amber, width: 2),
+      //                 color: Colors.amber[50],
+      //                 boxShadow: [
+      //                   BoxShadow(
+      //                     color: Colors.grey.withOpacity(0.1),
+      //                     spreadRadius: 1,
+      //                     blurRadius: 1.0,
+      //                     offset: Offset(0, 2), // changes position of shadow
+      //                   ),
+      //                 ],
+      //                 borderRadius: BorderRadius.circular(10),
+      //               ),
+      //               child: Image.asset(
+      //                 'assets/blocks/SANDUP_block_block${block[i][0]}.png',
+      //                 width: 100,
+      //                 height: 100,
+      //               ),
+      //             ),
+      //           ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: _model == ""
           ? Stack(
               children: [
@@ -326,27 +326,27 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     screen.height,
                     screen.width,
                     _model),
-                Visibility(
-                  visible: _visibility,
-                  child: Positioned(
-                    right: 0,
-                    left: 0,
-                    // bottom: 100.h,
-                    child: Container(
-                      // width: width / 2,
-                      height: height,
-                      // child: Image.asset('assets/cube/Pyramid.gif'),
-                      child: ModelViewer(
-                        backgroundColor: Colors.amber[50],
-                        // src: 'assets/cube/sand.glb',
-                        src: 'assets/objects/model_0${level}.glb',
-                        autoPlay: true,
-                        autoRotate: true,
-                        cameraControls: true,
-                      ),
-                    ),
-                  ),
-                ),
+                // Visibility(
+                //   visible: _visibility,
+                //   child: Positioned(
+                //     right: 0,
+                //     left: 0,
+                //     // bottom: 100.h,
+                //     child: Container(
+                //       // width: width / 2,
+                //       height: height,
+                //       // child: Image.asset('assets/cube/Pyramid.gif'),
+                //       child: ModelViewer(
+                //         backgroundColor: Colors.amber[50],
+                //         // src: 'assets/cube/sand.glb',
+                //         src: 'assets/objects/model_0${level}.glb',
+                //         autoPlay: true,
+                //         autoRotate: true,
+                //         cameraControls: true,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 // Positioned(
                 //   top: 100,
                 //   right: 20,
@@ -364,40 +364,88 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 //     },
                 //   ),
                 // ),
+                // Positioned(
+                //   top: 100.h,
+                //   left: 50.w,
+                //   child: GestureDetector(
+                //     child: Container(
+                //       width: 50.w,
+                //       height: 50.w,
+                //       decoration: BoxDecoration(
+                //         color: Colors.amber,
+                //         borderRadius: BorderRadius.circular(50),
+                //       ),
+                //       child: Icon(
+                //         Icons.question_mark_rounded,
+                //         size: 45.sp,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //     onTap: () => showModalBottomSheet(
+                //         backgroundColor: Colors.transparent,
+                //         context: context,
+                //         builder: (BuildContext context) {
+                //           return ButtomDrawer(block: block, count: count);
+                //         }),
+                //   ),
+                // ),
                 Positioned(
-                  top: 100.h,
-                  right: 50.w,
-                  child: GestureDetector(
-                    child: Icon(
-                      Icons.question_mark_rounded,
-                      size: 50.sp,
-                      color: Colors.amber[300],
+                  bottom: 0,
+                  child: Container(
+                    color: Colors.white,
+                    // color: Colors.transparent,
+                    height: height / 5,
+                    width: width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          child: Container(
+                            width: 50.w,
+                            height: 50.w,
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Icon(
+                              Icons.question_mark_rounded,
+                              size: 45.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onTap: () => showModalBottomSheet(
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ButtomDrawer(block: block, count: count);
+                              }),
+                        ),
+                        Container(
+                          width: width * 2.3 / 3,
+                          color: Colors.red,
+                          child: Text('사진'),
+                        )
+                      ],
                     ),
-                    onTap: () => showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ButtomDrawer(block: block, count: count);
-                        }),
                   ),
                 ),
-                Positioned(
-                  bottom: 40.h,
-                  left: 0,
-                  right: 0,
-                  child: GestureDetector(
-                    onTap: () => {_visibility ? hideWidget() : showWidget()},
-                    child: Container(
-                      child: Icon(Icons.view_in_ar_outlined,
-                          size: 50.sp,
-                          // color: Colors.amber[300],
-                          color: !_visibility
-                              ? Colors.amber[300]
-                              : Colors.amber[800]),
-                    ),
-                  ),
-                  /////////////////////////////////////////////////////////
-                ),
+                // Positioned(
+                //   bottom: 40.h,
+                //   left: 0,
+                //   right: 0,
+                //   child: GestureDetector(
+                //     onTap: () => {_visibility ? hideWidget() : showWidget()},
+                //     child: Container(
+                //       child: Icon(Icons.view_in_ar_outlined,
+                //           size: 50.sp,
+                //           // color: Colors.amber[300],
+                //           color: !_visibility
+                //               ? Colors.amber[300]
+                //               : Colors.amber[800]),
+                //     ),
+                //   ),
+                //   /////////////////////////////////////////////////////////
+                // ),
               ],
             ),
     );
