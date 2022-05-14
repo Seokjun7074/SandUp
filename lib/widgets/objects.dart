@@ -97,19 +97,19 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   }
 
   //이미지 토글
-  bool _visibility = false;
+  // bool _visibility = false;
 
-  void showWidget() {
-    setState(() {
-      _visibility = true;
-    });
-  }
+  // void showWidget() {
+  //   setState(() {
+  //     _visibility = true;
+  //   });
+  // }
 
-  void hideWidget() {
-    setState(() {
-      _visibility = false;
-    });
-  }
+  // void hideWidget() {
+  //   setState(() {
+  //     _visibility = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -146,57 +146,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               centerTitle: true,
             )
           : null,
-      // drawer: Container(
-      //   // height: height * 0.8,
-      //   width: width / 3,
-      //   decoration: BoxDecoration(
-      //     // color: Colors.grey[200],
-      //     borderRadius: BorderRadius.only(
-      //       topLeft: Radius.circular(40),
-      //       topRight: Radius.circular(40),
-      //     ),
-      //   ),
-      //   child: Drawer(
-      //     backgroundColor: Colors.amber[50],
-      //     child: Column(
-      //       // mainAxisAlignment:
-      //       //     count < 6 ? MainAxisAlignment.end : MainAxisAlignment.spaceEvenly,
-      //       children: [
-      //         SizedBox(
-      //           height: height / 4,
-      //         ),
-      //         for (int i = 0; i < count; i++)
-      //           Padding(
-      //             padding: count < 6
-      //                 ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
-      //                 : const EdgeInsets.fromLTRB(0, 0, 0, 0),
-      //             child: Container(
-      //               width: width / 6,
-      //               height: width / 6,
-      //               decoration: BoxDecoration(
-      //                 border: Border.all(color: Colors.amber, width: 2),
-      //                 color: Colors.amber[50],
-      //                 boxShadow: [
-      //                   BoxShadow(
-      //                     color: Colors.grey.withOpacity(0.1),
-      //                     spreadRadius: 1,
-      //                     blurRadius: 1.0,
-      //                     offset: Offset(0, 2), // changes position of shadow
-      //                   ),
-      //                 ],
-      //                 borderRadius: BorderRadius.circular(10),
-      //               ),
-      //               child: Image.asset(
-      //                 'assets/blocks/SANDUP_block_block${block[i][0]}.png',
-      //                 width: 100,
-      //                 height: 100,
-      //               ),
-      //             ),
-      //           ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: _model == ""
           ? Stack(
               children: [
