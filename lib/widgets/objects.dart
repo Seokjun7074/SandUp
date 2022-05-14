@@ -52,6 +52,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageWidth = 0;
   String _model = "";
 
+
   // @override
   // void dispose() {
   //   _controller.dispose();
@@ -206,7 +207,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     child: ModelViewer(
                       backgroundColor: Colors.amber[50],
                       // src: 'assets/cube/sand.glb',
-                      src: 'assets/objects/model_0${level}.glb',
+                      src: 'assets/objects/castle${level}.glb',
                       autoPlay: true,
                       autoRotate: true,
                       cameraControls: true,
@@ -321,11 +322,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                 // ),
                 BndBox(
                     _recognitions ?? [],
-                    math.max(_imageHeight, _imageWidth),
-                    math.min(_imageHeight, _imageWidth),
-                    screen.height,
-                    screen.width,
-                    _model),
+                ),
                 Visibility(
                   visible: _visibility,
                   child: Positioned(
@@ -369,7 +366,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   right: 50.w,
                   child: GestureDetector(
                     child: Icon(
-                      Icons.question_mark_rounded,
+                      Icons.question_answer_rounded,
                       size: 50.sp,
                       color: Colors.amber[300],
                     ),

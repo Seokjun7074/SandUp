@@ -12,27 +12,17 @@ import 'package:progress_stepper/progress_stepper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-int status = 0;
-int eff_timer = 0;
 
+int eff_timer = 0;
+int status = 0;
 
 class BndBox extends StatefulWidget {
   static const platform = MethodChannel('ondeviceML');
 
   final List<dynamic> results;
-  final int previewH;
-  final int previewW;
-  final double screenH;
-  final double screenW;
-  final String model;
 
   BndBox(
     this.results,
-    this.previewH,
-    this.previewW,
-    this.screenH,
-    this.screenW,
-    this.model,
   );
 
   @override
@@ -79,7 +69,7 @@ class _BndBoxState extends State<BndBox> {
           Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
         }
         if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.1) {
-          audioCache.play('audio/sound.mp3');
+          audioCache.play('audio/complete.mp3');
           Future.delayed(Duration(seconds: 1)).then((value) => status=3);
           Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
           Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
@@ -189,6 +179,12 @@ class _BndBoxState extends State<BndBox> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+
+                            Text('정말 멋진 모래성이네요!',
+                            style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,)),
+
                             Lottie.asset('assets/effects/castle.json',
                             repeat: true),
                             // Image.asset('assets/images/level1.png',
@@ -198,8 +194,10 @@ class _BndBoxState extends State<BndBox> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                RaisedButton(onPressed: ()=>status = 0),
-                                RaisedButton(onPressed: ()=>status = 0),
+                                RaisedButton(onPressed: ()=>status = 0,
+                                color: Colors.white,),
+                                RaisedButton(onPressed: ()=>status = 0,
+                                color: Colors.grey,),
                               ],
                             )
                           ],
