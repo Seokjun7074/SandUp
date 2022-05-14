@@ -60,6 +60,7 @@ flutter:
     - assets/effects/
     - assets/objects/
     - assets/blocks/
+    - assets/step_img/
 
   fonts:
     - family: yanolja
