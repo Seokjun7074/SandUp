@@ -35,7 +35,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
           Positioned(
             bottom: 0,
             child: Container(
-              height: height / 2,
+              height: count < 6 ? height / 3 : height / 2.5,
               width: width,
               decoration: BoxDecoration(
                 color: Colors.amber[50],
@@ -50,43 +50,39 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child:Container(
-                      alignment: Alignment.topCenter,
-                      width: width,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.amber.withAlpha(100),
-                            Colors.amber],
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      
-                      child:Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children:[
-                            Text(
-                            '레벨 ${level} 만들고 있어요',
-                            textAlign: TextAlign.center,
-
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25.sp,
-                              fontWeight: FontWeight.normal,
-                              letterSpacing: 1,
-                            ),
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        width: width,
+                        height: 35.h,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.amber.withAlpha(100), Colors.amber],
                           ),
-                            Icon(Icons.tag_faces_sharp),
-                          ],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                // '레벨 ${level} 만들고 있어요',
+                                '이만큼 필요해요!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize: 25.sp,
+                                  fontWeight: FontWeight.normal,
+                                  letterSpacing: 1,
+                                ),
+                              ),
+                              // Icon(Icons.tag_faces_sharp),
+                            ],
+                          ),
                         ),
                       ),
-                      ),
-                        ),
-
-
+                    ),
 
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -95,11 +91,14 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                     //     thickness: 1.5,
                     //   ),
                     // ),
-                    Center(
-                      child: Container(
-                        height: 180,
-                        child: Image.asset('assets/images/level${level}.png'),
-                      ),
+                    // Center(
+                    //   child: Container(
+                    //     height: 180,
+                    //     child: Image.asset('assets/images/level${level}.png'),
+                    //   ),
+                    // ),
+                    SizedBox(
+                      height: 30.h,
                     ),
                     Center(
                       child: Wrap(
@@ -112,8 +111,8 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                               child: Column(
                                 children: [
                                   Container(
-                                    width: width / 5,
-                                    height: width / 5,
+                                    width: count == 4 ? width / 6 : width / 5,
+                                    height: count == 4 ? width / 6 : width / 5,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Colors.amber, width: 2),
@@ -136,10 +135,10 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                     ),
                                   ),
                                   Text(
-                                    '${block[i][1]}',
+                                    '${block[i][1]}개',
                                     style: TextStyle(
                                       fontSize: 25.sp,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.normal,
                                       color: Colors.grey[600],
                                     ),
                                   ),

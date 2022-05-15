@@ -97,19 +97,19 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   }
 
   //이미지 토글
-  // bool _visibility = false;
+  bool _visibility = false;
 
-  // void showWidget() {
-  //   setState(() {
-  //     _visibility = true;
-  //   });
-  // }
+  void showWidget() {
+    setState(() {
+      _visibility = true;
+    });
+  }
 
-  // void hideWidget() {
-  //   setState(() {
-  //     _visibility = false;
-  //   });
-  // }
+  void hideWidget() {
+    setState(() {
+      _visibility = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -265,11 +265,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   setRecognitions,
                 ),
                 BndBox(
-                    _recognitions ?? [],
-                    level,
-                    count,
-                    block,
-                    ),
+                  _recognitions ?? [],
+                  level,
+                  count,
+                  block,
+                ),
               ],
             ),
     );
