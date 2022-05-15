@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jolzak/widgets/buttom_drawer.dart';
 import 'dart:math' as math;
 import 'models.dart';
 import 'package:flutter/services.dart';
@@ -11,28 +13,23 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:progress_stepper/progress_stepper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import '../widgets/objects.dart';
 
-int status = 0;
-int eff_timer = 0;
 
 
 class BndBox extends StatefulWidget {
   static const platform = MethodChannel('ondeviceML');
 
   final List<dynamic> results;
-  final int previewH;
-  final int previewW;
-  final double screenH;
-  final double screenW;
-  final String model;
+  final String level;
+  final int count;
+  final List block;
 
   BndBox(
     this.results,
-    this.previewH,
-    this.previewW,
-    this.screenH,
-    this.screenW,
-    this.model,
+      this.level,
+      this.count,
+      this.block,
   );
 
   @override
@@ -44,6 +41,9 @@ class _BndBoxState extends State<BndBox> {
   AudioCache audioCache = AudioCache();
   bool _visible = false;
   bool _repeat = true;
+
+  int eff_timer = 0;
+  int status = 1;
 
 
   @override
@@ -58,6 +58,8 @@ class _BndBoxState extends State<BndBox> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     List<Widget> _renderStrings() {
       var lists = <Widget>[];
@@ -65,22 +67,22 @@ class _BndBoxState extends State<BndBox> {
       final later = now.add(const Duration(seconds: 5));
 
       return widget.results.map((re) {
-        if ( status == 0 && re["label"] == "step1" && re["confidence"] > 0.1) {
-          audioCache.play('audio/sound.mp3');
-          status = 1;
-          eff_timer = 1;
-          Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
-
-        }
-        if (status == 1 && re["label"] == "step2" && re["confidence"] > 0.1) {
+        if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
           audioCache.play('audio/sound.mp3');
           status = 2;
           eff_timer = 1;
           Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+
         }
-        if (status == 2 && re["label"] == "step3" && re["confidence"] > 0.1) {
+        if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
           audioCache.play('audio/sound.mp3');
-          Future.delayed(Duration(seconds: 1)).then((value) => status=3);
+          status = 3;
+          eff_timer = 1;
+          Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+        }
+        if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
+          audioCache.play('audio/complete.mp3');
+          Future.delayed(Duration(seconds: 1)).then((value) => status=4);
           Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
           Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
         }
@@ -130,9 +132,10 @@ class _BndBoxState extends State<BndBox> {
               stepCount: 3,
               color: Colors.white,
               progressColor: Colors.amber,
-              currentStep: status,
+              currentStep: status-1,
             )
           ),
+
 
 
           if (eff_timer == 1)
@@ -155,13 +158,13 @@ class _BndBoxState extends State<BndBox> {
       ),
 
       //뒷배경
-        if (status == 3)(
+        if (status == 4)(
             Container(
               color: Colors.black.withOpacity(0.8),
             )
         ),
 
-        if (status==3)
+        if (status==4)
           //라이팅 효과
           Lottie.asset('assets/effects/complete.json',
           animate: true,
@@ -189,6 +192,12 @@ class _BndBoxState extends State<BndBox> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+
+                            Text('정말 멋진 모래성이네요!',
+                            style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,)),
+
                             Lottie.asset('assets/effects/castle.json',
                             repeat: true),
                             // Image.asset('assets/images/level1.png',
@@ -198,8 +207,10 @@ class _BndBoxState extends State<BndBox> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                RaisedButton(onPressed: ()=>status = 0),
-                                RaisedButton(onPressed: ()=>status = 0),
+                                RaisedButton(onPressed: ()=>status = 1,
+                                color: Colors.white,),
+                                RaisedButton(onPressed: ()=>status = 1,
+                                color: Colors.grey,),
                               ],
                             )
                           ],
@@ -209,6 +220,48 @@ class _BndBoxState extends State<BndBox> {
                 ),
               ),
             ),
+      Positioned(
+        bottom: 10,
+        child: Container(
+          color: Colors.white.withOpacity(0.0),
+          // color: Colors.transparent,
+          height: height / 6,
+          width: width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                child: Container(
+                  width: 50.w,
+                  height: 50.w,
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Icon(
+                    Icons.question_answer_rounded,
+                    size: 45.sp,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () => showModalBottomSheet(
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ButtomDrawer(
+                          block: widget.block, count: widget.count, level: widget.level);
+                    }),
+              ),
+              Container(
+                width: width * 2.3 / 3,
+
+                child: Image.asset('assets/step_img/castle${widget.level}_step${status}.png'),
+              )
+            ],
+          ),
+        ),
+        /////////////////////////////////////////////////////////
+      ),
 
     ],
     );

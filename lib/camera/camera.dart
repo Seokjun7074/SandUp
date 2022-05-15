@@ -135,12 +135,13 @@ class _CameraState extends State<Camera> {
     return Scaffold(
       body: Stack(
         children: [
-          controller.buildPreview(),
+
           // ObjectGesturesWidget(),
-          // Transform.scale(
-          //   scale: scale,
-          //   child: controller.buildPreview(),
-          // ),
+          Transform.scale(
+            scale: scale,
+            child: controller.buildPreview(),
+          ),
+
         ],
       ),
     );

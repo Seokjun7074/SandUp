@@ -155,7 +155,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     child: ModelViewer(
                       backgroundColor: Colors.amber[50],
                       // src: 'assets/cube/sand.glb',
-                      src: 'assets/objects/model_0${level}.glb',
+                      src: 'assets/objects/castle${level}.glb',
                       autoPlay: true,
                       autoRotate: true,
                       cameraControls: true,
@@ -264,59 +264,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   _model,
                   setRecognitions,
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
-                //   child: Image.asset('assets/images/circle.png'),
-                // ),
                 BndBox(
                     _recognitions ?? [],
-                    math.max(_imageHeight, _imageWidth),
-                    math.min(_imageHeight, _imageWidth),
-                    screen.height,
-                    screen.width,
-                    _model),
-
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    color: Colors.white,
-                    // color: Colors.transparent,
-                    height: height / 5,
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          child: Container(
-                            width: 50.w,
-                            height: 50.w,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Icon(
-                              Icons.question_mark_rounded,
-                              size: 45.sp,
-                              color: Colors.white,
-                            ),
-                          ),
-                          onTap: () => showModalBottomSheet(
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ButtomDrawer(
-                                    block: block, count: count, level: level);
-                              }),
-                        ),
-                        Container(
-                          width: width * 2.3 / 3,
-                          color: Colors.red,
-                          child: Text('사진'),
-                        )
-                      ],
+                    level,
+                    count,
+                    block,
                     ),
-                  ),
-                ),
               ],
             ),
     );

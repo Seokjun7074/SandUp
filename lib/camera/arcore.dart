@@ -47,6 +47,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
 
 
 
+
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
 
@@ -66,6 +67,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   @override
   void initState() {
     super.initState();
+
 
   }
 
@@ -192,6 +194,8 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
 
   Future<void> onTakeScreenshot() async {
     var image = await this.arSessionManager.snapshot();
+    Tflite.runModelOnImage(path: image.toString());
+
 
 
 

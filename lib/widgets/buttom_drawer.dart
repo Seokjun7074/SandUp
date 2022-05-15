@@ -49,26 +49,56 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Level 0${level}',
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
+                    Center(
+                      child:Container(
+                      alignment: Alignment.topCenter,
+                      width: width,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.amber.withAlpha(100),
+                            Colors.amber],
+                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Divider(
-                        color: Colors.grey[600],
-                        thickness: 1.5,
+                      
+                      child:Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:[
+                            Text(
+                            '레벨 ${level} 만들고 있어요',
+                            textAlign: TextAlign.center,
+
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25.sp,
+                              fontWeight: FontWeight.normal,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                            Icon(Icons.tag_faces_sharp),
+                          ],
+                        ),
                       ),
-                    ),
+                      ),
+                        ),
+
+
+
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    //   child: Divider(
+                    //     color: Colors.grey[600],
+                    //     thickness: 1.5,
+                    //   ),
+                    // ),
                     Center(
                       child: Container(
-                        height: 100,
-                        child: Image.asset('assets/images/level3.png'),
+                        height: 180,
+                        child: Image.asset('assets/images/level${level}.png'),
                       ),
                     ),
                     Center(
