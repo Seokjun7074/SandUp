@@ -41,13 +41,6 @@ class _CameraState extends State<Camera> {
   bool isDetecting = false;
 
 
-  ObjectGesturesWidget _ObjectGesturesWidget = ObjectGesturesWidget();
-
-
-
-
-
-
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
 
@@ -135,6 +128,7 @@ class _CameraState extends State<Camera> {
   }
 
 
+
   @override
   void dispose() {
     controller.dispose();
@@ -143,6 +137,7 @@ class _CameraState extends State<Camera> {
 
   @override
   Widget build(BuildContext context) {
+
     // Future.delayed(Duration.zero, () => _onBasicAlertPressed(context));
     if (!controller.value.isInitialized) {
       return Container();
@@ -169,15 +164,14 @@ class _CameraState extends State<Camera> {
     return Scaffold(
       body: Stack(
         children: [
-
           // ObjectGesturesWidget(),
           Transform.scale(
             scale: scale,
             child: controller.buildPreview(),
           ),
-
         ],
       ),
+
     );
   }
 
