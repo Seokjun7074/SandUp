@@ -45,6 +45,8 @@ class _BndBoxState extends State<BndBox> {
   int eff_timer = 0;
   int status = 1;
 
+  int total_step = 3;
+
 
   @override
   void initState() {
@@ -60,32 +62,71 @@ class _BndBoxState extends State<BndBox> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    if (widget.level=="2" || widget.level=="3")
+      total_step=5;
 
     List<Widget> _renderStrings() {
       var lists = <Widget>[];
-      final now = DateTime.now();
-      final later = now.add(const Duration(seconds: 5));
 
       return widget.results.map((re) {
-        if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
-          audioCache.play('audio/sound.mp3');
-          status = 2;
-          eff_timer = 1;
-          Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+        //레벨1 반응형
+        if (widget.level == 1){
+          if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
+            audioCache.play('audio/sound.mp3');
+            status = 2;
+            eff_timer = 1;
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
 
+          }
+          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
+            audioCache.play('audio/sound.mp3');
+            status = 3;
+            eff_timer = 1;
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+          }
+          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
+            audioCache.play('audio/complete.mp3');
+            Future.delayed(Duration(seconds: 1)).then((value) => status=100);
+            Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
+            Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
+          }
         }
-        if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
-          audioCache.play('audio/sound.mp3');
-          status = 3;
-          eff_timer = 1;
-          Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+        //레벨2 반응형
+        if (widget.level == 2 || widget.level == 3){
+          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
+            audioCache.play('audio/sound.mp3');
+            status = 2;
+            eff_timer = 1;
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+
+          }
+          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
+            audioCache.play('audio/sound.mp3');
+            status = 3;
+            eff_timer = 1;
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+          }
+          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
+            audioCache.play('audio/complete.mp3');
+            status = 4;
+            eff_timer = 1;
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+          }
+          if (status == 4 && re["label"] == "step4" && re["confidence"] > 0.1) {
+            audioCache.play('audio/sound.mp3');
+            status = 5;
+            eff_timer = 1;
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+          }
+          if (status == 5 && re["label"] == "step5" && re["confidence"] > 0.1) {
+            audioCache.play('audio/sound.mp3');
+            Future.delayed(Duration(seconds: 1)).then((value) => status=100);
+            Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
+            Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
+          }
         }
-        if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
-          audioCache.play('audio/complete.mp3');
-          Future.delayed(Duration(seconds: 1)).then((value) => status=4);
-          Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
-          Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
-        }
+
+
 
 
         return Positioned(
@@ -124,12 +165,14 @@ class _BndBoxState extends State<BndBox> {
           //     ),
           //   ),
           // ),
+
           Padding(
+
             padding: EdgeInsets.fromLTRB(25.0, 60.0, 25.0, 25.0),
             child: ProgressStepper(
               width: 330,
               height: 20,
-              stepCount: 3,
+              stepCount: total_step,
               color: Colors.white,
               progressColor: Colors.amber,
               currentStep: status-1,
@@ -158,13 +201,13 @@ class _BndBoxState extends State<BndBox> {
       ),
 
       //뒷배경
-        if (status == 4)(
+        if (status == 100)(
             Container(
               color: Colors.black.withOpacity(0.8),
             )
         ),
 
-        if (status==4)
+        if (status==100)
           //라이팅 효과
           Lottie.asset('assets/effects/complete.json',
           animate: true,

@@ -197,12 +197,6 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     Tflite.runModelOnImage(path: image.toString());
 
 
-
-
-
-
-
-
     // await showDialog(
     //     context: context,
     //     builder: (_) => Dialog(

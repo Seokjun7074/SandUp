@@ -77,7 +77,41 @@ class _CameraState extends State<Camera> {
                 .now()
                 .millisecondsSinceEpoch;
 
-            if (widget.model == sandup) {
+            if (widget.model == level1) {
+              Tflite.runModelOnFrame(
+                bytesList: img.planes.map((plane) {
+                  return plane.bytes;
+                }).toList(),
+                imageHeight: img.height,
+                imageWidth: img.width,
+                numResults: 1,
+              ).then((recognitions) {
+                int endTime = DateTime
+                    .now()
+                    .millisecondsSinceEpoch;
+                print("Detection took ${endTime - startTime}");
+                widget.setRecognitions(recognitions!, img.height, img.width);
+                isDetecting = false;
+              });
+            }
+            if (widget.model == level2) {
+              Tflite.runModelOnFrame(
+                bytesList: img.planes.map((plane) {
+                  return plane.bytes;
+                }).toList(),
+                imageHeight: img.height,
+                imageWidth: img.width,
+                numResults: 1,
+              ).then((recognitions) {
+                int endTime = DateTime
+                    .now()
+                    .millisecondsSinceEpoch;
+                print("Detection took ${endTime - startTime}");
+                widget.setRecognitions(recognitions!, img.height, img.width);
+                isDetecting = false;
+              });
+            }
+            if (widget.model == level3) {
               Tflite.runModelOnFrame(
                 bytesList: img.planes.map((plane) {
                   return plane.bytes;

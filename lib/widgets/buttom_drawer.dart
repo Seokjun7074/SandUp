@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class ButtomDrawer extends StatefulWidget {
   const ButtomDrawer(
@@ -38,7 +39,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
               height: height / 2,
               width: width,
               decoration: BoxDecoration(
-                color: Colors.amber[50],
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -97,8 +98,8 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                     // ),
                     Center(
                       child: Container(
-                        height: 180,
-                        child: Image.asset('assets/images/level${level}.png'),
+                        height: 200,
+                        child: Lottie.asset('assets/images/castle${level}.json'),
                       ),
                     ),
                     Center(
@@ -117,7 +118,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Colors.amber, width: 2),
-                                      color: Colors.amber[50],
+                                      color: Colors.white,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.1),

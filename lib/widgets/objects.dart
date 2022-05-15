@@ -61,16 +61,32 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   loadModel() async {
     String? res;
     switch (_model) {
-      case sandup:
+      case level1:
         res = await Tflite.loadModel(
           model: "assets/model/model.tflite",
-          labels: "assets/model/labels.txt",
-        );
+          labels: "assets/model/labels.txt",);
+        break;
+      case level2:
+        res = await Tflite.loadModel(
+            model: "assets/model/level2_model.tflite",
+            labels: "assets/model/level2_labels.txt",);
+        break;
+      case level3:
+        res = await Tflite.loadModel(
+          model: "assets/model/level2_model.tflite",
+          labels: "assets/model/level2_labels.txt",);
+        break;
     }
     print(res);
   }
 
   onSelect(model) {
+    if (model==1)
+      model = level1;
+    if (model==2)
+      model = level2;
+    if (model==3)
+      model = level3;
     setState(() {
       _model = model;
     });
@@ -120,6 +136,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     String level = args.index.toString();
     int count = int.parse(args.count.toString());
     List block = args.block;
+
+
     // print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // print(block[1]);
     // 리스트에서 받아온 props
@@ -259,12 +277,13 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
+
                 Positioned(
                   bottom: 20.h,
                   right: 30.w,
                   left: 30.w,
                   child: GestureDetector(
-                    onTap: () => onSelect(sandup),
+                    onTap: () => onSelect(args.index),
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
