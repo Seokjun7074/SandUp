@@ -29,6 +29,7 @@ class _TestListState extends State<TestList> {
     print(
         '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     setState(() {});
+    // deactivate();
   }
   // void getCurrentUser() {
   //   try {
@@ -85,6 +86,9 @@ class _TestListState extends State<TestList> {
                 },
                 itemBuilder: (index, selectedIndex) {
                   final category = categories[index];
+                  List copy_block = [...category.block];
+                  // print('블록:" ${category.block}');
+                  // print('카피블록:" ${copy_block}');
                   return GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
@@ -94,7 +98,7 @@ class _TestListState extends State<TestList> {
                           index: index + 1,
                           count: category.count,
                           block: category.block,
-                          copy_block: [...category.block],
+                          copy_block: copy_block,
                         ),
                       ).then(
                         ((value) => value == null ? refresh() : null),

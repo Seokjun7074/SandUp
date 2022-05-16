@@ -351,7 +351,7 @@ class _BndBoxState extends State<BndBox> {
           ),
         ),
         Positioned(
-          bottom: 30,
+          bottom: 50.h,
           child: Container(
             color: Colors.white.withOpacity(0.0),
             // color: Colors.transparent,
