@@ -23,9 +23,14 @@ class ObjectsArguments {
   final int index;
   final String count;
   final List block;
+  final List copy_block;
 
-  ObjectsArguments(
-      {required this.index, required this.count, required this.block});
+  ObjectsArguments({
+    required this.index,
+    required this.count,
+    required this.block,
+    required this.copy_block,
+  });
 }
 
 class Objects extends StatefulWidget {
@@ -52,41 +57,41 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageWidth = 0;
   String _model = "";
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // _controller.dispose();
+    super.dispose();
+  }
 
   loadModel() async {
     String? res;
     switch (_model) {
-      case level1:
+      case 'level1':
         res = await Tflite.loadModel(
           model: "assets/model/model.tflite",
-          labels: "assets/model/labels.txt",);
+          labels: "assets/model/labels.txt",
+        );
         break;
-      case level2:
-        res = await Tflite.loadModel(
-            model: "assets/model/level2_model.tflite",
-            labels: "assets/model/level2_labels.txt",);
-        break;
-      case level3:
+      case 'level2':
         res = await Tflite.loadModel(
           model: "assets/model/level2_model.tflite",
-          labels: "assets/model/level2_labels.txt",);
+          labels: "assets/model/level2_labels.txt",
+        );
+        break;
+      case 'level3':
+        res = await Tflite.loadModel(
+          model: "assets/model/level2_model.tflite",
+          labels: "assets/model/level2_labels.txt",
+        );
         break;
     }
     print(res);
   }
 
   onSelect(model) {
-    if (model==1)
-      model = level1;
-    if (model==2)
-      model = level2;
-    if (model==3)
-      model = level3;
+    if (model == 1) model = 'level1';
+    if (model == 2) model = 'level2';
+    if (model == 3) model = 'level3';
     setState(() {
       _model = model;
     });
@@ -136,12 +141,16 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     String level = args.index.toString();
     int count = int.parse(args.count.toString());
     List block = args.block;
-
+    List copy_block = args.copy_block;
 
     // print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // print(block[1]);
     // 리스트에서 받아온 props
-
+    // setState(() {
+    //   copy_block = [...block];
+    // });
+    print('블록:" ${block}');
+    print('카피블록:" ${copy_block}');
     Timer(Duration(milliseconds: 1500), () => makeDelay()); //딜레이 만들기
 
     return Scaffold(
@@ -226,7 +235,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-
                 Positioned(
                   bottom: 20.h,
                   right: 30.w,
@@ -288,6 +296,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   level,
                   count,
                   block,
+                  copy_block,
                 ),
               ],
             ),

@@ -24,12 +24,14 @@ class BndBox extends StatefulWidget {
   final String level;
   final int count;
   final List block;
+  final List copy_block;
 
   BndBox(
     this.results,
     this.level,
     this.count,
     this.block,
+    this.copy_block,
   );
 
   @override
@@ -37,7 +39,6 @@ class BndBox extends StatefulWidget {
 }
 
 class _BndBoxState extends State<BndBox> {
-
   AudioCache audioCache = AudioCache();
   bool _visible = false;
   bool _repeat = true;
@@ -52,12 +53,6 @@ class _BndBoxState extends State<BndBox> {
   // var bottom_comment_temp = "";
   // var bottom_comment = "";
 
-
-
-
-
-
-
   @override
   void initState() {
     super.initState();
@@ -68,16 +63,25 @@ class _BndBoxState extends State<BndBox> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    List block = widget.block;
+    List copy_block = widget.copy_block;
+    String level = widget.level;
+
     // Future.delayed(Duration(seconds: 4)).then((value) => comment_candidates);
 
     //랜덤 코멘트!
     // var bottom_comment = comment_candidate[rand.nextInt(comment_candidate.length)];
 
-    if (widget.level=="2" || widget.level=="3")
-      total_step=5;
+    if (widget.level == "2" || widget.level == "3") total_step = 5;
 
     List<Widget> _renderStrings() {
       var lists = <Widget>[];
@@ -87,68 +91,84 @@ class _BndBoxState extends State<BndBox> {
 
       return widget.results.map((re) {
         //레벨1 반응형
-        if (widget.level == "1"){
-          if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.8) {
+        if (widget.level == "1") {
+          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.8) {
             List step1_1 = ['audio/audio_1.mp3', 'audio/audio_0.mp3'];
             audioCache.play(step1_1[_random.nextInt(step1_1.length)]);
             // audioCache.play('audio/sound.mp3');
             status = 2;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
-
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
           if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.8) {
-            List step1_2 = ['audio/audio_2.mp3', 'audio/audio_3.mp3', 'audio/audio_5.mp3'];
+            List step1_2 = [
+              'audio/audio_2.mp3',
+              'audio/audio_3.mp3',
+              'audio/audio_5.mp3'
+            ];
             audioCache.play(step1_2[_random.nextInt(step1_2.length)]);
             status = 3;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
           if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.8) {
             status = 4;
             audioCache.play('audio/audio_10.mp3');
 
-            Future.delayed(Duration(seconds: 1)).then((value) => status=100);
-            Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
-            Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
+            Future.delayed(Duration(seconds: 1)).then((value) => status = 100);
+            Future.delayed(Duration(seconds: 4))
+                .then((value) => _repeat = false);
+            Future.delayed(Duration(seconds: 4))
+                .then((value) => _visible = true);
           }
         }
         //레벨2 반응형
-        if (widget.level == "2" || widget.level == "3"){
+        if (widget.level == "2" || widget.level == "3") {
           if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
             List step2_1 = ['audio/audio_0.mp3', 'audio/audio_1.mp3'];
             audioCache.play(step2_1[_random.nextInt(step2_1.length)]);
             status = 2;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
           if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
             audioCache.play('audio/audio_5.mp3');
             status = 3;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
           if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
             List step2_3 = ['audio/audio_2.mp3', 'audio/audio_3.mp3'];
             audioCache.play(step2_3[_random.nextInt(step2_3.length)]);
             status = 4;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
           if (status == 4 && re["label"] == "step4" && re["confidence"] > 0.1) {
-            List step2_4 = ['audio/audio_3.mp3', 'audio/audio_4.mp3', 'audio/audio_5.mp3', 'audio/audio_6.mp3'];
+            List step2_4 = [
+              'audio/audio_3.mp3',
+              'audio/audio_4.mp3',
+              'audio/audio_5.mp3',
+              'audio/audio_6.mp3'
+            ];
             audioCache.play(step2_4[_random.nextInt(step2_4.length)]);
             status = 5;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
           if (status == 5 && re["label"] == "step5" && re["confidence"] > 0.1) {
             status = 6;
-            List step2_5 = ['audio/audio_9.mp3', 'audio/audio_10.mp3', 'audio/audio_11.mp3'];
+            List step2_5 = [
+              'audio/audio_9.mp3',
+              'audio/audio_10.mp3',
+              'audio/audio_11.mp3'
+            ];
             audioCache.play(step2_5[_random.nextInt(step2_5.length)]);
-            Future.delayed(Duration(seconds: 1)).then((value) => status=100);
-            Future.delayed(Duration(seconds: 4)).then((value) => _repeat = false);
-            Future.delayed(Duration(seconds: 4)).then((value) => _visible = true);
+            Future.delayed(Duration(seconds: 1)).then((value) => status = 100);
+            Future.delayed(Duration(seconds: 4))
+                .then((value) => _repeat = false);
+            Future.delayed(Duration(seconds: 4))
+                .then((value) => _visible = true);
           }
         }
 
@@ -167,49 +187,111 @@ class _BndBoxState extends State<BndBox> {
       }).toList();
     }
 
+    // level 1 노가다
 
+    if (level == '1') {
+      if (status == 2) {
+        setState(() {
+          copy_block[0][1] = 0;
+        });
+      } else if (status == 3) {
+        setState(() {
+          copy_block[1][1] = 0;
+        });
+      } else if (status == 4) {
+        setState(() {
+          copy_block = [...block];
+        });
+      }
+    }
+    // level 2 노가다
+    else if (level == '2') {
+      if (status == 2) {
+        setState(() {
+          copy_block[0][1] = 2;
+        });
+      } else if (status == 3) {
+        setState(() {
+          copy_block[1][1] = 0;
+        });
+      } else if (status == 4) {
+        setState(() {
+          copy_block[2][1] = 0;
+        });
+      } else if (status == 5) {
+        setState(() {
+          copy_block[0][1] = 1;
+          copy_block[3][1] = 1;
+        });
+      } else if (status == 6) {
+        setState(() {
+          copy_block = [...block];
+        });
+      }
+    }
+    // level 3 노가다
+    else if (level == '3') {
+      if (status == 2) {
+        setState(() {
+          copy_block[0][1] = 2;
+        });
+      } else if (status == 3) {
+        setState(() {
+          copy_block[1][1] = 2;
+          copy_block[2][1] = 0;
+          copy_block[3][1] = 0;
+        });
+      } else if (status == 4) {
+        setState(() {
+          copy_block[5][1] = 0;
+        });
+      } else if (status == 5) {
+        setState(() {
+          copy_block[0][1] = 1;
+          copy_block[1][1] = 1;
+          copy_block[4][1] = 1;
+        });
+      } else if (status == 6) {
+        setState(() {
+          copy_block = [...block];
+        });
+      }
+    }
 
-    return Stack(children: <Widget>[
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-
-
-        children: <Widget>[
-          Padding(
-
-            padding: EdgeInsets.fromLTRB(25.0, 60.0, 25.0, 25.0),
-            child: ProgressStepper(
-              width: 330,
-              height: 20,
-              stepCount: total_step,
-              color: Colors.white,
-              progressColor: Colors.amber,
-              currentStep: status-1,
-            )
-          ),
-
-          if (eff_timer == 1)
-            Container(
-              child: Lottie.asset('assets/effects/fireworks.json'),
-            ),
-        ],
-
-
-      ),
-
-      Stack(
-        children: _renderStrings(),
-      ),
-
-      //뒷배경
-        if (status == 100)(
-            Container(
-              color: Colors.black.withOpacity(0.8),
-            )
+    return Stack(
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.fromLTRB(25.0, 60.0, 25.0, 25.0),
+                child: ProgressStepper(
+                  width: 330,
+                  height: 20,
+                  stepCount: total_step,
+                  color: Colors.white,
+                  progressColor: Colors.amber,
+                  currentStep: status - 1,
+                )),
+            if (eff_timer == 1)
+              Container(
+                child: Lottie.asset('assets/effects/fireworks.json'),
+              ),
+          ],
         ),
 
-        if (status==100)
+        Stack(
+          children: _renderStrings(),
+        ),
+
+        //뒷배경
+        if (status == 100)
+          (Container(
+            color: Colors.black.withOpacity(0.8),
+          )),
+
+        if (status == 100)
           //라이팅 효과
           Lottie.asset('assets/effects/complete.json',
               animate: true, repeat: _repeat),
@@ -275,41 +357,41 @@ class _BndBoxState extends State<BndBox> {
             // color: Colors.transparent,
             height: height / 6,
             width: width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () => showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ButtomDrawer(
-                            block: widget.block,
-                            count: widget.count,
-                            level: widget.level);
-                      }),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.0),
-                          spreadRadius: 1,
-                          blurRadius: 1.0,
-                          offset: Offset(0, 2), // changes position of shadow
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: width-50,
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Image.asset(
-                          'assets/step_img/castle${widget.level}_step${status}.png'),
-                    ),
+            child: Center(
+              child: GestureDetector(
+                onTap: () => showModalBottomSheet(
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ButtomDrawer(
+                        block: widget.block,
+                        count: widget.count,
+                        level: widget.level,
+                        status: status,
+                        copy_block: copy_block,
+                      );
+                    }),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.0),
+                        spreadRadius: 1,
+                        blurRadius: 1.0,
+                        offset: Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: width - 50,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Image.asset(
+                        'assets/step_img/castle${widget.level}_step${status}.png'),
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),

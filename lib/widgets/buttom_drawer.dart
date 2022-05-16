@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ButtomDrawer extends StatefulWidget {
-  const ButtomDrawer(
-      {Key? key, required this.block, required this.count, required this.level})
-      : super(key: key);
+  const ButtomDrawer({
+    Key? key,
+    required this.block,
+    required this.count,
+    required this.level,
+    required this.status,
+    required this.copy_block,
+  }) : super(key: key);
   final List block;
   final int count;
   final String level;
+  final int status;
+  final List copy_block;
   @override
   State<ButtomDrawer> createState() => _ButtomDrawerState();
 }
@@ -21,6 +28,11 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
     List block = widget.block;
     int count = widget.count;
     String level = widget.level;
+    int status = widget.status;
+    List copy_block = widget.copy_block;
+
+    print(
+        '---------------------------------------------------------------------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---');
     return Container(
       height: height,
       decoration: BoxDecoration(
@@ -135,7 +147,8 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                     ),
                                   ),
                                   Text(
-                                    '${block[i][1]}개',
+                                    '${copy_block[i][1]}개',
+                                    // '${status}',
                                     style: TextStyle(
                                       fontSize: 25.sp,
                                       fontWeight: FontWeight.normal,

@@ -15,10 +15,6 @@ import 'package:ar_flutter_plugin/models/ar_anchor.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-
-
-
-
 typedef Callback = void Function(List<dynamic> list, int h, int w);
 
 class Camera extends StatefulWidget {
@@ -40,10 +36,8 @@ class _CameraState extends State<Camera> {
   late CameraController controller;
   bool isDetecting = false;
 
-
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
-
 
   @override
   void initState() {
@@ -66,11 +60,9 @@ class _CameraState extends State<Camera> {
           if (!isDetecting) {
             isDetecting = true;
 
-            int startTime = DateTime
-                .now()
-                .millisecondsSinceEpoch;
+            int startTime = DateTime.now().millisecondsSinceEpoch;
 
-            if (widget.model == level1) {
+            if (widget.model == 'level1') {
               Tflite.runModelOnFrame(
                 bytesList: img.planes.map((plane) {
                   return plane.bytes;
@@ -79,15 +71,13 @@ class _CameraState extends State<Camera> {
                 imageWidth: img.width,
                 numResults: 1,
               ).then((recognitions) {
-                int endTime = DateTime
-                    .now()
-                    .millisecondsSinceEpoch;
+                int endTime = DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
                 widget.setRecognitions(recognitions!, img.height, img.width);
                 isDetecting = false;
               });
             }
-            if (widget.model == level2) {
+            if (widget.model == 'level2') {
               Tflite.runModelOnFrame(
                 bytesList: img.planes.map((plane) {
                   return plane.bytes;
@@ -96,15 +86,13 @@ class _CameraState extends State<Camera> {
                 imageWidth: img.width,
                 numResults: 1,
               ).then((recognitions) {
-                int endTime = DateTime
-                    .now()
-                    .millisecondsSinceEpoch;
+                int endTime = DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
                 widget.setRecognitions(recognitions!, img.height, img.width);
                 isDetecting = false;
               });
             }
-            if (widget.model == level3) {
+            if (widget.model == 'level3') {
               Tflite.runModelOnFrame(
                 bytesList: img.planes.map((plane) {
                   return plane.bytes;
@@ -113,9 +101,7 @@ class _CameraState extends State<Camera> {
                 imageWidth: img.width,
                 numResults: 1,
               ).then((recognitions) {
-                int endTime = DateTime
-                    .now()
-                    .millisecondsSinceEpoch;
+                int endTime = DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
                 widget.setRecognitions(recognitions!, img.height, img.width);
                 isDetecting = false;
@@ -127,8 +113,6 @@ class _CameraState extends State<Camera> {
     }
   }
 
-
-
   @override
   void dispose() {
     controller.dispose();
@@ -137,15 +121,12 @@ class _CameraState extends State<Camera> {
 
   @override
   Widget build(BuildContext context) {
-
     // Future.delayed(Duration.zero, () => _onBasicAlertPressed(context));
     if (!controller.value.isInitialized) {
       return Container();
     }
 
-    var tmp = MediaQuery
-        .of(context)
-        .size;
+    var tmp = MediaQuery.of(context).size;
     var screenH = math.max(tmp.height, tmp.width);
     var screenW = math.min(tmp.height, tmp.width);
     tmp = controller.value.previewSize!;
@@ -156,9 +137,7 @@ class _CameraState extends State<Camera> {
 
     //석준 추가
 
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
 
     final scale = 1 / (controller.value.aspectRatio * size.aspectRatio);
     return Scaffold(
@@ -171,8 +150,6 @@ class _CameraState extends State<Camera> {
           ),
         ],
       ),
-
     );
   }
-
 }
