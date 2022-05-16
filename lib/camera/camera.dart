@@ -126,24 +126,24 @@ class _CameraState extends State<Camera> {
       return Container();
     }
 
-    var tmp = MediaQuery.of(context).size;
-    var screenH = math.max(tmp.height, tmp.width);
-    var screenW = math.min(tmp.height, tmp.width);
-    tmp = controller.value.previewSize!;
-    var previewH = math.max(tmp.height, tmp.width);
-    var previewW = math.min(tmp.height, tmp.width);
-    var screenRatio = screenH / screenW;
-    var previewRatio = previewH / previewW;
+    // var tmp = MediaQuery.of(context).size;
+    // var screenH = math.max(tmp.height, tmp.width);
+    // var screenW = math.min(tmp.height, tmp.width);
+    // tmp = controller.value.previewSize!;
+    // var previewH = math.max(tmp.height, tmp.width);
+    // var previewW = math.min(tmp.height, tmp.width);
+    // var screenRatio = screenH / screenW;
+    // var previewRatio = previewH / previewW;
 
     //석준 추가
 
     final size = MediaQuery.of(context).size;
+    final deviceRatio = size.width / size.height;
 
-    final scale = 1 / (controller.value.aspectRatio * size.aspectRatio);
+    final scale = 1.112 / (controller.value.aspectRatio * size.aspectRatio);
     return Scaffold(
       body: Stack(
         children: [
-          // ObjectGesturesWidget(),
           Transform.scale(
             scale: scale,
             child: controller.buildPreview(),
