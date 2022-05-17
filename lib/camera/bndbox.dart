@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jolzak/widgets/buttom_drawer.dart';
 import 'dart:math' as math;
@@ -88,7 +89,7 @@ class _BndBoxState extends State<BndBox> {
       return widget.results.map((re) {
         //레벨1 반응형
         if (widget.level == "1"){
-          if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.8) {
+          if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.3) {
             List step1_1 = ['audio/audio_1.mp3', 'audio/audio_0.mp3'];
             audioCache.play(step1_1[_random.nextInt(step1_1.length)]);
             // audioCache.play('audio/sound.mp3');
@@ -97,14 +98,14 @@ class _BndBoxState extends State<BndBox> {
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
 
           }
-          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.8) {
+          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.58) {
             List step1_2 = ['audio/audio_2.mp3', 'audio/audio_3.mp3', 'audio/audio_5.mp3'];
             audioCache.play(step1_2[_random.nextInt(step1_2.length)]);
             status = 3;
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
           }
-          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.8) {
+          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.5) {
             status = 4;
             audioCache.play('audio/audio_10.mp3');
 
@@ -115,7 +116,7 @@ class _BndBoxState extends State<BndBox> {
         }
         //레벨2 반응형
         if (widget.level == "2" || widget.level == "3"){
-          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
+          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.2) {
             List step2_1 = ['audio/audio_0.mp3', 'audio/audio_1.mp3'];
             audioCache.play(step2_1[_random.nextInt(step2_1.length)]);
             status = 2;
@@ -301,7 +302,7 @@ class _BndBoxState extends State<BndBox> {
                       ],
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    width: width-50,
+                    width: width/2,
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Image.asset(
@@ -309,6 +310,15 @@ class _BndBoxState extends State<BndBox> {
                     ),
                   ),
                 ),
+                FloatingActionButton(onPressed: () => showModalBottomSheet(
+                    elevation: height,
+                    backgroundColor: Colors.white.withOpacity(0),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ObjectGesturesWidget();
+                    },),
+                  child: Icon(Icons.view_in_ar_rounded),
+                )
               ],
             ),
           ),

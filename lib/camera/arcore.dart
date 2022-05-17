@@ -19,7 +19,7 @@ import 'package:ar_flutter_plugin/datatypes/hittest_result_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
 import 'package:flutter/services.dart';
-import 'package:vector_math/vector_math_64.dart';
+// import 'package:vector_math/vector_math_64.dart';
 import 'dart:math' as math;
 import 'package:tflite/tflite.dart';
 
@@ -100,10 +100,14 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
                   children: [
                     ElevatedButton(
                         onPressed: onRemoveEverything,
-                        child: Text("Remove Everything")),
-                    ElevatedButton(
-                        onPressed: onTakeScreenshot,
-                        child: Text("Take Screenshot")),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.amber[200],
+                        ),
+                        child: Text("AR 지우기",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),)),
                   ]),
             ),
 
@@ -174,8 +178,8 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
         var newNode = ARNode(
             type: NodeType.localGLTF2,
             uri:
-            "Models/Chicken_01/level1-obj2.gltf",
-            scale: Vector3(.5, .5, .5),
+            "assets/objects/castle1.glb",
+            scale: Vector3(100, 100, 100),
             position: Vector3(0.0, 0.0, 0.0),
             rotation: Vector4(1.0, 0.0, 0.0, 0.0));
         bool? didAddNodeToAnchor =

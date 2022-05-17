@@ -1,0 +1,10 @@
+# Rhino
+newmtl /Sand_01
+Ka 0.0000 0.0000 0.0000
+Kd 0.0000 0.0000 0.0000
+Ks 1.0000 1.0000 1.0000
+Tf 0.0000 0.0000 0.0000
+d 1.0000
+Ns 0.0000
+map_Kd sand1.jpg
+map_Bump sand1.jpg
