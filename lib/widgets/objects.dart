@@ -57,6 +57,9 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageWidth = 0;
   String _model = "";
   int random_idx = 0;
+
+  bool selected = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -114,6 +117,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     });
   }
 
+  void loadAR() {
+    setState(() {
+      selected = !selected;
+    });
+  }
+
   //딜레이
   bool delay = true;
 
@@ -150,6 +159,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     int count = int.parse(args.count.toString());
     List block = args.block;
     List copy_block = args.copy_block;
+    //
 
     // print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // print(block[1]);
@@ -300,6 +310,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
           : Stack(
               children: [
                 // ObjectGesturesWidget(),
+
                 cam.Camera(
                   widget.cameras,
                   _model,
@@ -341,6 +352,28 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                         ),
                       ],
                     )),
+                  ),
+                ),
+//ARARARARARAR
+                AnimatedPositioned(
+                  bottom: selected ? 0 : -height,
+                  child: Container(
+                    width: width,
+                    height: height * 0.8,
+                    color: Colors.green,
+                  ),
+                  duration: Duration(milliseconds: 500),
+                ),
+                Positioned(
+                  bottom: 60,
+                  right: 60,
+                  child: GestureDetector(
+                    onTap: () => selected = !selected,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.red,
+                    ),
                   ),
                 ),
               ],

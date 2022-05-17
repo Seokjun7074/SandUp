@@ -75,6 +75,7 @@ class _BndBoxState extends State<BndBox> {
     List block = widget.block;
     List copy_block = widget.copy_block;
     String level = widget.level;
+    bool selected = false;
 
     // Future.delayed(Duration(seconds: 4)).then((value) => comment_candidates);
 
