@@ -23,9 +23,14 @@ class ObjectsArguments {
   final int index;
   final String count;
   final List block;
+  final List copy_block;
 
-  ObjectsArguments(
-      {required this.index, required this.count, required this.block});
+  ObjectsArguments({
+    required this.index,
+    required this.count,
+    required this.block,
+    required this.copy_block,
+  });
 }
 
 class Objects extends StatefulWidget {
@@ -42,8 +47,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   late Object _back;
   // late AnimationController _controller;
 
-  GlobalKey<ScaffoldState> _scaffoldKey =
-      GlobalKey<ScaffoldState>(); //Drawer 커스텀 키
+  // GlobalKey<ScaffoldState> _scaffoldKey =
+  //     GlobalKey<ScaffoldState>(); //Drawer 커스텀 키
 
   bool show = false;
 
@@ -51,42 +56,53 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   int _imageHeight = 0;
   int _imageWidth = 0;
   String _model = "";
+  int random_idx = 0;
+
+  bool selected = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    random_idx = Random().nextInt(3);
+
+    super.initState();
+  }
 
   // @override
   // void dispose() {
-  //   _controller.dispose();
+  //   // _controller.dispose();
   //   super.dispose();
   // }
 
   loadModel() async {
     String? res;
     switch (_model) {
-      case level1:
+      case 'level1':
         res = await Tflite.loadModel(
           model: "assets/model/model.tflite",
-          labels: "assets/model/labels.txt",);
+          labels: "assets/model/labels.txt",
+        );
         break;
-      case level2:
-        res = await Tflite.loadModel(
-            model: "assets/model/level2_model.tflite",
-            labels: "assets/model/level2_labels.txt",);
-        break;
-      case level3:
+      case 'level2':
         res = await Tflite.loadModel(
           model: "assets/model/level2_model.tflite",
-          labels: "assets/model/level2_labels.txt",);
+          labels: "assets/model/level2_labels.txt",
+        );
+        break;
+      case 'level3':
+        res = await Tflite.loadModel(
+          model: "assets/model/level2_model.tflite",
+          labels: "assets/model/level2_labels.txt",
+        );
         break;
     }
     print(res);
   }
 
   onSelect(model) {
-    if (model==1)
-      model = level1;
-    if (model==2)
-      model = level2;
-    if (model==3)
-      model = level3;
+    if (model == 1) model = 'level1';
+    if (model == 2) model = 'level2';
+    if (model == 3) model = 'level3';
     setState(() {
       _model = model;
     });
@@ -98,6 +114,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
       _recognitions = recognitions;
       _imageHeight = imageHeight;
       _imageWidth = imageWidth;
+    });
+  }
+
+  void loadAR() {
+    setState(() {
+      selected = !selected;
     });
   }
 
@@ -136,13 +158,24 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     String level = args.index.toString();
     int count = int.parse(args.count.toString());
     List block = args.block;
-
+    List copy_block = args.copy_block;
+    //
 
     // print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // print(block[1]);
     // 리스트에서 받아온 props
-
+    // setState(() {
+    //   copy_block = [...block];
+    // });
+    // print('블록:" ${block}');
+    // print('카피블록:" ${copy_block}');
     Timer(Duration(milliseconds: 1500), () => makeDelay()); //딜레이 만들기
+
+    List guide_text = [
+      'Tip: 그림을 눌러보세요! 필요한 블럭을 볼 수 있답니다!',
+      'Tip: 모양이 이상하다면? 블럭을 뒤집어 쌓아보세요!',
+      'Tip: 빨간색 먼저 쌓아주세요!',
+    ];
 
     return Scaffold(
       appBar: _model == ""
@@ -226,7 +259,6 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-
                 Positioned(
                   bottom: 20.h,
                   right: 30.w,
@@ -278,6 +310,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
           : Stack(
               children: [
                 // ObjectGesturesWidget(),
+
                 cam.Camera(
                   widget.cameras,
                   _model,
@@ -288,6 +321,38 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                   level,
                   count,
                   block,
+                  copy_block,
+                ),
+                Positioned(
+                  top: 75.h,
+                  left: 25.w,
+                  right: 25.w,
+                  child: Container(
+                    width: width * 3 / 4,
+                    height: 28.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[800]?.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.privacy_tip_sharp,
+                          color: Colors.amber[100],
+                        ),
+                        Text(
+                          '  ${guide_text[random_idx]}',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    )),
+                  ),
                 ),
               ],
             ),

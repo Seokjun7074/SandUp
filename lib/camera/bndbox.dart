@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jolzak/widgets/buttom_drawer.dart';
 import 'dart:math' as math;
@@ -25,12 +24,14 @@ class BndBox extends StatefulWidget {
   final String level;
   final int count;
   final List block;
+  final List copy_block;
 
   BndBox(
     this.results,
     this.level,
     this.count,
     this.block,
+    this.copy_block,
   );
 
   @override
@@ -38,7 +39,6 @@ class BndBox extends StatefulWidget {
 }
 
 class _BndBoxState extends State<BndBox> {
-
   AudioCache audioCache = AudioCache();
   bool _visible = false;
   bool _repeat = true;
@@ -69,16 +69,22 @@ class _BndBoxState extends State<BndBox> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    // Future.delayed(Duration(seconds: 4)).then((value) => comment_candidates);
+    List block = widget.block;
+    List copy_block = widget.copy_block;
+    String level = widget.level;
+    bool selected = false;
+    
 
-    //랜덤 코멘트!
-    // var bottom_comment = comment_candidate[rand.nextInt(comment_candidate.length)];
-
-    if (widget.level=="2" || widget.level=="3")
-      total_step=5;
+    if (widget.level == "2" || widget.level == "3") total_step = 5;
 
     List<Widget> _renderStrings() {
       var lists = <Widget>[];
@@ -89,23 +95,22 @@ class _BndBoxState extends State<BndBox> {
       return widget.results.map((re) {
         //레벨1 반응형
         if (widget.level == "1"){
-          if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.3) {
+          if ( status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
             List step1_1 = ['audio/audio_1.mp3', 'audio/audio_0.mp3'];
             audioCache.play(step1_1[_random.nextInt(step1_1.length)]);
             // audioCache.play('audio/sound.mp3');
             status = 2;
             eff_timer = 1;
-            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
-
+            Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.58) {
+          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
             List step1_2 = ['audio/audio_2.mp3', 'audio/audio_3.mp3', 'audio/audio_5.mp3'];
             audioCache.play(step1_2[_random.nextInt(step1_2.length)]);
             status = 3;
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer=0);
           }
-          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.5) {
+          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
             status = 4;
             audioCache.play('audio/audio_10.mp3');
 
@@ -116,7 +121,7 @@ class _BndBoxState extends State<BndBox> {
         }
         //레벨2 반응형
         if (widget.level == "2" || widget.level == "3"){
-          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.2) {
+          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
             List step2_1 = ['audio/audio_0.mp3', 'audio/audio_1.mp3'];
             audioCache.play(step2_1[_random.nextInt(step2_1.length)]);
             status = 2;
@@ -159,7 +164,7 @@ class _BndBoxState extends State<BndBox> {
           child: Text(
             "${re["label"]} ${(re["confidence"] * 100).toStringAsFixed(0)}% ${status}",
             style: TextStyle(
-              color: Color.fromRGBO(37, 213, 253, 1.0),
+              color: Color.fromRGBO(37, 213, 253, 1.0).withOpacity(1.0),
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
             ),
@@ -168,7 +173,76 @@ class _BndBoxState extends State<BndBox> {
       }).toList();
     }
 
+    // level 1 노가다
 
+    if (level == '1') {
+      if (status == 2) {
+        setState(() {
+          copy_block[0][1] = 0;
+        });
+      } else if (status == 3) {
+        setState(() {
+          copy_block[1][1] = 0;
+        });
+      } else if (status == 4) {
+        setState(() {
+          copy_block = [...block];
+        });
+      }
+    }
+    // level 2 노가다
+    else if (level == '2') {
+      if (status == 2) {
+        setState(() {
+          copy_block[0][1] = 2;
+        });
+      } else if (status == 3) {
+        setState(() {
+          copy_block[1][1] = 0;
+        });
+      } else if (status == 4) {
+        setState(() {
+          copy_block[2][1] = 0;
+        });
+      } else if (status == 5) {
+        setState(() {
+          copy_block[0][1] = 1;
+          copy_block[3][1] = 1;
+        });
+      } else if (status == 6) {
+        setState(() {
+          copy_block = [...block];
+        });
+      }
+    }
+    // level 3 노가다
+    else if (level == '3') {
+      if (status == 2) {
+        setState(() {
+          copy_block[0][1] = 2;
+        });
+      } else if (status == 3) {
+        setState(() {
+          copy_block[1][1] = 2;
+          copy_block[2][1] = 0;
+          copy_block[3][1] = 0;
+        });
+      } else if (status == 4) {
+        setState(() {
+          copy_block[5][1] = 0;
+        });
+      } else if (status == 5) {
+        setState(() {
+          copy_block[0][1] = 1;
+          copy_block[1][1] = 1;
+          copy_block[4][1] = 1;
+        });
+      } else if (status == 6) {
+        setState(() {
+          copy_block = [...block];
+        });
+      }
+    }
 
     return Stack(children: <Widget>[
       Column(
@@ -179,7 +253,7 @@ class _BndBoxState extends State<BndBox> {
         children: <Widget>[
           Padding(
 
-            padding: EdgeInsets.fromLTRB(25.0, 60.0, 25.0, 25.0),
+            padding: EdgeInsets.fromLTRB(25.0, 40.0, 25.0, 25.0),
             child: ProgressStepper(
               width: 330,
               height: 20,
@@ -188,6 +262,9 @@ class _BndBoxState extends State<BndBox> {
               progressColor: Colors.amber,
               currentStep: status-1,
             )
+          ),
+          Container(
+            height: 50,
           ),
 
           if (eff_timer == 1)
@@ -253,13 +330,25 @@ class _BndBoxState extends State<BndBox> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            RaisedButton(
-                              onPressed: () => status = 1,
-                              color: Colors.white,
+                            ElevatedButton(
+                              onPressed: () => {status = 1, _visible=false},
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.grey
+                              ),
+                              child: Text("다시 해볼까?",
+                                style: TextStyle(
+                                  fontSize: 20
+                              ),),
                             ),
-                            RaisedButton(
-                              onPressed: () => status = 1,
-                              color: Colors.grey,
+                            ElevatedButton(
+                              onPressed: () => Navigator.pushNamed(context, "/testlist"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey
+                              ),
+                              child: Text("레벨선택하기로!",
+                                style: TextStyle(
+                                  fontSize: 20
+                                ),),
                             ),
                           ],
                         ),
@@ -270,7 +359,7 @@ class _BndBoxState extends State<BndBox> {
           ),
         ),
         Positioned(
-          bottom: 30,
+          bottom: 20.h,
           child: Container(
             color: Colors.white.withOpacity(0.0),
             // color: Colors.transparent,
@@ -285,9 +374,12 @@ class _BndBoxState extends State<BndBox> {
                       context: context,
                       builder: (BuildContext context) {
                         return ButtomDrawer(
-                            block: widget.block,
-                            count: widget.count,
-                            level: widget.level);
+                          block: widget.block,
+                          count: widget.count,
+                          level: widget.level,
+                          status: status,
+                          copy_block: copy_block,
+                        );
                       }),
                   child: Container(
                     decoration: BoxDecoration(
@@ -305,20 +397,51 @@ class _BndBoxState extends State<BndBox> {
                     width: width/2,
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child: Image.asset(
-                          'assets/step_img/castle${widget.level}_step${status}.png'),
+                      child: Lottie.asset(
+                          'assets/step_img/castle${widget.level}_step${status}.json',
+                          repeat: true,
+                          animate: true),
                     ),
                   ),
                 ),
-                FloatingActionButton(onPressed: () => showModalBottomSheet(
-                    elevation: height,
-                    backgroundColor: Colors.white.withOpacity(0),
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ObjectGesturesWidget();
-                    },),
-                  child: Icon(Icons.view_in_ar_rounded),
+                Container(
+                  width: width/2.5,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => Container(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                              topLeft: const Radius.circular(25.0),
+                              topRight: const Radius.circular(25.0),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:[
+                              Lottie.asset('assets/effects/comming_soon.json'),
+                              Text(
+                                'IOS에서 체험해 볼까요?',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.amber[100],
+                                ),
+                              )
+                            ]
+                          ),
+                        ),
+                      ),
+                      child: Icon(Icons.view_in_ar),
+                      backgroundColor: Color(0xff71A5D7).withBlue(1000),
+                    ),
+                  ),
                 )
+
               ],
             ),
           ),

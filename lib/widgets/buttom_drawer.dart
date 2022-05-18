@@ -3,12 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class ButtomDrawer extends StatefulWidget {
-  const ButtomDrawer(
-      {Key? key, required this.block, required this.count, required this.level})
-      : super(key: key);
+  const ButtomDrawer({
+    Key? key,
+    required this.block,
+    required this.count,
+    required this.level,
+    required this.status,
+    required this.copy_block,
+  }) : super(key: key);
   final List block;
   final int count;
   final String level;
+  final int status;
+  final List copy_block;
   @override
   State<ButtomDrawer> createState() => _ButtomDrawerState();
 }
@@ -22,6 +29,11 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
     List block = widget.block;
     int count = widget.count;
     String level = widget.level;
+    int status = widget.status;
+    List copy_block = widget.copy_block;
+
+    print(
+        '---------------------------------------------------------------------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---');
     return Container(
       height: height,
       decoration: BoxDecoration(
@@ -36,7 +48,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
           Positioned(
             bottom: 0,
             child: Container(
-              height: count < 6 ? height / 2.2 : height / 1.75,
+              height: count < 6 ? height / 3.5 : height / 2.3,
               width: width,
               decoration: BoxDecoration(
                 color: Colors.amber[50],
@@ -92,12 +104,12 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                     //     thickness: 1.5,
                     //   ),
                     // ),
-                    Center(
-                      child: Container(
-                        height: 130,
-                        child: Lottie.asset('assets/images/castle${level}.json'),
-                      ),
-                    ),
+                    // Center(
+                    //   child: Container(
+                    //     height: 130,
+                    //     child: Lottie.asset('assets/images/castle${level}.json'),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 30.h,
                     ),
@@ -136,7 +148,8 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                                     ),
                                   ),
                                   Text(
-                                    '${block[i][1]}개',
+                                    '${copy_block[i][1]}개',
+                                    // '${status}',
                                     style: TextStyle(
                                       fontSize: 25.sp,
                                       fontWeight: FontWeight.normal,

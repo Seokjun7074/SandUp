@@ -22,30 +22,40 @@ class _TestListState extends State<TestList> {
 
   void initState() {
     super.initState();
-    getCurrentUser();
+    // getCurrentUser();
   }
 
-  void getCurrentUser() {
-    try {
-      final user = _authentication.currentUser;
-      User? loggedUser;
-      if (user != null) {
-        loggedUser = user;
-        print(loggedUser.email);
-        print(_authentication.currentUser);
-        print("로그인되어있음");
-      } else {
-        print("로그인 안되어있음");
-      }
-    } catch (e) {
-      print(e);
-    }
+  refresh() {
+    print(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    setState(() {});
+    // deactivate();
   }
+  // void getCurrentUser() {
+  //   try {
+  //     final user = _authentication.currentUser;
+  //     User? loggedUser;
+  //     if (user != null) {
+  //       loggedUser = user;
+  //       print(loggedUser.email);
+  //       print(_authentication.currentUser);
+  //       print("로그인되어있음");
+  //     } else {
+  //       print("로그인 안되어있음");
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    print(
+        'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    bool selected = false;
+
     return Scaffold(
       backgroundColor: Colors.amber[50],
       appBar: AppBar(
@@ -78,15 +88,22 @@ class _TestListState extends State<TestList> {
                 },
                 itemBuilder: (index, selectedIndex) {
                   final category = categories[index];
+                  List copy_block = [...category.block];
+                  // print('블록:" ${category.block}');
+                  // print('카피블록:" ${copy_block}');
                   return GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         "/objects",
                         arguments: ObjectsArguments(
-                            index: index + 1,
-                            count: category.count,
-                            block: category.block),
+                          index: index + 1,
+                          count: category.count,
+                          block: category.block,
+                          copy_block: copy_block,
+                        ),
+                      ).then(
+                        ((value) => value == null ? refresh() : null),
                       );
                     },
                     child: Container(
@@ -145,31 +162,32 @@ class _TestListState extends State<TestList> {
         name: "Level 1",
         count: '3',
         block: [
-          [1, 1],
           [3, 1],
-          [5, 1]
+          [1, 1],
+          [5, 1],
+          // [블럭번호, 개수]
         ]),
     Category(
         image: "assets/images/level2.png",
         name: "Level 2",
         count: '4',
         block: [
-          [1, 2],
           [4, 5],
+          [7, 1],
+          [1, 2],
           [6, 2],
-          [7, 1]
         ]),
     Category(
         image: "assets/images/level3.png",
         name: "Level 3",
         count: '6',
         block: [
+          [4, 4],
           [1, 3],
           [3, 1],
-          [4, 4],
           [5, 1],
           [6, 2],
-          [7, 2]
+          [7, 2],
         ]),
   ];
 }
