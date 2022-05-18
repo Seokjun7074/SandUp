@@ -135,7 +135,8 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   }
 
   //이미지 토글
-  bool _visibility = false;
+  bool _visibility = true;
+  bool cam_visibility = false;
 
   void showWidget() {
     setState(() {
@@ -146,6 +147,19 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
   void hideWidget() {
     setState(() {
       _visibility = false;
+    });
+  }
+
+  //튜토리얼
+  int tutorial_num = 1;
+
+  void nextStep() {
+    setState(() {
+      tutorial_num++;
+      if (tutorial_num >= 5) {
+        hideWidget();
+        cam_visibility = true;
+      }
     });
   }
 
@@ -160,7 +174,11 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     List block = args.block;
     List copy_block = args.copy_block;
     //
-
+    //튜토리얼 사진 사이즈
+    String device_width = "n";
+    if (width > 710) {
+      device_width = 'gt';
+    }
     // print('Level of this page:' + level + 'ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
     // print(block[1]);
     // 리스트에서 받아온 props
@@ -178,6 +196,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     ];
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: _model == ""
           ? AppBar(
               automaticallyImplyLeading: false,
@@ -311,10 +330,13 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
               children: [
                 // ObjectGesturesWidget(),
 
-                cam.Camera(
-                  widget.cameras,
-                  _model,
-                  setRecognitions,
+                Visibility(
+                  visible: cam_visibility,
+                  child: cam.Camera(
+                    widget.cameras,
+                    _model,
+                    setRecognitions,
+                  ),
                 ),
                 BndBox(
                   _recognitions ?? [],
@@ -352,6 +374,44 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
                         ),
                       ],
                     )),
+                  ),
+                ),
+                Visibility(
+                  visible: _visibility,
+                  child: Positioned(
+                    child: Image.asset(
+                        'assets/tutorial/t_${device_width}${tutorial_num}.png'),
+                  ),
+                ),
+                Visibility(
+                  visible: _visibility,
+                  child: Positioned(
+                    bottom: height * 1 / 3,
+                    left: width / 3,
+                    right: width / 3,
+                    child: GestureDetector(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          tutorial_num >= 4 ? 'START' : 'NEXT',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 28.sp,
+                            letterSpacing: 3,
+                            color: Colors.amber[800],
+                          ),
+                        ),
+                        width: width / 3,
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      onTap: () {
+                        nextStep();
+                      },
+                    ),
                   ),
                 ),
               ],

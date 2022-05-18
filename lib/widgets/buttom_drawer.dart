@@ -32,8 +32,6 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
     int status = widget.status;
     List copy_block = widget.copy_block;
 
-    print(
-        '---------------------------------------------------------------------mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm---');
     return Container(
       height: height,
       decoration: BoxDecoration(
@@ -48,7 +46,7 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
           Positioned(
             bottom: 0,
             child: Container(
-              height: count < 6 ? height / 3.5 : height / 2.3,
+              height: count < 6 ? height / 3.2 : height / 2,
               width: width,
               decoration: BoxDecoration(
                 color: Colors.amber[50],
@@ -124,8 +122,9 @@ class _ButtomDrawerState extends State<ButtomDrawer> {
                               child: Column(
                                 children: [
                                   Container(
-                                    width: count == 4 ? width / 6 : width / 5,
-                                    height: count == 4 ? width / 6 : width / 5,
+                                    width: count == 4 ? width / 6 : width / 4.5,
+                                    height:
+                                        count == 4 ? width / 6 : width / 4.5,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Colors.amber, width: 2),
