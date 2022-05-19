@@ -68,11 +68,12 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   // _controller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // _controller.dispose();
+
+    super.dispose();
+  }
 
   loadModel() async {
     String? res;

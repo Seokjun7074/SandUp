@@ -44,10 +44,10 @@ class _BndBoxState extends State<BndBox> {
   bool _repeat = true;
 
   int eff_timer = 0;
-  int status = 1;
+  int status = 100;
 
   int total_step = 3;
-
+  bool completed = true;
   // final List comment_candidates = ["힌트에서 블럭 모양을 확인해보세요!","가운데 버튼을 누르면 모래성이 나타나요!",
   //                       "뒤집어진 블럭도 있으니 잘 봐야해요.","모양이 잘 안 나올 땐 따라해봐요. 엄마!",];
   // var bottom_comment_temp = "";
@@ -66,6 +66,12 @@ class _BndBoxState extends State<BndBox> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+
+  void complete() {
+    setState(() {
+      completed = false;
+    });
   }
 
   @override
@@ -112,6 +118,7 @@ class _BndBoxState extends State<BndBox> {
             audioCache.play('audio/audio_10.mp3');
 
             Future.delayed(Duration(seconds: 1)).then((value) => status = 100);
+            complete();
             Future.delayed(Duration(seconds: 4))
                 .then((value) => _repeat = false);
             Future.delayed(Duration(seconds: 4))
@@ -161,6 +168,8 @@ class _BndBoxState extends State<BndBox> {
             ];
             audioCache.play(step2_5[_random.nextInt(step2_5.length)]);
             Future.delayed(Duration(seconds: 1)).then((value) => status = 100);
+            complete();
+
             Future.delayed(Duration(seconds: 4))
                 .then((value) => _repeat = false);
             Future.delayed(Duration(seconds: 4))
