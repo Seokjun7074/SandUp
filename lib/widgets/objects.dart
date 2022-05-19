@@ -86,14 +86,14 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
         break;
       case 'level2':
         res = await Tflite.loadModel(
-          model: "assets/model/level2_model.tflite",
-          labels: "assets/model/level2_labels.txt",
+          model: "assets/model/model2.tflite",
+          labels: "assets/model/labels2.txt",
         );
         break;
       case 'level3':
         res = await Tflite.loadModel(
-          model: "assets/model/level2_model.tflite",
-          labels: "assets/model/level2_labels.txt",
+          model: "assets/model/model3.tflite",
+          labels: "assets/model/labels3.txt",
         );
         break;
     }

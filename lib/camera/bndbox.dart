@@ -94,7 +94,7 @@ class _BndBoxState extends State<BndBox> {
       return widget.results.map((re) {
         //레벨1 반응형
         if (widget.level == "1") {
-          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
+          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.8) {
             List step1_1 = ['audio/audio_1.mp3', 'audio/audio_0.mp3'];
             audioCache.play(step1_1[_random.nextInt(step1_1.length)]);
             // audioCache.play('audio/sound.mp3');
@@ -102,7 +102,7 @@ class _BndBoxState extends State<BndBox> {
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
+          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.8) {
             List step1_2 = [
               'audio/audio_2.mp3',
               'audio/audio_3.mp3',
@@ -113,7 +113,7 @@ class _BndBoxState extends State<BndBox> {
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
+          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.63) {
             status = 4;
             audioCache.play('audio/audio_10.mp3');
 
@@ -127,27 +127,27 @@ class _BndBoxState extends State<BndBox> {
         }
         //레벨2 반응형
         if (widget.level == "2" || widget.level == "3") {
-          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.1) {
+          if (status == 1 && re["label"] == "step1" && re["confidence"] > 0.8) {
             List step2_1 = ['audio/audio_0.mp3', 'audio/audio_1.mp3'];
             audioCache.play(step2_1[_random.nextInt(step2_1.length)]);
             status = 2;
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.1) {
+          if (status == 2 && re["label"] == "step2" && re["confidence"] > 0.8) {
             audioCache.play('audio/audio_5.mp3');
             status = 3;
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.1) {
+          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.55) {
             List step2_3 = ['audio/audio_2.mp3', 'audio/audio_3.mp3'];
             audioCache.play(step2_3[_random.nextInt(step2_3.length)]);
             status = 4;
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 4 && re["label"] == "step4" && re["confidence"] > 0.1) {
+          if (status == 4 && re["label"] == "step4" && re["confidence"] > 0.4) {
             List step2_4 = [
               'audio/audio_3.mp3',
               'audio/audio_4.mp3',
@@ -159,7 +159,7 @@ class _BndBoxState extends State<BndBox> {
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 5 && re["label"] == "step5" && re["confidence"] > 0.1) {
+          if (status == 5 && re["label"] == "step5" && re["confidence"] > 0.5) {
             status = 6;
             List step2_5 = [
               'audio/audio_9.mp3',
