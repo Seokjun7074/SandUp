@@ -44,7 +44,7 @@ class _BndBoxState extends State<BndBox> {
   bool _repeat = true;
 
   int eff_timer = 0;
-  int status = 100;
+  int status = 1;
 
   int total_step = 3;
   bool completed = true;
@@ -308,158 +308,182 @@ class _BndBoxState extends State<BndBox> {
               animate: true, repeat: _repeat),
 
         //팝업페이지..
-        Padding(
-          padding: EdgeInsets.fromLTRB(41.0, 280.0, 25.0, 25.0),
-          child: AnimatedOpacity(
-            // If the widget is visible, animate to 0.0 (invisible).
-            // If the widget is hidden, animate to 1.0 (fully visible).
-            opacity: _visible ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 500),
-            // The green box must be a child of the AnimatedOpacity widget.
-            child: Container(
+        Positioned(
+          right: 30.w,
+          left: 30.w,
+          bottom: height / 6.3,
+          child: Center(
+            child: AnimatedOpacity(
+              // If the widget is visible, animate to 0.0 (invisible).
+              // If the widget is hidden, animate to 1.0 (fully visible).
+              opacity: _visible ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 500),
+              // The green box must be a child of the AnimatedOpacity widget.
+              child: Container(
                 decoration: BoxDecoration(
                   color: Colors.amber[200],
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
-                width: 310.0,
-                height: 300.0,
-                child: Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Column(
+                width: 310.w,
+                height: 320.h,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('정말 멋진 모래성이네요!',
+                          style: TextStyle(
+                              fontSize: 25.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[700])),
+                    ),
+
+                    SizedBox(
+                      height: 200.h,
+                      child: Lottie.asset('assets/effects/castle.json',
+                          repeat: true),
+                    ),
+                    // Image.asset('assets/images/level1.png',
+                    //   height: 100,
+                    //   width: 1500,
+                    // ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('정말 멋진 모래성이네요!',
+                        ElevatedButton(
+                          onPressed: () =>
+                              {status = 1, _visible = false, completed = true},
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.grey[600]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Text(
+                              "다시 해볼까?",
+                              style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 18.sp,
+                                color: Colors.grey[100],
+                              ),
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () =>
+                              Navigator.pushNamed(context, "/testlist"),
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.grey[600]),
+                          child: Text(
+                            "레벨선택하기로!",
                             style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            )),
-
-                        Lottie.asset('assets/effects/castle.json',
-                            repeat: true),
-                        // Image.asset('assets/images/level1.png',
-                        //   height: 100,
-                        //   width: 1500,
-                        // ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () => {status = 1, _visible = false},
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey),
-                              child: Text(
-                                "다시 해볼까?",
-                                style: TextStyle(fontSize: 20),
-                              ),
+                              letterSpacing: 1,
+                              fontSize: 18.sp,
+                              color: Colors.grey[100],
                             ),
-                            ElevatedButton(
-                              onPressed: () =>
-                                  Navigator.pushNamed(context, "/testlist"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey),
-                              child: Text(
-                                "레벨선택하기로!",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                )),
-          ),
-        ),
-        Positioned(
-          bottom: 20.h,
-          child: Container(
-            color: Colors.white.withOpacity(0.0),
-            // color: Colors.transparent,
-            height: height / 6,
-            width: width,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ButtomDrawer(
-                            block: widget.block,
-                            count: widget.count,
-                            level: widget.level,
-                            status: status,
-                            copy_block: copy_block,
-                          );
-                        }),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.0),
-                            spreadRadius: 1,
-                            blurRadius: 1.0,
-                            offset: Offset(0, 2), // changes position of shadow
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      width: width / 2,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Lottie.asset(
-                            'assets/step_img/castle${widget.level}_step${status}.json',
-                            repeat: true,
-                            animate: true),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        Positioned(
-          right: 50.w,
-          bottom: 30.h,
-          child: Container(
-            width: width / 2.5,
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                onPressed: () => showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(25.0),
-                        topRight: const Radius.circular(25.0),
+        Visibility(
+          visible: completed,
+          child: Positioned(
+            bottom: 20.h,
+            child: Container(
+              color: Colors.white.withOpacity(0.0),
+              // color: Colors.transparent,
+              height: height / 6,
+              width: width,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ButtomDrawer(
+                              block: widget.block,
+                              count: widget.count,
+                              level: widget.level,
+                              status: status,
+                              copy_block: copy_block,
+                            );
+                          }),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.0),
+                              spreadRadius: 1,
+                              blurRadius: 1.0,
+                              offset:
+                                  Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: width / 2,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Lottie.asset(
+                              'assets/step_img/castle${widget.level}_step${status}.json',
+                              repeat: true,
+                              animate: true),
+                        ),
                       ),
                     ),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Lottie.asset('assets/effects/comming_soon.json'),
-                          Text(
-                            'IOS에서 체험해 볼까요?',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.amber[100],
-                            ),
-                          )
-                        ]),
-                  ),
+                  ],
                 ),
-                child: Icon(Icons.view_in_ar),
-                backgroundColor: Color(0xff71A5D7).withBlue(1000),
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: completed,
+          child: Positioned(
+            right: 50.w,
+            bottom: 30.h,
+            child: Container(
+              width: width / 2.5,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => Container(
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.only(
+                          topLeft: const Radius.circular(25.0),
+                          topRight: const Radius.circular(25.0),
+                        ),
+                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset('assets/effects/comming_soon.json'),
+                            Text(
+                              'IOS에서 체험해 볼까요?',
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.amber[100],
+                              ),
+                            )
+                          ]),
+                    ),
+                  ),
+                  child: Icon(Icons.view_in_ar),
+                  backgroundColor: Color(0xff71A5D7).withBlue(1000),
+                ),
               ),
             ),
           ),

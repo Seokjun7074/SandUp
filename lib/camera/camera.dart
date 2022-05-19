@@ -109,7 +109,7 @@ class _CameraState extends State<Camera> {
     double width = size.width;
     final deviceRatio = size.width / size.height;
 
-    final scale = 1.18 / (controller.value.aspectRatio * size.aspectRatio);
+    final scale = 1.16 / (controller.value.aspectRatio * size.aspectRatio);
     return Scaffold(
       body: Stack(
         children: [

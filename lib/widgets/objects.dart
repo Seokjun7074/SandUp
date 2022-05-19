@@ -193,7 +193,7 @@ class _ObjectsState extends State<Objects> with SingleTickerProviderStateMixin {
     List guide_text = [
       'Tip: 그림을 눌러보세요! 필요한 블럭을 볼 수 있답니다!',
       'Tip: 모양이 이상하다면? 블럭을 뒤집어 쌓아보세요!',
-      'Tip: 빨간색 먼저 쌓아주세요!',
+      'Tip: 색깔도 보면서 쌓아주세요!',
     ];
 
     return Scaffold(
