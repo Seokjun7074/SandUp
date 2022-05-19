@@ -106,9 +106,10 @@ class _CameraState extends State<Camera> {
     //석준 추가
 
     final size = MediaQuery.of(context).size;
+    double width = size.width;
     final deviceRatio = size.width / size.height;
 
-    final scale = 1.112 / (controller.value.aspectRatio * size.aspectRatio);
+    final scale = 1.16 / (controller.value.aspectRatio * size.aspectRatio);
     return Scaffold(
       body: Stack(
         children: [
