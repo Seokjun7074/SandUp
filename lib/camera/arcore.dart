@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:ffi';
+// import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -29,7 +29,6 @@ import 'package:flutter_cube/flutter_cube.dart';
 import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class ObjectGesturesWidget extends StatefulWidget {
   ObjectGesturesWidget({Key? key}) : super(key: key);
   @override
@@ -37,16 +36,11 @@ class ObjectGesturesWidget extends StatefulWidget {
 }
 
 class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
-
   late ARSessionManager arSessionManager;
   late ARObjectManager arObjectManager;
   late ARAnchorManager arAnchorManager;
 
   final picker = ImagePicker();
-
-
-
-
 
   List<ARNode> nodes = [];
   List<ARAnchor> anchors = [];
@@ -63,12 +57,9 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   late double _imageWidth;
   bool _busy = false;
 
-
   @override
   void initState() {
     super.initState();
-
-
   }
 
   @override
@@ -81,50 +72,46 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   Widget build(BuildContext context) {
     // Size screen = MediaQuery.of(context).size;
     return Stack(
-        children: <Widget>[
-          // cam.Camera(
-          //   widget.cameras,
-          //   _model,
-          //   setRecognitions,
-          // ),
+      children: <Widget>[
+        // cam.Camera(
+        //   widget.cameras,
+        //   _model,
+        //   setRecognitions,
+        // ),
 
-           ARView(
-            onARViewCreated: onARViewCreated,
-            planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-          ),
+        ARView(
+          onARViewCreated: onARViewCreated,
+          planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
+        ),
 
-            Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                        onPressed: onRemoveEverything,
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.amber[200],
-                        ),
-                        child: Text("AR 지우기",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),)),
-                  ]),
-            ),
+        Align(
+          alignment: FractionalOffset.bottomCenter,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                onPressed: onRemoveEverything,
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.amber[200],
+                ),
+                child: Text(
+                  "AR 지우기",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
+                )),
+          ]),
+        ),
 
-
-            // BndBox(
-            //     _recognitions ?? [],
-            //     math.max(_imageHeight, _imageWidth),
-            //     math.min(_imageHeight, _imageWidth),
-            //     screen.height,
-            //     screen.width,
-            //     _model),
-
-          ],
-
-
+        // BndBox(
+        //     _recognitions ?? [],
+        //     math.max(_imageHeight, _imageWidth),
+        //     math.min(_imageHeight, _imageWidth),
+        //     screen.height,
+        //     screen.width,
+        //     _model),
+      ],
     );
-
   }
 
   void onARViewCreated(
@@ -137,13 +124,13 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     this.arAnchorManager = arAnchorManager;
 
     this.arSessionManager.onInitialize(
-      showFeaturePoints: false,
-      showPlanes: true,
-      customPlaneTexturePath: "Images/triangle.png",
-      showWorldOrigin: true,
-      handlePans: true,
-      handleRotation: true,
-    );
+          showFeaturePoints: false,
+          showPlanes: true,
+          customPlaneTexturePath: "Images/triangle.png",
+          showWorldOrigin: true,
+          handlePans: true,
+          handleRotation: true,
+        );
     this.arObjectManager.onInitialize();
     this.arSessionManager.onPlaneOrPointTap = onPlaneOrPointTapped;
     this.arObjectManager.onPanStart = onPanStarted;
@@ -167,23 +154,22 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   Future<void> onPlaneOrPointTapped(
       List<ARHitTestResult> hitTestResults) async {
     var singleHitTestResult = hitTestResults.firstWhere(
-            (hitTestResult) => hitTestResult.type == ARHitTestResultType.plane);
+        (hitTestResult) => hitTestResult.type == ARHitTestResultType.plane);
     if (singleHitTestResult != null) {
       var newAnchor =
-      ARPlaneAnchor(transformation: singleHitTestResult.worldTransform);
+          ARPlaneAnchor(transformation: singleHitTestResult.worldTransform);
       bool? didAddAnchor = await this.arAnchorManager.addAnchor(newAnchor);
       if (didAddAnchor!) {
         this.anchors.add(newAnchor);
         // Add note to anchor
         var newNode = ARNode(
             type: NodeType.localGLTF2,
-            uri:
-            "assets/objects/castle1.glb",
+            uri: "assets/objects/castle1.glb",
             scale: Vector3(100, 100, 100),
             position: Vector3(0.0, 0.0, 0.0),
             rotation: Vector4(1.0, 0.0, 0.0, 0.0));
         bool? didAddNodeToAnchor =
-        await this.arObjectManager.addNode(newNode, planeAnchor: newAnchor);
+            await this.arObjectManager.addNode(newNode, planeAnchor: newAnchor);
         if (didAddNodeToAnchor!) {
           this.nodes.add(newNode);
         } else {
@@ -195,11 +181,9 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     }
   }
 
-
   Future<void> onTakeScreenshot() async {
     var image = await this.arSessionManager.snapshot();
     Tflite.runModelOnImage(path: image.toString());
-
 
     // await showDialog(
     //     context: context,
@@ -210,19 +194,19 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
     //       ),
     //     ));
 
-  //   var img = await ImagePicker.platform.pickImage(source: ImageSource.camera);
-  //   if (image == null) return;
-  //   setState(() {
-  //     _busy = true;
-  //   });
-  //   predictImage(img);
-  // }
-  // Future predictImage(File img) async {
-  //   if (img == null) return;
-  //   switch (_model) {
-  //     default:
-  //       await Sand-Up(img);
-  //   }
+    //   var img = await ImagePicker.platform.pickImage(source: ImageSource.camera);
+    //   if (image == null) return;
+    //   setState(() {
+    //     _busy = true;
+    //   });
+    //   predictImage(img);
+    // }
+    // Future predictImage(File img) async {
+    //   if (img == null) return;
+    //   switch (_model) {
+    //     default:
+    //       await Sand-Up(img);
+    //   }
   }
 
   onPanStarted(String nodeName) {
@@ -236,7 +220,7 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   onPanEnded(String nodeName, Matrix4 newTransform) {
     print("Ended panning node " + nodeName);
     final pannedNode =
-    this.nodes.firstWhere((element) => element.name == nodeName);
+        this.nodes.firstWhere((element) => element.name == nodeName);
 
     /*
     * Uncomment the following command if you want to keep the transformations of the Flutter representations of the nodes up to date
@@ -256,12 +240,11 @@ class _ObjectGesturesWidgetState extends State<ObjectGesturesWidget> {
   onRotationEnded(String nodeName, Matrix4 newTransform) {
     print("Ended rotating node " + nodeName);
     final rotatedNode =
-    this.nodes.firstWhere((element) => element.name == nodeName);
+        this.nodes.firstWhere((element) => element.name == nodeName);
     /*
     * Uncomment the following command if you want to keep the transformations of the Flutter representations of the nodes up to date
     * (e.g. if you intend to share the nodes through the cloud)
     */
     //rotatedNode.transform = newTransform;
   }
-
 }

@@ -44,7 +44,7 @@ class _BndBoxState extends State<BndBox> {
   bool _repeat = true;
 
   int eff_timer = 0;
-  int status = 1;
+  int status = 100;
 
   int total_step = 3;
   bool completed = true;
@@ -113,7 +113,9 @@ class _BndBoxState extends State<BndBox> {
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.63) {
+          if (status == 3 &&
+              re["label"] == "step3" &&
+              re["confidence"] > 0.63) {
             status = 4;
             audioCache.play('audio/audio_10.mp3');
 
@@ -140,7 +142,9 @@ class _BndBoxState extends State<BndBox> {
             eff_timer = 1;
             Future.delayed(Duration(seconds: 4)).then((value) => eff_timer = 0);
           }
-          if (status == 3 && re["label"] == "step3" && re["confidence"] > 0.55) {
+          if (status == 3 &&
+              re["label"] == "step3" &&
+              re["confidence"] > 0.55) {
             List step2_3 = ['audio/audio_2.mp3', 'audio/audio_3.mp3'];
             audioCache.play(step2_3[_random.nextInt(step2_3.length)]);
             status = 4;
